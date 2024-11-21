@@ -19,20 +19,29 @@ package model{
         +getPositionY() : Integer
     }
 
+    enum TuileOuverture{
+        HAUT
+        DROITE
+        BAS
+        GAUCHE
+    }
+
     abstract Tuile{
         #m_position : Position
         #m_objectif : Objectif
-        #m_haut : Boolean
+        #m_possibilite : Hashmap<TuileOuverture,boolean>
+        /'#m_haut : Boolean
         #m_droite : Boolean
         #m_bas : Boolean
-        #m_gauche : Boolean
+        #m_gauche : Boolean'/
         +<<Create>>Tuile()
         +getPositionTuile() : Position
         +getObjectifTuile() : Objectif
-        +getOuverturesTuile() :Boolean[4]
+        +getOuverturesTuile() :Boolean
+        +getPossibiliteTuile() : Hashmap<TuileOuverture,boolean>
         +{abstract}rotate()
-
     }
+
     class TuileAngle extends Tuile{
         +<<Create>>TuileAngle()
         +<<Create>>TuileAngle(objectif : Objectif)
