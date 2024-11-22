@@ -27,6 +27,7 @@ package model{
     }
 
     abstract Tuile{
+        #m_image : BufferedImage
         #m_position : Position
         #m_objectif : Objectif
         #m_possibilite : Hashmap<TuileOuverture,boolean>
@@ -43,12 +44,14 @@ package model{
     }
 
     class TuileAngle extends Tuile{
+        -m_image : BufferedImage
         +<<Create>>TuileAngle()
         +<<Create>>TuileAngle(objectif : Objectif)
         +rotate()
         +toString() : String
     }
     class TuileDroite extends Tuile{
+        -m_image : BufferedImage
         +<<Create>>TuileDroite()
         +<<Create>>TuileDroite(objectif : Objectif)
         +getTypeTuile() : TypeTuile
@@ -56,6 +59,7 @@ package model{
         +toString() : String
     }
     class TuileT extends Tuile{
+        -m_image : BufferedImage
         +<<Create>>TuileT()
         +<<Create>>TuileT(objectif : Objectif)
         +rotate()
