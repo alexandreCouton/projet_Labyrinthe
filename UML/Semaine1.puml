@@ -46,43 +46,70 @@ package model{
         +<<Create>>TuileAngle()
         +<<Create>>TuileAngle(objectif : Objectif)
         +rotate()
+        +toString() : String
     }
     class TuileDroite extends Tuile{
         +<<Create>>TuileDroite()
         +<<Create>>TuileDroite(objectif : Objectif)
         +getTypeTuile() : TypeTuile
         +rotate()
-
+        +toString() : String
     }
     class TuileT extends Tuile{
         +<<Create>>TuileT()
         +<<Create>>TuileT(objectif : Objectif)
         +rotate()
+        +toString() : String
     }
     class TuileFactory{
+        +<<Create>>TuileFactory()
+        +createTuileAngle() : TuileDroite
+        +createTuileAngle(objectif : Objectif) : TuileDroite
+        +createTuileDroite() : TuileDroite
+        +createTuileDroite(objectif : Objectif) : TuileDroite
+        +createTuileT() : TuileT
+        +createTuileT(objectif : Objectif) : TuileT
     }
 
 
     class Objectif
     {
-        -m_lstPath : String
-        +<<Create>> Objectif()
-        +<<Create>> Objectif(path : String)
+        -m_Path : String/'On pourra le
+        mettre dans une controller'/
+        -m_nom : String
+        +<<Create>> Objectif(nom : String)
+        +<<Create>> Objectif(nom : String, path : String)
+        +getNomObjectif() : String
+
     }
 
-
-
-    class Joueur{}
-
-    class Plateau{}
-
-    class Carte{}
+    class Plateau{
+        -m_lstJoueur : Joueur[4]
+        -m_lstTuilesSurPlateau : Tuile[Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7]]
+        +<<Create>>Plateau(m_lstJoueur : Joueur[4])
+        /'Prends 4 joueurs pour les placer etc...'/
+        +genererPlateau()
+        +getPlateau : Plateau
+        +getTuilePosition()
+    }
 
 
 
 }
 
 package contoller{
+
+    class Joueur{
+        -m_nom : String
+        -m_lstObjectif : Objectif[6]
+        -m_objectifCapture : Integer
+        +<<Create>>Joueur(nom : String)
+        +jouer()
+        -piocher()
+        /'sera appelé dans la fonction jouer'/
+        -déplacer()
+        /'sera appelé dans la fonction jouer'/
+    }
 
 }
 
