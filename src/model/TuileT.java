@@ -6,15 +6,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class TuileAngle extends Tuile{
+public class TuileT extends Tuile{
+
     private BufferedImage m_image;
-    public TuileAngle(String imagePath){
+    public TuileT(String imagePath){
         HashMap<TuileOuverture, Boolean> possibilite = new HashMap<>();
-        // forme de base ouverture droite et bas -> et |
+        // forme de base ouverture droite , gauche et bas <- -> et |
         possibilite.put(TuileOuverture.HAUT, false);
         possibilite.put(TuileOuverture.DROITE, true);
         possibilite.put(TuileOuverture.BAS, true);
-        possibilite.put(TuileOuverture.GAUCHE, false);
+        possibilite.put(TuileOuverture.GAUCHE, true);
         super(loadImage(imagePath), possibilite);
     }
 
@@ -26,8 +27,6 @@ public class TuileAngle extends Tuile{
             return null;
         }
     }
-
-    @Override
     public void rotate() {
         HashMap<TuileOuverture, Boolean> tmp = new HashMap<>();
         tmp.put(TuileOuverture.HAUT, m_possibilite.get(TuileOuverture.GAUCHE));
@@ -36,4 +35,5 @@ public class TuileAngle extends Tuile{
         tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
         m_possibilite = tmp;
     }
+
 }
