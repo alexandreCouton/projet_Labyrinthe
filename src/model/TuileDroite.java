@@ -18,6 +18,15 @@ public class TuileDroite extends Tuile{
         possibilite.put(TuileOuverture.GAUCHE, true);
         super(loadImage(imagePath), possibilite);
     }
+    public TuileDroite(String imagePath,Objectif objectif){
+        HashMap<TuileOuverture, Boolean> possibilite = new HashMap<>();
+        // forme de base ouverture bas , haut |
+        possibilite.put(TuileOuverture.HAUT, true);
+        possibilite.put(TuileOuverture.DROITE, false);
+        possibilite.put(TuileOuverture.BAS, false);
+        possibilite.put(TuileOuverture.GAUCHE, true);
+        super(loadImage(imagePath), possibilite,objectif);
+    }
 
     private static BufferedImage loadImage(String imagePath) {
         try {
@@ -26,13 +35,5 @@ public class TuileDroite extends Tuile{
             e.printStackTrace();
             return null;
         }
-    }
-    public void rotate() {
-        HashMap<TuileOuverture, Boolean> tmp = new HashMap<>();
-        tmp.put(TuileOuverture.HAUT, m_possibilite.get(TuileOuverture.GAUCHE));
-        tmp.put(TuileOuverture.DROITE, m_possibilite.get(TuileOuverture.HAUT));
-        tmp.put(TuileOuverture.BAS, m_possibilite.get(TuileOuverture.DROITE));
-        tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
-        m_possibilite = tmp;
     }
 }

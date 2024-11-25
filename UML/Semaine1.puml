@@ -1,12 +1,10 @@
 @startuml
-
 package view{
 
 }
 
 
 package model{
-
 
     class Position{
         -m_x : Integer
@@ -35,35 +33,38 @@ package model{
         #m_droite : Boolean
         #m_bas : Boolean
         #m_gauche : Boolean'/
-        +<<Create>>Tuile()
+        +<<Create>>Tuile(image : Image, possibilite : Hashmap<TuileOuverture,boolean>)
+        +<<Create>>Tuile(image : Image, possibilite : Hashmap<TuileOuverture,boolean>, Objectif objectif)
         +getPositionTuile() : Position
+        +setPositionTuile()
         +getObjectifTuile() : Objectif
         +getOuverturesTuile() :Boolean
         +getPossibiliteTuile() : Hashmap<TuileOuverture,boolean>
-        +{abstract}rotate()
+        +rotate()
+        +rotate(n : Integer)
     }
 
     class TuileAngle extends Tuile{
         -m_image : BufferedImage
-        +<<Create>>TuileAngle()
-        +<<Create>>TuileAngle(objectif : Objectif)
-        +rotate()
-        +toString() : String
+        +<<Create>>TuileAngle(imagePath : String)
+        +<<Create>>TuileAngle(imagePath : String ,objectif : Objectif)
+        -{static}loadImage(imagePath : Image)
+        /'+toString() : String'/
     }
     class TuileDroite extends Tuile{
         -m_image : BufferedImage
         +<<Create>>TuileDroite()
         +<<Create>>TuileDroite(objectif : Objectif)
         +getTypeTuile() : TypeTuile
-        +rotate()
-        +toString() : String
+        -{static}loadImage(imagePath : Image)
+        /'+toString() : String'/
     }
     class TuileT extends Tuile{
         -m_image : BufferedImage
         +<<Create>>TuileT()
         +<<Create>>TuileT(objectif : Objectif)
-        +rotate()
-        +toString() : String
+        -{static}loadImage(imagePath : Image)
+        /'+toString() : String'/
     }
     class TuileFactory{
         +<<Create>>TuileFactory()
@@ -89,11 +90,10 @@ package model{
 
     class Plateau{
         -m_lstJoueur : Joueur[4]
-        -m_lstTuilesSurPlateau : Tuile[Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7],Tuile[7]]
+        -m_lstTuilesSurPlateau : Tuile[49]
         +<<Create>>Plateau(m_lstJoueur : Joueur[4])
         /'Prends 4 joueurs pour les placer etc...'/
-        +genererPlateau()
-        +getPlateau : Plateau
+        +getPlateau() : Plateau
         +getTuilePosition()
     }
 
@@ -116,10 +116,4 @@ package contoller{
     }
 
 }
-
-
-
-
-
-
 @enduml

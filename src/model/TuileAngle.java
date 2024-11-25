@@ -18,22 +18,23 @@ public class TuileAngle extends Tuile{
         super(loadImage(imagePath), possibilite);
     }
 
+    public TuileAngle(String imagePath,Objectif objectif){
+        HashMap<TuileOuverture, Boolean> possibilite = new HashMap<>();
+        // forme de base ouverture droite et bas -> et |
+        possibilite.put(TuileOuverture.HAUT, false);
+        possibilite.put(TuileOuverture.DROITE, true);
+        possibilite.put(TuileOuverture.BAS, true);
+        possibilite.put(TuileOuverture.GAUCHE, false);
+        super(loadImage(imagePath), possibilite,objectif);
+    }
+    // On est obligé de faire une static étant donnée qu'il faut le passer dans le super avant meme la creation
+    // de l'objet lui meme
     private static BufferedImage loadImage(String imagePath) {
         try {
             return ImageIO.read(new File(imagePath));
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // au cas ou l'image existe pas
             return null;
         }
-    }
-
-    @Override
-    public void rotate() {
-        HashMap<TuileOuverture, Boolean> tmp = new HashMap<>();
-        tmp.put(TuileOuverture.HAUT, m_possibilite.get(TuileOuverture.GAUCHE));
-        tmp.put(TuileOuverture.DROITE, m_possibilite.get(TuileOuverture.HAUT));
-        tmp.put(TuileOuverture.BAS, m_possibilite.get(TuileOuverture.DROITE));
-        tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
-        m_possibilite = tmp;
     }
 }

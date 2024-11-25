@@ -15,7 +15,15 @@ public abstract class Tuile {
         this.m_image=image;
         this.m_possibilite = possibilite;
     }
-    public Tuile(Position pos,BufferedImage image){
+    public Tuile(BufferedImage image, HashMap<TuileOuverture, Boolean> possibilite,Objectif objectif){
+        this.m_objectif=objectif;
+        this.m_position=null;
+        this.m_image=image;
+        this.m_possibilite = possibilite;
+    }
+
+
+    /*public Tuile(Position pos,BufferedImage image){
         this.m_position=pos;
         this.m_image=image;
     }
@@ -23,9 +31,12 @@ public abstract class Tuile {
         this.m_objectif=objectif;
         this.m_position=pos;
         this.m_image=image;
-    }
+    }*/
     public Position getPositionTuile(){
         return this.m_position;
+    }
+    public void setPositionTuile(Position position){
+        this.m_position=position;
     }
     public Objectif getObjectifTuile(){
         return this.m_objectif;
@@ -34,5 +45,18 @@ public abstract class Tuile {
     public HashMap<TuileOuverture, Boolean> getOuvertureTuile(){
         return m_possibilite;
     }
-    public abstract void rotate();
+    public void rotate() {
+        HashMap<TuileOuverture, Boolean> tmp = new HashMap<>();
+        tmp.put(TuileOuverture.HAUT, m_possibilite.get(TuileOuverture.GAUCHE));
+        tmp.put(TuileOuverture.DROITE, m_possibilite.get(TuileOuverture.HAUT));
+        tmp.put(TuileOuverture.BAS, m_possibilite.get(TuileOuverture.DROITE));
+        tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
+        m_possibilite = tmp;
+    }
+
+    public void rotate(int n) {
+        for (int i = 0; i < n; i++) {
+            rotate();
+        }
+    }
 }
