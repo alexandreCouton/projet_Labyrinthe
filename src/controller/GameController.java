@@ -11,6 +11,8 @@ public class GameController {
     ArrayList<TuileAngle> ang;
     ArrayList<TuileT> t;
     ArrayList<TuileDroite> droite;
+    private Joueur[] lstJoueur;
+    private ArrayList<Objectif> lstObjectif;
     public GameController(){
         Joueur[] lstJoueur = new Joueur[4];
         lstJoueur[0] = new Joueur("Joueur 1");
@@ -19,6 +21,7 @@ public class GameController {
         lstJoueur[3] = new Joueur("Joueur 4");
         m_factory = new TuileFactory();
         m_plateau = new Plateau(lstJoueur);
+        initPartie();
     }
 
     public void initPartie(){
@@ -36,6 +39,21 @@ public class GameController {
         }
         initPlaceTuileAng();
         initPlaceTuileT();
+        placerTuile();
+    }
+
+    private void initObjectif(){
+        lstObjectif = new ArrayList<>();
+        for(int i = 0; i < 24; i++){
+            lstObjectif.add(new Objectif());
+        }
+    }
+
+    private void placerJoueur(){
+        lstJoueur[0].setPionPosition(new Position(0,0));
+        lstJoueur[1].setPionPosition(new Position(6,0));
+        lstJoueur[2].setPionPosition(new Position(0,6));
+        lstJoueur[3].setPionPosition(new Position(6,6));
     }
 
     private void initPlaceTuileT(){
