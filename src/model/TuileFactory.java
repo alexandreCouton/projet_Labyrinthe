@@ -31,4 +31,5 @@ public class TuileFactory {
     public TuileT createTuileT(Objectif objectif){
         return new TuileT(pathTuileT,objectif);
     }
+
 }

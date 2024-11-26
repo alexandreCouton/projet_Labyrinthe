@@ -5,13 +5,13 @@ import model.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Arbitre {
-    private TuileFactory m_factory;
-    private Plateau m_plateau;
+public class GameController {
+    private final TuileFactory m_factory;
+    private final Plateau m_plateau;
     ArrayList<TuileAngle> ang;
     ArrayList<TuileT> t;
     ArrayList<TuileDroite> droite;
-    public Arbitre(){
+    public GameController(){
         Joueur[] lstJoueur = new Joueur[4];
         lstJoueur[0] = new Joueur("Joueur 1");
         lstJoueur[1] = new Joueur("Joueur 2");
@@ -77,34 +77,45 @@ public class Arbitre {
         ang.removeLast();
     }
 
-    private void placerTuile(){
+    private void placerTuile() {
+        Random rand = new Random();
+
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                if(m_plateau.getPlateau()[i][j] == null){
-                    Random rand = new Random();
-                    int n = rand.nextInt(3);
-                    if(n == 0){
-                        if(!ang.isEmpty()){
-                            ang.getLast().rotate(rand.nextInt(3));
-                            m_plateau.placerTuileSurPlateau(new Position(j, i), ang.getLast());
-                            ang.removeLast();
-                        }
-                    }else if(n == 1){
-                        if(!t.isEmpty()){
-                            t.getLast().rotate(rand.nextInt(3));
-                            m_plateau.placerTuileSurPlateau(new Position(j, i), t.getLast());
-                            t.removeLast();
-                        }
-                    }else{
-                        if(!droite.isEmpty()){
-                            droite.getLast().rotate(rand.nextInt(3));
-                            m_plateau.placerTuileSurPlateau(new Position(j, i), droite.getLast());
-                            droite.removeLast();
+                if (m_plateau.getPlateau()[i][j] == null) {
+                    boolean placed = false;
+
+                    while (!placed) {
+                        int n = rand.nextInt(3);
+                        switch (n) {
+                            case 0:
+                                if (!ang.isEmpty()) {
+                                    ang.getLast().rotate(rand.nextInt(3));
+                                    m_plateau.placerTuileSurPlateau(new Position(j, i), ang.getLast());
+                                    ang.removeLast();
+                                    placed = true;
+                                }
+                                break;
+                            case 1:
+                                if (!t.isEmpty()) {
+                                    t.getLast().rotate(rand.nextInt(3));
+                                    m_plateau.placerTuileSurPlateau(new Position(j, i), t.getLast());
+                                    t.removeLast();
+                                    placed = true;
+                                }
+                                break;
+                            case 2:
+                                if (!droite.isEmpty()) {
+                                    droite.getLast().rotate(rand.nextInt(3));
+                                    m_plateau.placerTuileSurPlateau(new Position(j, i), droite.getLast());
+                                    droite.removeLast();
+                                    placed = true;
+                                }
+                                break;
                         }
                     }
                 }
             }
-
         }
     }
 }

@@ -114,6 +114,24 @@ package contoller{
         -déplacer()
         /'sera appelé dans la fonction jouer'/
     }
+    class Arbitre{
+        -m_plateau : Plateau
+        -m_lstJoueur : Joueur[4]
+        +<<Create>>Arbitre(plateau : Plateau, lstJoueur : Joueur[4])
+        +initPartie() : void
+        -finPartie() : void
+    }
 
 }
+Plateau "1" *-- "4" Joueur
+Plateau "1" *-- "49" Tuile
+Tuile "1" o-- "1" Position
+Tuile "1" o-- "1" Objectif
+Arbitre "1" *-- "1" Plateau
+Arbitre "1" *-- "1" TuileFactory
+Arbitre "1" *-- "many" TuileAngle
+Arbitre "1" *-- "many" TuileT
+Arbitre "1" *-- "many" TuileDroite
+Joueur "many" o-- "many" Objectif
+
 @enduml
