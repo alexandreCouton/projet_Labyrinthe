@@ -1,0 +1,147 @@
+@startuml
+
+class GameController {
+  + <<Create>>GameController()
+  - placerTuile()
+  + getPathImg(path : String): String[*]
+  - initPlaceTuileAng():
+  - placerJoueur():
+  - distribuer(joueur Joueur)
+  + initPartie():
+  - initObjectif():
+  - initPlaceTuileT():
+}
+class Joueur {
+  + <<Create>>Joueur(String):
+  - m_nom: String
+  + setImgPion(str String): void
+  - deplacer(deplacement TuileOuverture): void
+  - piocher(): void
+  + jouer(): void
+  + setPionPosition(pos Position): void
+}
+class Objectif {
+  + <<Create>>Objectif(String)
+  + <<Create>>Objectif(str1 String, str2 String)
+  - m_nom: String
+  - m_path: String
+  + getNomObjectif(): String
+}
+class Pion {
+  +<<Create>>Pion(str String, pos Position)
+  - m_path: String
+  + setPath(path String)
+  + setPosition(pos Position)
+  + getPath(): String
+  + aDroite()
+  + setPositionX(x Integer)
+  + setPositionY(y Integer)
+  + getM_position()
+  + enHaut()
+  + enBas()
+  + aGauche()
+}
+class Plateau {
+  +<<Create>> Plateau(lstjoueur Joueur[])
+  + getJoueur(): Joueur[*]
+  + placerTuileSurPlateau(pos Position,tuile Tuile)
+  + getPlateau(): Tuile[49]
+}
+interface PlateauObserver << interface >> {
+  + deplacementTuile(): void
+  + finPartie(): void
+  + debutPartie(): void
+  + deplacementJoueur(): void
+  + captureObjectif(): void
+}
+class Position {
+  +<<Create>>Position()
+  + <<Create>>Position(x : Integer, y : Integer)
+  - m_x: Integer
+  - m_y: Integer
+  + getPositionX(): Integer
+  + getPositionY(): Integer
+  + setPositionX(x : Integer)
+  + setPositionY(y : Integer)
+}
+class Tuile {
+  + <<Create>>Tuile(str String, possibilite Boolean[4])
+  + <<Create>>Tuile(str String, possibilite Boolean[4], objectif Objectif)
+  # m_possibilite: Boolean[*]
+  # m_image: String
+  + getPositionTuile(): Position
+  + setPositionTuile(Position)
+  + getObjectifTuile(): Objectif
+  + rotate()
+  + rotate(rota Integer)
+  + getOuvertureTuile(): Boolean[4]
+}
+class TuileAngle {
+  + TuileAngle(String, Objectif):
+  + TuileAngle(String):
+  - m_image: BufferedImage
+  - loadImage(String): BufferedImage?
+}
+class TuileDroite {
+  + TuileDroite(String):
+  + TuileDroite(String, Objectif):
+  - m_image: BufferedImage
+  - loadImage(String): BufferedImage?
+}
+class TuileFactory {
+  + TuileFactory():
+  - pathTuileDroite: String
+  - pathTuileAngle: String
+  - pathTuileT: String
+  + createTuileT(): TuileT
+  + createTuileDroite(): TuileDroite
+  + createTuileDroite(Objectif): TuileDroite
+  + createTuileAngle(): TuileAngle
+  + createTuileAngle(Objectif): TuileAngle
+  + createTuileT(Objectif): TuileT
+}
+enum TuileOuverture << enumeration >> {
+  + TuileOuverture():
+  + BAS:
+  + HAUT:
+  + DROITE:
+  + GAUCHE:
+}
+class TuileT {
+  + TuileT(String, Objectif):
+  + TuileT(String):
+  - m_image: BufferedImage
+  - loadImage(String): BufferedImage?
+}
+
+GameController   -[#595959,dashed]->  Joueur          : "«create»"
+GameController  "1" *-[#595959,plain]-> "m_lstJoueur\n*" Joueur
+GameController  "1" *-[#595959,plain]-> "m_lstObjectif\n*" Objectif
+GameController   -[#595959,dashed]->  Objectif        : "«create»"
+GameController   -[#595959,dashed]->  Plateau         : "«create»"
+GameController  "1" *-[#595959,plain]-> "m_plateau\n1" Plateau
+GameController   -[#595959,dashed]->  Position        : "«create»"
+GameController  "1" *-[#595959,plain]-> "m_lstAngle\n*" Tuile
+GameController  "1" *-[#595959,plain]-> "m_lstDroite\n*" Tuile
+GameController   -[#595959,dashed]->  TuileFactory    : "«create»"
+GameController  "1" *-[#595959,plain]-> "m_factory\n1" TuileFactory
+GameController  "1" *-[#595959,plain]-> "m_lstT\n*" Tuile
+Joueur          "1" *-[#595959,plain]-> "m_lstObjectif\n*" Objectif
+Joueur          "1" *-[#595959,plain]-> "m_objectifCapture\n*" Objectif
+Joueur          "1" *-[#595959,plain]-> "m_pion\n1" Pion
+Joueur           -[#595959,dashed]->  Pion            : "«create»"
+Joueur           -[#595959,dashed]->  Position        : "«create»"
+Pion            "1" *-[#595959,plain]-> "m_position\n1" Position
+Plateau         "1" *-[#595959,plain]-> "m_joueur\n*" Joueur
+Plateau         "1" *-[#595959,plain]-> "m_lstTuilesPlateau\n*" Tuile
+Plateau          -[#595959,dashed]->  Tuile           : "«create»"
+Tuile           "1" *-[#595959,plain]-> "m_objectif\n1" Objectif
+Tuile           "1" *-[#595959,plain]-> "m_position\n1" Position
+Tuile           "1" *-[#595959,plain]-> "m_possibilite\n*" TuileOuverture
+TuileAngle       -[#000082,plain]-^  Tuile
+TuileDroite      -[#000082,plain]-^  Tuile
+TuileFactory     -[#595959,dashed]->  TuileAngle      : "«create»"
+TuileFactory     -[#595959,dashed]->  TuileDroite     : "«create»"
+TuileFactory     -[#595959,dashed]->  TuileT          : "«create»"
+TuileT           -[#000082,plain]-^  Tuile
+@enduml

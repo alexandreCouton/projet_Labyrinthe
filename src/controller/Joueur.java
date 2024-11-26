@@ -24,8 +24,8 @@ public class Joueur {
 
     }
 
-    private void piocher(){
-
+    private void setLstObjectif(ArrayList<Objectif> lstObjectif){
+        m_lstObjectif = lstObjectif;
     }
 
     private void deplacer(TuileOuverture deplacement){

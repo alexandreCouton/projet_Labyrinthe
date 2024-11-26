@@ -1,6 +1,6 @@
 package view;
 
-public class AffichageConsolle {
+public class AffichageConsole {
     public void debutPartie(){
         System.out.println("Debut de la partie");
 
