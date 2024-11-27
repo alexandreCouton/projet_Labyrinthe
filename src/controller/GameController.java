@@ -13,13 +13,19 @@ public class GameController {
     private Joueur[] m_lstJoueur;
     private ArrayList<Objectif> m_lstObjectif;
     public GameController(){
-        Joueur[] lstJoueur = new Joueur[4];
-        lstJoueur[0] = new Joueur("Joueur 1");
-        lstJoueur[1] = new Joueur("Joueur 2");
-        lstJoueur[2] = new Joueur("Joueur 3");
-        lstJoueur[3] = new Joueur("Joueur 4");
-        m_plateau = new Plateau(lstJoueur);
+        initJoueurs();
+        m_plateau = new Plateau(m_lstJoueur);
         initPartie();
+    }
+
+
+
+    private void initJoueurs() {
+        m_lstJoueur = new Joueur[4];
+        for (int i = 0; i < 4; i++) {
+            m_lstJoueur[i] = new Joueur("Joueur " + (i + 1));
+        }
+        placerJoueur();
     }
 
     public void initPartie(){
