@@ -1,19 +1,13 @@
-package controller;
-
-import model.Objectif;
-import model.Pion;
-import model.Position;
-import model.TuileOuverture;
+package model;
 
 import java.util.ArrayList;
-
-import static model.TuileOuverture.*;
 
 
 public class Joueur {
     private String m_nom;
     private ArrayList<Objectif> m_lstObjectif;
-    private ArrayList<Objectif> m_objectifCapture;
+    //En int car on s'en fiche de connaitre ceux qu'il a deja eu vu qu'ils disparaiteront de la liste au m_lstobjectif
+    private int m_objectifCapture;
     private Pion m_pion;
 
     public Joueur(String nom){
@@ -32,25 +26,25 @@ public class Joueur {
         switch (deplacement) {
             case HAUT:
                 m_pion.enHaut();
-                if(m_pion.getM_position().getPositionY() < 0){
+                if(m_pion.getPosition().getPositionY() < 0){
                     m_pion.setPositionY(6);
                 }
                 break;
             case BAS:
                 m_pion.enBas();
-                if(m_pion.getM_position().getPositionY() > 6){
+                if(m_pion.getPosition().getPositionY() > 6){
                     m_pion.setPositionY(0);
                 }
                 break;
             case GAUCHE:
                 m_pion.aGauche();
-                if(m_pion.getM_position().getPositionX() < 0){
+                if(m_pion.getPosition().getPositionX() < 0){
                     m_pion.setPositionX(6);
                 }
                 break;
             case DROITE:
                 m_pion.aDroite();
-                if(m_pion.getM_position().getPositionX() > 6){
+                if(m_pion.getPosition().getPositionX() > 6){
                     m_pion.setPositionX(0);
                 }
                 break;

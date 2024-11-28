@@ -28,6 +28,8 @@ public class GameController {
         placerJoueur();
     }
 
+
+
     public void initPartie(){
         initObjectif();
 
