@@ -2,7 +2,6 @@
 
 class GameController {
   + <<Create>>GameController()
-  - placerTuile()
   + getPathImg(path : String): String[*]
   - initPlaceTuileAng():
   - placerJoueur():
@@ -46,6 +45,7 @@ class Plateau {
   + getJoueur(): Joueur[*]
   + placerTuileSurPlateau(pos Position,tuile Tuile)
   + getPlateau(): Tuile[49]
+  - placerTuile()
 }
 interface PlateauObserver << interface >> {
   + deplacementTuile(): void
