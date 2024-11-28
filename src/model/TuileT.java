@@ -9,22 +9,10 @@ import java.util.HashMap;
 public class TuileT extends Tuile{
 
     private BufferedImage m_image;
-    public TuileT(String imagePath){
-        HashMap<TuileOuverture, Boolean> possibilite = new HashMap<>();
-        // forme de base ouverture droite , gauche et bas <- -> et |
-        possibilite.put(TuileOuverture.HAUT, false);
-        possibilite.put(TuileOuverture.DROITE, true);
-        possibilite.put(TuileOuverture.BAS, true);
-        possibilite.put(TuileOuverture.GAUCHE, true);
+    public TuileT(String imagePath,HashMap<TuileOuverture,Boolean> possibilite){
         super(loadImage(imagePath), possibilite);
     }
-    public TuileT(String imagePath,Objectif objectif){
-        HashMap<TuileOuverture, Boolean> possibilite = new HashMap<>();
-        // forme de base ouverture droite , gauche et bas <- -> et |
-        possibilite.put(TuileOuverture.HAUT, false);
-        possibilite.put(TuileOuverture.DROITE, true);
-        possibilite.put(TuileOuverture.BAS, true);
-        possibilite.put(TuileOuverture.GAUCHE, true);
+    public TuileT(String imagePath,Objectif objectif,HashMap<TuileOuverture,Boolean> possibilite){
         super(loadImage(imagePath), possibilite,objectif);
     }
 

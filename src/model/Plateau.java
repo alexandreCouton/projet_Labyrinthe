@@ -1,7 +1,5 @@
 package model;
 
-import controller.Joueur;
-
 import java.util.ArrayList;
 import java.util.Random;
 
