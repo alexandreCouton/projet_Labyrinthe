@@ -3,47 +3,39 @@ skinparam classFontStyle Bold
 hide enum methods
 hide interface attributes
 
-
 package controller{
     class GameController {
-    /'Permet de garder la trace du joueur qui joue afin de déplacer le curseur dans
-    la liste de joueurs'/
-      - m_joueurActuel : Integer
-      + <<Create>>GameController()
-      + getPathImg(path : String): String[*]
-      /'Partie initialisation (grace au bouton lancer partie au début)'/
-      - initPlaceTuileAng():
-      - placerJoueur():
-      - distribuer(joueur Joueur)
-      + initPartie():
-      - initObjectif():
-      - initPlaceTuileT():
-      /''/
-      +placerTuileVolante(pos : Position)
-      +deplacer(direction : TuileOuverture)
-      +prochainTour()
+      + <<Create>>GameController(game Game, view PlateauObserver)
+      + initPartie(): void
     }
 }
+
 package model{
+    class Game {
+      + <<Create>>Game()
+      + initPartie(): void
+      - initPlaceTuileAng(): void
+      - placerJoueur(): void
+      - distribuer(): void
+      - initObjectif(): void
+      - initPlaceTuileT(): void
+    }
 
     class Joueur {
-      + <<Create>>Joueur(nom : String)
+      + <<Create>>Joueur(String):
       - m_nom: String
-      - m_objectifCapture : Integer
-      + setImgPion(str : String)
-      - deplacer(deplacement : TuileOuverture)
-      - piocher()
-      + jouer()
-      + setPionPosition(pos : Position)
-      - setLstObjectif()
+      + setImgPion(str String): void
+      - deplacer(deplacement TuileOuverture): void
+      - piocher(): void
+      + jouer(): void
+      + setPionPosition(pos Position): void
     }
     class Objectif {
-      + <<Create>>Objectif(objectif : String)
-      + <<Create>>Objectif(nom : String, path : String)
+      + <<Create>>Objectif(String)
+      + <<Create>>Objectif(str1 String, str2 String)
       - m_nom: String
       - m_path: String
       + getNomObjectif(): String
-      + getObjectifCapture() : Objectif
     }
     class Pion {
       +<<Create>>Pion(str String, pos Position)
@@ -51,14 +43,13 @@ package model{
       + setPath(path String)
       + setPosition(pos Position)
       + getPath(): String
+      + aDroite()
       + setPositionX(x Integer)
       + setPositionY(y Integer)
-      + getPosition() : Position
+      + getM_position()
       + enHaut()
       + enBas()
       + aGauche()
-      + aDroite()
-
     }
     class Plateau {
       +<<Create>> Plateau(lstjoueur Joueur[])
@@ -66,9 +57,6 @@ package model{
       + placerTuileSurPlateau(pos Position,tuile Tuile)
       + getPlateau(): Tuile[49]
       - placerTuile()
-      -initPlaceTuileT()
-      -initPlaceTuileAng()
-      -placerTuile()
     }
 
     class Position {
@@ -81,13 +69,13 @@ package model{
       + setPositionX(x : Integer)
       + setPositionY(y : Integer)
     }
-    abstract Tuile {
+    class Tuile {
       + <<Create>>Tuile(str String, possibilite Boolean[4])
       + <<Create>>Tuile(str String, possibilite Boolean[4], objectif Objectif)
       # m_possibilite: Boolean[*]
       # m_image: String
       + getPositionTuile(): Position
-      + setPositionTuile(position : Position)
+      + setPositionTuile(Position)
       + getObjectifTuile(): Objectif
       + rotate()
       + rotate(rota Integer)
@@ -139,36 +127,39 @@ package view{
       + deplacementJoueur(): void
       + captureObjectif(): void
     }
+
+    class InitPartieButton {
+      + <<Create>>InitPartieButton()
+      + addActionListener(listener ActionListener): void
+    }
 }
 
-
-
-
+GameController   -[#595959,dashed]->  Joueur          : "«create»"
 GameController  "1" *-[#595959,plain]-> "m_lstJoueur\n*" Joueur
 GameController  "1" *-[#595959,plain]-> "m_lstObjectif\n*" Objectif
+GameController   -[#595959,dashed]->  Plateau         : "«create»"
 GameController  "1" *-[#595959,plain]-> "m_plateau\n1" Plateau
-GameController   -[#595959,dashed]->  Position        : "«uses»"
-GameController   -[#595959,dashed]->  TuileFactory    : "«uses»"
-Joueur          "1" *-[#595959,plain]-> "m_lstObjectif\n24" Objectif
+GameController   -[#595959,dashed]->  Position        : "«create»"
+GameController   -[#595959,dashed]->  TuileFactory    : "«create»"
+GameController  "1" *-[#595959,plain]-> "m_game\n1" Game
+GameController  "1" *-[#595959,plain]-> "m_view\n1" PlateauObserver
+GameController   -[#595959,dashed]->  InitPartieButton : "«create»"
+Joueur          "1" *-[#595959,plain]-> "m_lstObjectif\n*" Objectif
+Joueur          "1" *-[#595959,plain]-> "m_objectifCapture\n*" Objectif
 Joueur          "1" *-[#595959,plain]-> "m_pion\n1" Pion
-Joueur           -[#595959,dashed]->  Pion            : "«uses»"
-Joueur           -[#595959,dashed]->  Position        : "«uses»"
-Joueur   -[#595959,dashed]->  TuileOuverture        : "«uses»"
+Joueur           -[#595959,dashed]->  Pion            : "«create»"
+Joueur           -[#595959,dashed]->  Position        : "«create»"
 Pion            "1" *-[#595959,plain]-> "m_position\n1" Position
 Plateau         "1" *-[#595959,plain]-> "m_joueur\n*" Joueur
 Plateau         "1" *-[#595959,plain]-> "m_lstTuilesPlateau\n*" Tuile
-Plateau         "1" *-[#595959,plain]-> "m_lstT\n*" TuileT
-Plateau         "1" *-[#595959,plain]-> "m_lstAngle\n*" TuileAngle
-Plateau         "1" *-[#595959,plain]-> "m_lstDroite\n*" TuileDroite
-Plateau          -[#595959,dashed]->  Tuile           : "«uses»"
-Plateau           -[#595959,dashed]->  Position        : "«uses»"
+Plateau          -[#595959,dashed]->  Tuile           : "«create»"
 Tuile           "1" *-[#595959,plain]-> "m_objectif\n1" Objectif
 Tuile           "1" *-[#595959,plain]-> "m_position\n1" Position
 Tuile           "1" *-[#595959,plain]-> "m_possibilite\n*" TuileOuverture
 TuileAngle       -[#000082,plain]-^  Tuile
 TuileDroite      -[#000082,plain]-^  Tuile
-TuileFactory     -[#595959,dashed]->  TuileAngle      : "«uses»"
-TuileFactory     -[#595959,dashed]->  TuileDroite     : "«uses»"
-TuileFactory     -[#595959,dashed]->  TuileT          : "«uses»"
+TuileFactory     -[#595959,dashed]->  TuileAngle      : "«create»"
+TuileFactory     -[#595959,dashed]->  TuileDroite     : "«create»"
+TuileFactory     -[#595959,dashed]->  TuileT          : "«create»"
 TuileT           -[#000082,plain]-^  Tuile
 @enduml
