@@ -94,16 +94,16 @@ package model{
       + getOuvertureTuile(): Boolean[4]
     }
     class TuileAngle {
-      + TuileAngle(String, Objectif):
-      + TuileAngle(String):
-      - m_image: BufferedImage
-      - loadImage(String): BufferedImage?
+      + TuileAngle(imagePath String, objectif Objectif, possibilite Boolean[4])
+      + TuileAngle(imagePath String, possibilite Boolean[4])
+      - m_image: String
+      - loadImage(path : String): String
     }
     class TuileDroite {
-      + TuileDroite(String):
-      + TuileDroite(String, Objectif):
-      - m_image: BufferedImage
-      - loadImage(String): BufferedImage?
+      + TuileDroite(imagePath String, possibilite Boolean[4])
+      + TuileDroite(imagePath String, objectif Objectif, possibilite Boolean[4])
+      - m_image: String
+      - loadImage(path : String): String
     }
     class TuileFactory {
       + TuileFactory():
@@ -125,10 +125,10 @@ package model{
       + GAUCHE:
     }
     class TuileT {
-      + TuileT(String, Objectif):
-      + TuileT(String):
-      - m_image: BufferedImage
-      - loadImage(String): BufferedImage?
+      + TuileT(imagePath String, objectif Objectif, possibilite Boolean[4])
+      + TuileT(imagePath String, possibilite Boolean[4])
+      - m_image: String
+      - loadImage(path : String): String
     }
 }
 package view{
@@ -165,6 +165,7 @@ Plateau           -[#595959,dashed]->  Position        : "«uses»"
 Tuile           "1" *-[#595959,plain]-> "m_objectif\n1" Objectif
 Tuile           "1" *-[#595959,plain]-> "m_position\n1" Position
 Tuile           "1" *-[#595959,plain]-> "m_possibilite\n*" TuileOuverture
+Tuile           -[#595959,dashed]->  Position        : "«uses»"
 TuileAngle       -[#000082,plain]-^  Tuile
 TuileDroite      -[#000082,plain]-^  Tuile
 TuileFactory     -[#595959,dashed]->  TuileAngle      : "«uses»"
