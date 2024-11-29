@@ -157,9 +157,9 @@ Joueur   -[#595959,dashed]->  TuileOuverture        : "«uses»"
 Pion            "1" *-[#595959,plain]-> "m_position\n1" Position
 Plateau         "1" *-[#595959,plain]-> "m_joueur\n*" Joueur
 Plateau         "1" *-[#595959,plain]-> "m_lstTuilesPlateau\n*" Tuile
-Plateau         "1" *-[#595959,plain]-> "m_lstT\n*" TuileT
-Plateau         "1" *-[#595959,plain]-> "m_lstAngle\n*" TuileAngle
-Plateau         "1" *-[#595959,plain]-> "m_lstDroite\n*" TuileDroite
+Plateau         "1" o-[#595959,plain]-> "m_lstT\n*" TuileT
+Plateau         "1" o-[#595959,plain]-> "m_lstAngle\n*" TuileAngle
+Plateau         "1" o-[#595959,plain]-> "m_lstDroite\n*" TuileDroite
 Plateau          -[#595959,dashed]->  Tuile           : "«uses»"
 Plateau           -[#595959,dashed]->  Position        : "«uses»"
 Tuile           "1" *-[#595959,plain]-> "m_objectif\n1" Objectif
