@@ -9,17 +9,23 @@ import java.util.*;
 
 public class GameController {
     private final Plateau m_plateau;
-
+// A supprimer
     private Joueur[] m_lstJoueur;
+    //A descendre dans Plateau
     private ArrayList<Objectif> m_lstObjectif;
     public GameController(){
+        //A descendre dans Plateau
+
         initJoueurs();
+        //A supprimer dans le constructeur ici et dans plateau le joueur
         m_plateau = new Plateau(m_lstJoueur);
+        //A descendre dans Plateau
+
         initPartie();
     }
 
 
-
+    // A descndre dans Plateau
     private void initJoueurs() {
         m_lstJoueur = new Joueur[4];
         for (int i = 0; i < 4; i++) {
@@ -29,6 +35,7 @@ public class GameController {
     }
 
 
+    // A descndre dans Plateau
 
     public void initPartie(){
         initObjectif();
@@ -36,6 +43,7 @@ public class GameController {
         Collections.shuffle(m_lstObjectif);
 
     }
+    // A descndre dans Plateau
 
     private void distribuer(Joueur joueur){
         ArrayList<Objectif> designe = new ArrayList<>();
@@ -44,6 +52,7 @@ public class GameController {
             m_lstObjectif.removeLast();
         }
     }
+    // A descndre dans Plateau
 
     private void initObjectif(){
         List<String> lstPath = getPathImg("../../img/imgObjectif");
@@ -53,6 +62,7 @@ public class GameController {
             lstPath.removeLast();
         }
     }
+    // A descndre dans Plateau
 
     public List<String> getPathImg(String path){
         List<String> lstPath = new ArrayList<>();
@@ -68,6 +78,7 @@ public class GameController {
         }
         return lstPath;
     }
+    // A descndre dans Plateau
 
     private void placerJoueur(){
         m_lstJoueur[0].setPionPosition(new Position(0,0));
