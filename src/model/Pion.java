@@ -20,7 +20,7 @@ public class Pion {
         this.m_position = m_position;
     }
 
-    public Position getM_position() {
+    public Position getPosition() {
         return m_position;
     }
 
