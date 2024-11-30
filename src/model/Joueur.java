@@ -14,15 +14,12 @@ public class Joueur {
         this.m_nom = nom;
         m_pion = new Pion("src/img/pion.png", new Position(0,0));
     }
-    public void jouer(){
-
-    }
 
     private void setLstObjectif(ArrayList<Objectif> lstObjectif){
         m_lstObjectif = lstObjectif;
     }
 
-    private void deplacer(TuileOuverture deplacement){
+    public void deplacer(TuileOuverture deplacement){
         switch (deplacement) {
             case HAUT:
                 m_pion.enHaut();
@@ -57,5 +54,12 @@ public class Joueur {
 
     public void setPionPosition(Position m_position) {
         this.m_pion.setPosition(m_position);
+    }
+
+    public void captureObjectif(Objectif objectif){
+        if(m_lstObjectif.contains(objectif)){
+            m_lstObjectif.remove(objectif);
+            m_objectifCapture++;
+        }
     }
 }

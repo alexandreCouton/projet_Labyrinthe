@@ -8,40 +8,40 @@ package controller{
     class GameController {
     /'Permet de garder la trace du joueur qui joue afin de déplacer le curseur dans
     la liste de joueurs'/
-      - m_joueurActuel : Integer
-      + <<Create>>GameController()
-      + getPathImg(path : String): String[*]
-      /'Partie initialisation (grace au bouton lancer partie au début)'/
-      - initPlaceTuileAng():
-      - placerJoueur():
-      - distribuer(joueur Joueur)
-      + initPartie():
-      - initObjectif():
-      - initPlaceTuileT():
-      /''/
-      +placerTuileVolante(pos : Position)
-      +deplacer(direction : TuileOuverture)
-      +prochainTour()
+    - m_joueurActuel : Integer
+    - m_lstObservers : PlateauObserver[]
+    + <<Create>>GameController()
+    + addObserver(observer : PlateauObserver)
+    + removeObserver(observer : PlateauObserver)
+    + notifyObservers()
+    + initPartie()
+    + placerTuileVolante(pos : Position)
+    + deplacer(direction : TuileOuverture)
+    + prochainTour()
+    + captureObjectif(j : Joueur, objectif : Objectif)
+    + finPartie()
     }
 }
 package model{
 
     class Joueur {
-      + <<Create>>Joueur(nom : String)
-      - m_nom: String
-      - m_objectifCapture : Integer
-      + setImgPion(str : String)
-      - deplacer(deplacement : TuileOuverture)
-      - piocher()
-      + jouer()
-      + setPionPosition(pos : Position)
-      - setLstObjectif()
+    - m_nom: String
+    - m_objectifCapture : Integer
+
+    + <<Create>>Joueur(nom : String)
+    + setImgPion(str : String)
+    + deplacer(deplacement : TuileOuverture)
+    + setPionPosition(pos : Position)
+    + setLstObjectif(lstObjectif : Objectif[])
+    + captureObjectif()
+
     }
+
     class Objectif {
-      + <<Create>>Objectif(objectif : String)
-      + <<Create>>Objectif(nom : String, path : String)
       - m_nom: String
       - m_path: String
+      + <<Create>>Objectif(objectif : String)
+      + <<Create>>Objectif(nom : String, path : String)
       + getNomObjectif(): String
       + getObjectifCapture() : Objectif
     }
@@ -66,9 +66,16 @@ package model{
       + placerTuileSurPlateau(pos Position,tuile Tuile)
       + getPlateau(): Tuile[49]
       - placerTuile()
-      -initPlaceTuileT()
-      -initPlaceTuileAng()
-      -placerTuile()
+      - initPlaceTuileT()
+      - initPlaceTuileAng()
+      - placerTuile()
+      - initPlaceTuileAng():
+      - placerJoueur():
+      - distribuer(joueur Joueur)
+      + initPartie():
+      - initObjectif():
+      - initPlaceTuileT():
+      - initPlateau():
     }
 
     class Position {
@@ -130,6 +137,14 @@ package model{
       - m_image: String
       - loadImage(path : String): String
     }
+    class ImageHelper{
+      + merge(String backgroundPath, String... foregroundPaths )
+      + rotate( final BufferedImage original, double angle )
+      + rotateClockwise( final BufferedImage original )
+      + rotateCounterClockwise( final BufferedImage original )
+      + getPathImg(String path)
+
+    }
 }
 package view{
     interface PlateauObserver << interface >> {
@@ -142,34 +157,41 @@ package view{
 }
 
 
-
-
-GameController  "1" *-[#595959,plain]-> "m_lstJoueur\n*" Joueur
-GameController  "1" *-[#595959,plain]-> "m_lstObjectif\n*" Objectif
+GameController  "1" *-[#595959,plain]-> "m_lstObservers\n*" PlateauObserver
 GameController  "1" *-[#595959,plain]-> "m_plateau\n1" Plateau
-GameController   -[#595959,dashed]->  Position        : "«uses»"
-GameController   -[#595959,dashed]->  TuileFactory    : "«uses»"
+GameController "1" -[#595959,dashed]-> "«uses»" Joueur
+GameController "1" -[#595959,dashed]-> "«uses»" TuileOuverture
 Joueur          "1" *-[#595959,plain]-> "m_lstObjectif\n24" Objectif
 Joueur          "1" *-[#595959,plain]-> "m_pion\n1" Pion
 Joueur           -[#595959,dashed]->  Pion            : "«uses»"
 Joueur           -[#595959,dashed]->  Position        : "«uses»"
-Joueur   -[#595959,dashed]->  TuileOuverture        : "«uses»"
+Joueur   -[#595959,dashed]->  TuileOuverture          : "«uses»"
 Pion            "1" *-[#595959,plain]-> "m_position\n1" Position
-Plateau         "1" *-[#595959,plain]-> "m_joueur\n*" Joueur
+
+Plateau         "1" *-[#595959,plain]-> "m_lstJoueur\n4" Joueur
 Plateau         "1" *-[#595959,plain]-> "m_lstTuilesPlateau\n*" Tuile
 Plateau         "1" o-[#595959,plain]-> "m_lstT\n*" TuileT
 Plateau         "1" o-[#595959,plain]-> "m_lstAngle\n*" TuileAngle
 Plateau         "1" o-[#595959,plain]-> "m_lstDroite\n*" TuileDroite
-Plateau          -[#595959,dashed]->  Tuile           : "«uses»"
-Plateau           -[#595959,dashed]->  Position        : "«uses»"
+Plateau          "1" *-[#595959,plain]-> "m_tuileVolante\n1"  Tuile
+Plateau          "1" *-[#595959,plain]-> "m_lstObjectif\n24" Objectif
+Plateau           -[#595959,dashed]->  Tuile           : "«uses»"
+Plateau           -[#595959,dashed]->  Position       : "«uses»"
+Plateau           -[#595959,dashed]->  ImageHelper    : "«uses»"
+Plateau           -[#595959,dashed]->  TuileOuverture : "«uses»"
+
 Tuile           "1" *-[#595959,plain]-> "m_objectif\n1" Objectif
 Tuile           "1" *-[#595959,plain]-> "m_position\n1" Position
 Tuile           "1" *-[#595959,plain]-> "m_possibilite\n*" TuileOuverture
 Tuile           -[#595959,dashed]->  Position        : "«uses»"
+
 TuileAngle       -[#000082,plain]-^  Tuile
+
 TuileDroite      -[#000082,plain]-^  Tuile
 TuileFactory     -[#595959,dashed]->  TuileAngle      : "«uses»"
 TuileFactory     -[#595959,dashed]->  TuileDroite     : "«uses»"
 TuileFactory     -[#595959,dashed]->  TuileT          : "«uses»"
+
 TuileT           -[#000082,plain]-^  Tuile
+
 @enduml

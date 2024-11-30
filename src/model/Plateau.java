@@ -1,18 +1,22 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Plateau {
-    private final Joueur[] m_joueur;
+    private final Joueur[] lstJoueur;
     private final Tuile[][] m_lstTuilesPlateau;
     private final ArrayList<TuileAngle> m_lstAngle;
     private final ArrayList<TuileT> m_lstT;
     private final ArrayList<TuileDroite> m_lstDroite;
+    private ArrayList<Objectif> m_lstObjectif;
+    private Tuile m_tuileVolante;
 
 
-    public Plateau(Joueur[] lstJoueur) {
-        this.m_joueur = lstJoueur;
+    public Plateau() {
+        this.lstJoueur = new Joueur[4];
         m_lstTuilesPlateau = new Tuile[7][7];
         /*[y],[x]
         [[1,2,3,4,5,6,7],
@@ -22,35 +26,77 @@ public class Plateau {
         [ 1,2,3,4,5,6,7],
         [ 1,2,3,4,5,6,7],
         [ 1,2,3,4,5,6,7]]*/
-        for (int y = 0; y < m_lstTuilesPlateau.length; y++) {
-            for(int x=0;x<m_lstTuilesPlateau[y].length;x++){
-                m_lstTuilesPlateau[y][x]=null;
-            }
-        }
-        TuileFactory m_factory = new TuileFactory();
+
+        m_lstObjectif = new ArrayList<>();
         m_lstAngle = new ArrayList<>();
-        for(int i = 0; i < 20; i++){
-            m_lstAngle.add(m_factory.createTuileAngle());
-        }
         m_lstT = new ArrayList<>();
-        for(int i = 0; i < 18; i++){
-            m_lstT.add(m_factory.createTuileT());
-        }
         m_lstDroite = new ArrayList<>();
-        for(int i = 0; i < 12; i++){
-            m_lstDroite.add(m_factory.createTuileDroite());
-        }
-        initPlaceTuileAng();
-        initPlaceTuileT();
-        placerTuile();
+        m_tuileVolante = null;
+
+
+    }
+
+    public Tuile getTuileVolante(){
+        return m_tuileVolante;
     }
 
     public Tuile[][] getPlateau(){
         return this.m_lstTuilesPlateau;
     }
 
-    public Joueur[] getJoueur() {
-        return m_joueur;
+    public Joueur getJoueur(int joueur){ return lstJoueur[joueur]; }
+
+    private void initJoueurs() {
+        for (int i = 0; i < 4; i++) {
+            lstJoueur[i] = new Joueur("Joueur " + (i + 1));
+        }
+        placerJoueur();
+    }
+
+    private void initObjectif(){
+        ImageHelper imgHelper = new ImageHelper();
+        List<String> lstPath = imgHelper.getPathImg("../../img/imgObjectif");
+        for(int i = 0; i < 24; i++){
+            m_lstObjectif.add(new Objectif(lstPath.getLast()));
+            lstPath.removeLast();
+        }
+        Collections.shuffle(m_lstObjectif);
+    }
+
+    private void initTuiles() {
+        TuileFactory m_factory = new TuileFactory();
+        for(int i = 0; i < 20; i++){
+            m_lstAngle.add(m_factory.createTuileAngle());
+        }
+        for(int i = 0; i < 18; i++){
+            m_lstT.add(m_factory.createTuileT());
+        }
+        for(int i = 0; i < 12; i++){
+            m_lstDroite.add(m_factory.createTuileDroite());
+        }
+    }
+
+    public void initPartie(){
+        initPlateau();
+        initObjectif();
+        initJoueurs();
+        initTuiles();
+        placerTuile();
+    }
+
+    private void initPlateau(){
+        for (int y = 0; y < m_lstTuilesPlateau.length; y++) {
+            for(int x=0;x<m_lstTuilesPlateau[y].length;x++){
+                m_lstTuilesPlateau[y][x]=null;
+            }
+        }
+    }
+
+    private void placerJoueur(){
+        lstJoueur[0].setPionPosition(new Position(0,0));
+        lstJoueur[1].setPionPosition(new Position(6,0));
+        lstJoueur[2].setPionPosition(new Position(0,6));
+        lstJoueur[3].setPionPosition(new Position(6,6));
     }
 
     public void placerTuileSurPlateau(Position pos,Tuile tuile){
@@ -100,6 +146,9 @@ public class Plateau {
     }
 
     private void placerTuile() {
+        initPlaceTuileAng();
+        initPlaceTuileT();
+
         Random rand = new Random();
 
         for (int i = 0; i < 7; i++) {
@@ -139,6 +188,24 @@ public class Plateau {
                 }
             }
         }
+        if(!m_lstAngle.isEmpty()){
+            m_tuileVolante = m_lstAngle.getLast();
+            m_lstAngle.removeLast();
+        }else if(!m_lstT.isEmpty()){
+            m_tuileVolante = m_lstT.getLast();
+            m_lstT.removeLast();
+        }else {
+            m_tuileVolante = m_lstDroite.getLast();
+            m_lstDroite.removeLast();
+        }
+    }
+
+    public void deplacerJoueur(Joueur j, TuileOuverture direction){
+        j.deplacer(direction);
+    }
+
+    public void captureObjectif(Joueur j, Objectif objectif){
+        j.captureObjectif(objectif);
     }
 
 }

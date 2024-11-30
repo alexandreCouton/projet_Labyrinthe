@@ -6,6 +6,8 @@ import java.awt.AlphaComposite;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Set of static functions allowing to manipulate images
@@ -72,4 +74,20 @@ public class ImageHelper {
 	public static BufferedImage rotateCounterClockwise( final BufferedImage original ) throws IllegalArgumentException {
 		return rotate( original, 1.5*Math.PI );
 	}
+
+	public List<String> getPathImg(String path){
+		List<String> lstPath = new ArrayList<>();
+		File folder = new File(path);
+		if (folder.exists() && folder.isDirectory()) {
+			File[] imageFile = folder.listFiles();
+			if(imageFile != null){
+				for (File file : imageFile) {
+					lstPath.add(file.getAbsolutePath());
+				}
+			}
+
+		}
+		return lstPath;
+	}
+
 }
