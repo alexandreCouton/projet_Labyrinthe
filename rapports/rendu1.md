@@ -3,7 +3,7 @@ ____________________
 
 ## Introduction
 Dans le cadre de notre projet de développement du jeu labyrinthe, 
-nous avons dû faire différents choix de conception qui seront expliqués dans ce rapport.
+nous avons dû faire différents choix de conception qui seront expliqués dans ce rapport. Bien évidemment tout au long de ce projet, nous utiliserons la méthode Agile à l'aide de Kanban inclus dans Git.
 ____
 ## Conception
 
