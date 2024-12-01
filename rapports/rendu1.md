@@ -7,14 +7,14 @@ nous avons dû faire différents choix de conception qui seront expliqués dans 
 ____
 ## Conception
 
-### choix generaux
+### Choix generaux
 
 Ce projet utilise une conception type MVC (Model View Controller) pour séparer les différentes parties du code. 
 Le modèle contient les classes qui définissent les objets du jeu (joueur, plateau, etc). 
 La vue contient les classes qui gèrent l'affichage du jeu. 
 Le contrôleur contient les classes qui gèrent les interactions entre les objets du modèle et la vue.
 
-### choix techniques
+### Choix techniques
 
 Dans notre conception, nous avons choisi une classe Plateau qui sera l'élément central de notre jeu. 
 Cette classe contient les informations sur le plateau de jeu (taille, cases, etc) et les méthodes pour le manipuler. 
@@ -27,12 +27,13 @@ ce qui rend plus simple la gestion des positions des objets du jeu.
 Le plateau contient aussi des tuiles qui sont des objets de la classe Tuile qui contiennent les informations sur les cases du plateau. 
 Les tuiles peuvent être d'angle, en T ou droite. Chaque type de tuile contient son image associée. 
 Et initialise son hashmap de la façon qui lui est propre. 
+La hashmap contient une direction et un booléen, ce qui permet de connaître les différentes ouvertures actuelles d'une tuile.
 La classe TuileFactory permet de créer des tuiles de chaque type de façon simple et rapide.
 
 Les objectifs enfin contiennent les informations sur les objectifs du jeu. Ils sont des objets de la classe Objectif.
 
-Enfin, nous avons une classe TuileOuverture qui contient des directions (Haut, Bas, Gauche, Droite) 
-et qui permet de savoir si une tuile est ouverte dans une direction donnée mais qui pourra aussi être utilisée pour savoir si un joueur peut se déplacer dans une direction donnée.
+Enfin, nous avons une enumération TuileOuverture qui contient des directions (Haut, Bas, Gauche, Droite) 
+et qui permet d'augementer la lisibilité du code et de facilité la relecture.
 
 Dans cette conception, le plateau est l'élément central car il permet d'initialiser le plateau et donc le jeu en plaçant
 les tuiles mais aussi les joueurs et les objectifs. 
