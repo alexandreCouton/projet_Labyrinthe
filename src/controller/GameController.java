@@ -3,20 +3,17 @@ package controller;
 import model.*;
 import view.PlateauObserver;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.*;
 
 public class GameController {
     private final Plateau m_plateau;
     private final ArrayList<PlateauObserver> m_lstObservers;
     private int m_joueurCourant;
 
-    public GameController(){
+    public GameController(Plateau plateau) {
         m_lstObservers = new ArrayList<>();
-        m_plateau = new Plateau();
-        initPartie();
+        m_plateau = plateau;
+        //initPartie();
         m_joueurCourant = 0;
     }
 

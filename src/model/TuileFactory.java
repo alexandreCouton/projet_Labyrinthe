@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 public class TuileFactory {
 
-    private String pathTuileDroite = "../../img/TuileDroite.png";
-    private String pathTuileAngle = "../../img/TuileAngle.png";
-    private String pathTuileT = "../../img/TuileT.png";
+    private String pathTuileDroite = "src/img/TuileDroite.png";
+    private String pathTuileAngle = "src/img/TuileAngle.png";
+    private String pathTuileT = "src/img/TuileT.png";
 
     public TuileFactory(){
     }

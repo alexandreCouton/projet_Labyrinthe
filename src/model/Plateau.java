@@ -57,8 +57,12 @@ public class Plateau {
         ImageHelper imgHelper = new ImageHelper();
         List<String> lstPath = imgHelper.getPathImg("../../img/imgObjectif");
         for(int i = 0; i < 24; i++){
-            m_lstObjectif.add(new Objectif(lstPath.getLast()));
-            lstPath.removeLast();
+            if(lstPath.isEmpty()){
+                lstPath = imgHelper.getPathImg("../../img/imgObjectif/argent.png");
+            }else {
+                m_lstObjectif.add(new Objectif(lstPath.getLast()));
+                lstPath.removeLast();
+            }
         }
         Collections.shuffle(m_lstObjectif);
     }
@@ -107,26 +111,26 @@ public class Plateau {
     }
 
     private void initPlaceTuileT(){
+        m_lstT.getLast().rotate(2);
         this.placerTuileSurPlateau(new Position(2,0), m_lstT.getLast());
         m_lstT.removeLast();
+        m_lstT.getLast().rotate(2);
         this.placerTuileSurPlateau(new Position(4,0), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate();
+        m_lstT.getLast().rotate(3);
         this.placerTuileSurPlateau(new Position(6,2), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate();
+        m_lstT.getLast().rotate(3);
         this.placerTuileSurPlateau(new Position(6,4), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate(2);
         this.placerTuileSurPlateau(new Position(4,6), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate(2);
         this.placerTuileSurPlateau(new Position(2,6), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate(3);
+        m_lstT.getLast().rotate();
         this.placerTuileSurPlateau(new Position(0,4), m_lstT.getLast());
         m_lstT.removeLast();
-        m_lstT.getLast().rotate(3);
+        m_lstT.getLast().rotate();
         this.placerTuileSurPlateau(new Position(0,2), m_lstT.getLast());
         m_lstT.removeLast();
     }

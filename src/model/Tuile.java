@@ -52,6 +52,11 @@ public abstract class Tuile {
         tmp.put(TuileOuverture.BAS, m_possibilite.get(TuileOuverture.DROITE));
         tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
         m_possibilite = tmp;
+        m_image = ImageHelper.rotateClockwise(m_image);
+    }
+
+    public BufferedImage getImage(){
+        return m_image;
     }
 
     public void rotate(int n) {
