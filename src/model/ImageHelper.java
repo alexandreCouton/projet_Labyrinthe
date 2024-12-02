@@ -35,6 +35,22 @@ public class ImageHelper {
 		g2d.dispose();
 		return mergedImage;
 	}
+	// version avec un BufferedImage en paramètre
+	public static BufferedImage merge(BufferedImage background, String... foregroundPaths ) throws IOException {
+		BufferedImage image1 = background;
+		BufferedImage mergedImage = new BufferedImage( image1.getWidth(), image1.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = mergedImage.createGraphics();
+		g2d.drawImage(image1, 0, 0, null);
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+		for ( String path : foregroundPaths ) {
+			BufferedImage image2 = ImageIO.read(new File(path));
+			int x = (image1.getWidth() - image2.getWidth()) / 2;
+			int y = (image1.getHeight() - image2.getHeight()) / 2;
+			g2d.drawImage(image2, x, y, null);
+		}
+		g2d.dispose();
+		return mergedImage;
+	}
 
 	/**
 	 *  Rotate an original image from the center by a defined angle.

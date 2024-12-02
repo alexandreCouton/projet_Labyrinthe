@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import model.ImageHelper;
+
 
 public class Plateau {
     private final Joueur[] lstJoueur;
@@ -136,17 +138,26 @@ public class Plateau {
     }
 
     private void initPlaceTuileAng(){
-        this.placerTuileSurPlateau(new Position(0,0), m_lstAngle.getLast());
-        m_lstAngle.removeLast();
-        m_lstAngle.getLast().rotate();
-        this.placerTuileSurPlateau(new Position(6,0), m_lstAngle.getLast());
-        m_lstAngle.removeLast();
-        m_lstAngle.getLast().rotate(3);
-        this.placerTuileSurPlateau(new Position(0,6), m_lstAngle.getLast());
-        m_lstAngle.removeLast();
-        m_lstAngle.getLast().rotate(2);
-        this.placerTuileSurPlateau(new Position(6,6), m_lstAngle.getLast());
-        m_lstAngle.removeLast();
+        try {
+            this.placerTuileSurPlateau(new Position(0, 0), m_lstAngle.getLast());
+            m_lstAngle.getLast().setImage(ImageHelper.merge(m_lstAngle.getLast().getImage(), "src/img/imgDepart/departBleu.png"));
+            m_lstAngle.removeLast();
+            m_lstAngle.getLast().rotate();
+            this.placerTuileSurPlateau(new Position(6, 0), m_lstAngle.getLast());
+            m_lstAngle.getLast().setImage(ImageHelper.merge(m_lstAngle.getLast().getImage(), "src/img/imgDepart/departJaune.png"));
+            m_lstAngle.removeLast();
+            m_lstAngle.getLast().rotate(3);
+            this.placerTuileSurPlateau(new Position(0, 6), m_lstAngle.getLast());
+            m_lstAngle.getLast().setImage(ImageHelper.merge(m_lstAngle.getLast().getImage(), "src/img/imgDepart/departRouge.png"));
+            m_lstAngle.removeLast();
+            m_lstAngle.getLast().rotate(2);
+            this.placerTuileSurPlateau(new Position(6, 6), m_lstAngle.getLast());
+            m_lstAngle.getLast().setImage(ImageHelper.merge(m_lstAngle.getLast().getImage(), "src/img/imgDepart/departVert.png"));
+            m_lstAngle.removeLast();
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     private void placerTuile() {

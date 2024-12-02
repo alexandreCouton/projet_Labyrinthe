@@ -58,7 +58,9 @@ public abstract class Tuile {
     public BufferedImage getImage(){
         return m_image;
     }
-
+    public BufferedImage setImage(BufferedImage image){
+        return m_image=image;
+    }
     public void rotate(int n) {
         for (int i = 0; i < n; i++) {
             rotate();
