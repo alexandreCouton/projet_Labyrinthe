@@ -8,8 +8,7 @@ public class TuileComponent extends JComponent {
     private BufferedImage m_image;
 
     public TuileComponent(Tuile tuile) {
-//        m_tuile = tuile;
-//        m_image = tuile.getImage();
+
         setLayout(new BorderLayout());
         setVisible(true);
     }

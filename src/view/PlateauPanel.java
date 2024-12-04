@@ -16,6 +16,8 @@ public class PlateauPanel extends JPanel {
         initTuilesComponents();
     }
 
+
+
     private void initTuilesComponents() {
         m_tuiles = new TuileComponent[7][7];
         for (int y = 0; y < 7; y++) {
@@ -29,7 +31,7 @@ public class PlateauPanel extends JPanel {
 
     public void updatePlateau() {
         Tuile[][] tuiles = m_plateau.getPlateau();
-        for (int y = 0; y < tuiles.length; y++) {
+        for (int y = 0; y < tuiles.length ; y++) {
             for (int x = 0; x < tuiles[y].length; x++) {
                 Tuile tuile = tuiles[y][x];
                 m_tuiles[y][x].setTuile(tuile);
