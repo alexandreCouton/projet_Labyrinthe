@@ -7,22 +7,20 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class TuileAngle extends Tuile{
+
+    private String pathTuileAngle = "src/img/TuileAngle.png";
+
     private BufferedImage m_image;
-    public TuileAngle(String imagePath, HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite);
+    public TuileAngle(){
+        /*possibilite.put(Direction.HAUT, false);
+        possibilite.put(Direction.DROITE, true);
+        possibilite.put(Direction.BAS, true);
+        possibilite.put(Direction.GAUCHE, false);*/
+        super(false,true,true,false);
     }
 
-    public TuileAngle(String imagePath,Objectif objectif,HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite,objectif);
+    public TuileAngle(Objectif objectif){
+        super(objectif,false,true,true,false);
     }
-    // On est obligé de faire une static étant donnée qu'il faut le passer dans le super avant meme la creation
-    // de l'objet lui meme
-    private static BufferedImage loadImage(String imagePath) {
-        try {
-            return ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace(); // au cas ou l'image existe pas
-            return null;
-        }
-    }
+
 }

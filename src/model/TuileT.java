@@ -8,21 +8,15 @@ import java.util.HashMap;
 
 public class TuileT extends Tuile{
 
-    private BufferedImage m_image;
-    public TuileT(String imagePath,HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite);
-    }
-    public TuileT(String imagePath,Objectif objectif,HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite,objectif);
-    }
+    private String pathTuileT = "src/img/TuileT.png";
 
-    private static BufferedImage loadImage(String imagePath) {
-        try {
-            return ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+
+    private BufferedImage m_image;
+    public TuileT(){
+        super(false, true, true, true);
+    }
+    public TuileT(Objectif objectif){
+        super(objectif, false, true, true, true);
     }
 
 }

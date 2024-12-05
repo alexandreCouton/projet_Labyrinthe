@@ -1,6 +1,6 @@
 package model;
 
-public enum TuileOuverture {
+public enum Direction {
     HAUT,
     DROITE,
     BAS,

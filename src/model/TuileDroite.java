@@ -8,20 +8,18 @@ import java.util.HashMap;
 
 public class TuileDroite extends Tuile{
 
+    private String pathTuileDroite = "src/img/TuileDroite.png";
     private BufferedImage m_image;
-    public TuileDroite(String imagePath,HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite);
+    public TuileDroite(){
+/*        possibilite.put(Direction.HAUT, true);
+        possibilite.put(Direction.DROITE, false);
+        possibilite.put(Direction.BAS, false);
+        possibilite.put(Direction.GAUCHE, true);*/
+        super(true,false,false,true);
     }
-    public TuileDroite(String imagePath,Objectif objectif,HashMap<TuileOuverture,Boolean> possibilite){
-        super(loadImage(imagePath), possibilite,objectif);
+    public TuileDroite(Objectif objectif){
+        super(objectif,true,false,false,true);
     }
 
-    private static BufferedImage loadImage(String imagePath) {
-        try {
-            return ImageIO.read(new File(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 }

@@ -6,20 +6,22 @@ import java.util.HashMap;
 public abstract class Tuile {
     private Position m_position;
     private Objectif m_objectif;
-    protected HashMap<TuileOuverture, Boolean> m_possibilite;
+    protected HashMap<Direction, Boolean> m_possibilite;
     protected BufferedImage m_image;
 
-    public Tuile(BufferedImage image, HashMap<TuileOuverture, Boolean> possibilite){
-        this.m_objectif=null;
-        this.m_position=null;
-        this.m_image=image;
-        this.m_possibilite = possibilite;
+    public Tuile(boolean haut, boolean droite, boolean bas, boolean gauche){
+        m_possibilite.put(Direction.HAUT, true);
+        m_possibilite.put(Direction.DROITE, false);
+        m_possibilite.put(Direction.BAS, false);
+        m_possibilite.put(Direction.GAUCHE, true);
     }
-    public Tuile(BufferedImage image, HashMap<TuileOuverture, Boolean> possibilite,Objectif objectif){
+    public Tuile(Objectif objectif, boolean haut, boolean droite, boolean bas, boolean gauche){
         this.m_objectif=objectif;
         this.m_position=null;
-        this.m_image=image;
-        this.m_possibilite = possibilite;
+        m_possibilite.put(Direction.HAUT, true);
+        m_possibilite.put(Direction.DROITE, false);
+        m_possibilite.put(Direction.BAS, false);
+        m_possibilite.put(Direction.GAUCHE, true);
     }
 
 
@@ -42,15 +44,20 @@ public abstract class Tuile {
         return this.m_objectif;
     }
 
-    public HashMap<TuileOuverture, Boolean> getOuvertureTuile(){
+    public HashMap<Direction, Boolean> getOuvertureTuile(){
         return m_possibilite;
     }
+
+    public boolean getOpen(Direction direction){
+        return m_possibilite.get(direction);
+    }
+
     public void rotate() {
-        HashMap<TuileOuverture, Boolean> tmp = new HashMap<>();
-        tmp.put(TuileOuverture.HAUT, m_possibilite.get(TuileOuverture.GAUCHE));
-        tmp.put(TuileOuverture.DROITE, m_possibilite.get(TuileOuverture.HAUT));
-        tmp.put(TuileOuverture.BAS, m_possibilite.get(TuileOuverture.DROITE));
-        tmp.put(TuileOuverture.GAUCHE, m_possibilite.get(TuileOuverture.BAS));
+        HashMap<Direction, Boolean> tmp = new HashMap<>();
+        tmp.put(Direction.HAUT, m_possibilite.get(Direction.GAUCHE));
+        tmp.put(Direction.DROITE, m_possibilite.get(Direction.HAUT));
+        tmp.put(Direction.BAS, m_possibilite.get(Direction.DROITE));
+        tmp.put(Direction.GAUCHE, m_possibilite.get(Direction.BAS));
         m_possibilite = tmp;
         m_image = ImageHelper.rotateClockwise(m_image);
     }

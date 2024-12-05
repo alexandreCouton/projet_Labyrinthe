@@ -9,6 +9,7 @@ public class GameController {
     private final Plateau m_plateau;
     private final ArrayList<PlateauObserver> m_lstObservers;
     private int m_joueurCourant;
+    private Game m_game;
 
     public GameController(Plateau plateau) {
         m_lstObservers = new ArrayList<>();
@@ -65,8 +66,8 @@ public class GameController {
         notifyObservers("deplacementTuile");
     }
 
-    public void deplacer(TuileOuverture direction) {
-        m_plateau.deplacerJoueur(m_plateau.getJoueur(m_joueurCourant), direction);
+    public void deplacer(Direction direction) {
+        m_game.movePlayer(direction);
         notifyObservers("deplacementJoueur");
     }
 

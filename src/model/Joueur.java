@@ -18,8 +18,10 @@ public class Joueur {
     private void setLstObjectif(ArrayList<Objectif> lstObjectif){
         m_lstObjectif = lstObjectif;
     }
-
-    public void deplacer(TuileOuverture deplacement){
+    public Position getPosition(){
+        return m_pion.getPosition();
+    }
+    public void deplacer(Direction deplacement){
         switch (deplacement) {
             case HAUT:
                 m_pion.enHaut();

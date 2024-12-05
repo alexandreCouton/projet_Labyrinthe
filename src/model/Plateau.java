@@ -8,7 +8,6 @@ import model.ImageHelper;
 
 
 public class Plateau {
-    private final Joueur[] lstJoueur;
     private final Tuile[][] m_lstTuilesPlateau;
     private final ArrayList<TuileAngle> m_lstAngle;
     private final ArrayList<TuileT> m_lstT;
@@ -16,9 +15,7 @@ public class Plateau {
     private ArrayList<Objectif> m_lstObjectif;
     private Tuile m_tuileVolante;
 
-
     public Plateau() {
-        this.lstJoueur = new Joueur[4];
         m_lstTuilesPlateau = new Tuile[7][7];
         /*[y],[x]
         [[1,2,3,4,5,6,7],
@@ -29,12 +26,17 @@ public class Plateau {
         [ 1,2,3,4,5,6,7],
         [ 1,2,3,4,5,6,7]]*/
 
-        m_lstObjectif = new ArrayList<>();
         m_lstAngle = new ArrayList<>();
         m_lstT = new ArrayList<>();
         m_lstDroite = new ArrayList<>();
+        m_lstObjectif = new ArrayList<>();
         m_tuileVolante = null;
 
+        initObjectif();
+        initPlateau();
+        initObjectif();
+        initTuiles();
+        placerTuile();
 
     }
 
@@ -46,14 +48,7 @@ public class Plateau {
         return this.m_lstTuilesPlateau;
     }
 
-    public Joueur getJoueur(int joueur){ return lstJoueur[joueur]; }
 
-    private void initJoueurs() {
-        for (int i = 0; i < 4; i++) {
-            lstJoueur[i] = new Joueur("Joueur " + (i + 1));
-        }
-        placerJoueur();
-    }
 
     private void initObjectif(){
         ImageHelper imgHelper = new ImageHelper();
@@ -82,14 +77,6 @@ public class Plateau {
         }
     }
 
-    public void initPartie(){
-        initPlateau();
-        initObjectif();
-        initJoueurs();
-        initTuiles();
-        placerTuile();
-    }
-
     private void initPlateau(){
         for (int y = 0; y < m_lstTuilesPlateau.length; y++) {
             for(int x=0;x<m_lstTuilesPlateau[y].length;x++){
@@ -98,12 +85,7 @@ public class Plateau {
         }
     }
 
-    private void placerJoueur(){
-        lstJoueur[0].setPionPosition(new Position(0,0));
-        lstJoueur[1].setPionPosition(new Position(6,0));
-        lstJoueur[2].setPionPosition(new Position(0,6));
-        lstJoueur[3].setPionPosition(new Position(6,6));
-    }
+
 
     public void placerTuileSurPlateau(Position pos,Tuile tuile){
         int x = pos.getPositionX();
@@ -215,9 +197,6 @@ public class Plateau {
         }
     }
 
-    public void deplacerJoueur(Joueur j, TuileOuverture direction){
-        j.deplacer(direction);
-    }
 
     public void captureObjectif(Joueur j, Objectif objectif){
         j.captureObjectif(objectif);

@@ -1,7 +1,6 @@
 package view;
 
 import model.Plateau;
-import model.TuileOuverture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +16,7 @@ public class ControlPanel extends JComponent {
         m_plateau = plateau;
         m_btnHaut = new JButton("Haut");
 //        m_btnHaut.addActionListener(e -> {
-//            plateau.deplacerJoueur(, TuileOuverture.HAUT);
+//            plateau.deplacerJoueur(, Direction.HAUT);
 //        });
         m_btnBas = new JButton("Bas");
 /*        m_btnBas.addActionListener(e -> {
