@@ -1,17 +1,19 @@
 package view;
 
-import model.Plateau;
+import model.GameBoard;
+
 import javax.swing.*;
 import java.awt.*;
-import model.Tuile;
+
+import model.Tiles;
 
 public class PlateauPanel extends JPanel {
-    private Plateau m_plateau;
-    private TuileComponent[][] m_tuiles;
+    private GameBoard m_gameBoard;
+    private TuileComponent[][] m_tiles;
     private JPanel m_panel;
 
-    public PlateauPanel(Plateau plateau) {
-        m_plateau = plateau;
+    public PlateauPanel(GameBoard gameBoard) {
+        m_gameBoard = gameBoard;
         setLayout(new GridLayout(7, 7));
         initTuilesComponents();
     }
@@ -19,22 +21,22 @@ public class PlateauPanel extends JPanel {
 
 
     private void initTuilesComponents() {
-        m_tuiles = new TuileComponent[7][7];
+        m_tiles = new TuileComponent[7][7];
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 7; x++) {
                 TuileComponent tuileComponent = new TuileComponent(null);
-                m_tuiles[y][x] = tuileComponent;
+                m_tiles[y][x] = tuileComponent;
                 add(tuileComponent);
             }
         }
     }
 
     public void updatePlateau() {
-        Tuile[][] tuiles = m_plateau.getPlateau();
-        for (int y = 0; y < tuiles.length ; y++) {
-            for (int x = 0; x < tuiles[y].length; x++) {
-                Tuile tuile = tuiles[y][x];
-                m_tuiles[y][x].setTuile(tuile);
+        Tiles[][] tiles = m_gameBoard.getGameBoard();
+        for (int y = 0; y < tiles.length ; y++) {
+            for (int x = 0; x < tiles[y].length; x++) {
+                Tiles tilestemp = tiles[y][x];
+                m_tiles[y][x].setTuile(tilestemp);
             }
         }
         revalidate();

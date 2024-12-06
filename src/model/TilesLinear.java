@@ -1,24 +1,20 @@
 package model;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 
-public class TuileDroite extends Tuile{
+public class TilesLinear extends Tiles {
 
-    private String pathTuileDroite = "src/img/TuileDroite.png";
+    private String pathTileLinear = "src/img/TilesLinear.png";
     private BufferedImage m_image;
-    public TuileDroite(){
+    public TilesLinear(){
 /*        possibilite.put(Direction.HAUT, true);
         possibilite.put(Direction.DROITE, false);
         possibilite.put(Direction.BAS, false);
         possibilite.put(Direction.GAUCHE, true);*/
         super(true,false,false,true);
     }
-    public TuileDroite(Objectif objectif){
-        super(objectif,true,false,false,true);
+    public TilesLinear(Objective objective){
+        super(objective,true,false,false,true);
     }
 
 

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.HashMap;
-
 public class TuileFactory {
 
 
@@ -10,31 +8,31 @@ public class TuileFactory {
 
 
 
-    public TuileDroite createTuileDroite(){
+    public TilesLinear createTileLinear(){
         // forme de base ouverture bas , haut |
 
-        return new TuileDroite();
+        return new TilesLinear();
     }
-    public TuileDroite createTuileDroite(Objectif objectif){
+    public TilesLinear createTileLinear(Objective objective){
         // forme de base ouverture bas , haut |
 
-        return new TuileDroite(objectif);
+        return new TilesLinear(objective);
     }
 
-    public TuileAngle createTuileAngle(){
+    public TilesCorner createTileCorner(){
         // forme de base ouverture droite et bas -> et |
 
-        return new TuileAngle();
+        return new TilesCorner();
     }
-    public TuileAngle createTuileAngle(Objectif objectif){
-        return new TuileAngle(objectif);
+    public TilesCorner createTileCorner(Objective objective){
+        return new TilesCorner(objective);
     }
-    public TuileT createTuileT(){
-        return new TuileT();
+    public TilesT createTileT(){
+        return new TilesT();
     }
 
-    public TuileT createTuileT(Objectif objectif){
-        return new TuileT(objectif);
+    public TilesT createTileT(Objective objective){
+        return new TilesT(objective);
     }
 
 }

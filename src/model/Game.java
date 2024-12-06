@@ -1,75 +1,73 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Game {
 
-    private final Joueur[] lstJoueur;
-    private final Plateau m_plateau;
-    private int m_joueurCourant;
+    private final Player[] lstPlayer;
+    private final GameBoard m_gameBoard;
+    private int m_currentPlayer;
 
     public Game() {
-        this.lstJoueur = new Joueur[4];
-        m_plateau = new Plateau();
+        this.lstPlayer = new Player[4];
+        m_gameBoard = new GameBoard();
 
-        initJoueurs();
+        initPlayers();
     }
 
-    public Joueur getJoueur(int joueur){ return lstJoueur[joueur]; }
+    public Player getPlayer(int player){ return lstPlayer[player]; }
 
-    private void initJoueurs() {
+    private void initPlayers() {
         for (int i = 0; i < 4; i++) {
-            lstJoueur[i] = new Joueur("Joueur " + (i + 1));
+            lstPlayer[i] = new Player("Player " + (i + 1));
         }
-        placerJoueur();
+        placePlayer();
     }
 
-    private void placerJoueur(){
-        lstJoueur[0].setPionPosition(new Position(0,0));
-        lstJoueur[1].setPionPosition(new Position(6,0));
-        lstJoueur[2].setPionPosition(new Position(0,6));
-        lstJoueur[3].setPionPosition(new Position(6,6));
+    private void placePlayer(){
+        lstPlayer[0].setPionPosition(new Position(0,0));
+        lstPlayer[1].setPionPosition(new Position(6,0));
+        lstPlayer[2].setPionPosition(new Position(0,6));
+        lstPlayer[3].setPionPosition(new Position(6,6));
     }
 
 
     public boolean movePlayer( Direction direction){
         switch (direction) {
-            case Direction.DROITE:
-                if (lstJoueur[m_joueurCourant].getPosition().getPositionX() + 1 <= 6) {
-                    if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.DROITE)) {
-                        if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX() + 1][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.GAUCHE)) {
-                            lstJoueur[m_joueurCourant].deplacer(Direction.DROITE);
+            case Direction.RIGHT:
+                if (lstPlayer[m_currentPlayer].getPosition().getPositionX() + 1 <= 6) {
+                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.RIGHT)) {
+                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX() + 1][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.LEFT)) {
+                            lstPlayer[m_currentPlayer].deplacer(Direction.RIGHT);
                             return true;
                         }
                     }
                 }
                 return false;
-            case Direction.GAUCHE:
-                if (lstJoueur[m_joueurCourant].getPosition().getPositionX() - 1 >= 0) {
-                    if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.GAUCHE)) {
-                        if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX() - 1][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.DROITE)) {
-                            lstJoueur[m_joueurCourant].deplacer(Direction.GAUCHE);
+            case Direction.LEFT:
+                if (lstPlayer[m_currentPlayer].getPosition().getPositionX() - 1 >= 0) {
+                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.LEFT)) {
+                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX() - 1][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.RIGHT)) {
+                            lstPlayer[m_currentPlayer].deplacer(Direction.LEFT);
                             return true;
                         }
                     }
                 }
                 return false;
 
-            case Direction.HAUT:
-                if (lstJoueur[m_joueurCourant].getPosition().getPositionY() - 1 >= 0) {
-                    if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.HAUT)) {
-                        if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY() - 1].getOpen(Direction.BAS)) {
-                            lstJoueur[m_joueurCourant].deplacer(Direction.HAUT);
+            case Direction.UP:
+                if (lstPlayer[m_currentPlayer].getPosition().getPositionY() - 1 >= 0) {
+                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.UP)) {
+                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY() - 1].getOpen(Direction.DOWN)) {
+                            lstPlayer[m_currentPlayer].deplacer(Direction.UP);
                             return true;
                         }
                     }
                 }
                 return false;
-            case Direction.BAS:
-                if (lstJoueur[m_joueurCourant].getPosition().getPositionY() + 1 <= 6) {
-                    if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY()].getOpen(Direction.BAS)) {
-                        if (m_plateau.getPlateau()[lstJoueur[m_joueurCourant].getPosition().getPositionX()][lstJoueur[m_joueurCourant].getPosition().getPositionY() + 1].getOpen(Direction.HAUT)) {
-                            lstJoueur[m_joueurCourant].deplacer(Direction.BAS);
+            case Direction.DOWN:
+                if (lstPlayer[m_currentPlayer].getPosition().getPositionY() + 1 <= 6) {
+                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.DOWN)) {
+                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY() + 1].getOpen(Direction.UP)) {
+                            lstPlayer[m_currentPlayer].deplacer(Direction.DOWN);
                             return true;
                         }
                     }

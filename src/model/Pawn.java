@@ -1,10 +1,10 @@
 package model;
 
-public class Pion {
+public class Pawn {
     private String m_path;
     private Position m_position;
 
-    public Pion(String path, Position position){
+    public Pawn(String path, Position position){
         this.m_path = path;
     }
 
@@ -24,16 +24,16 @@ public class Pion {
         return m_position;
     }
 
-    public void aDroite(){
+    public void goRight(){
         m_position.setPositionX(m_position.getPositionX() + 1);
     }
-    public void aGauche(){
+    public void goLeft(){
         m_position.setPositionX(m_position.getPositionX() - 1);
     }
-    public void enHaut(){
+    public void goUp(){
         m_position.setPositionY(m_position.getPositionY() - 1);
     }
-    public void enBas(){
+    public void goDown(){
         m_position.setPositionY(m_position.getPositionY() + 1);
     }
     public void setPositionX(int x){
@@ -44,3 +44,4 @@ public class Pion {
     }
 
 }
+

@@ -1,17 +1,19 @@
 package view;
 
-import model.Plateau;
+import model.GameBoard;
+import model.PlateauObserver;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GameDisplay extends JFrame implements PlateauObserver {
     private PlateauPanel plateauPanel;
-    private Plateau plateau;
+    private GameBoard gameBoard;
     private JPanel pPanel;
     private JPanel mainPanel;
 
-    public GameDisplay(Plateau plateau) {
-        this.plateau = plateau;
+    public GameDisplay(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
 
         setTitle("Labyrinthe");
         setSize(1000, 800);
@@ -26,7 +28,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         GridBagConstraints gbc = new GridBagConstraints();
 
         // Ajouter le plateauPanel au centre
-        plateauPanel = new PlateauPanel(plateau);
+        plateauPanel = new PlateauPanel(gameBoard);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
@@ -37,7 +39,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         mainPanel.add(plateauPanel, gbc);
 
         // Ajouter le controlPanel en bas à droite
-        ControlPanel controlPanel = new ControlPanel(plateau);
+        ControlPanel controlPanel = new ControlPanel(gameBoard);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;

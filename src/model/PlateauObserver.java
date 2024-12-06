@@ -1,4 +1,4 @@
-package view;
+package model;
 
 public interface PlateauObserver {
     public void debutPartie();
@@ -6,4 +6,5 @@ public interface PlateauObserver {
     public void deplacementJoueur();
     public void captureObjectif();
     public void finPartie();
+    public void updateTile(Position position);
 }

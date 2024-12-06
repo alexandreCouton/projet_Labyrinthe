@@ -1,17 +1,13 @@
 package model;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 
-public class TuileAngle extends Tuile{
+public class TilesCorner extends Tiles {
 
-    private String pathTuileAngle = "src/img/TuileAngle.png";
+    private String pathTileCorner = "src/img/TilesCorner.png";
 
     private BufferedImage m_image;
-    public TuileAngle(){
+    public TilesCorner(){
         /*possibilite.put(Direction.HAUT, false);
         possibilite.put(Direction.DROITE, true);
         possibilite.put(Direction.BAS, true);
@@ -19,8 +15,8 @@ public class TuileAngle extends Tuile{
         super(false,true,true,false);
     }
 
-    public TuileAngle(Objectif objectif){
-        super(objectif,false,true,true,false);
+    public TilesCorner(Objective objective){
+        super(objective,false,true,true,false);
     }
 
 }
