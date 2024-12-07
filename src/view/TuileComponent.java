@@ -13,7 +13,7 @@ public class TuileComponent extends JComponent implements TilesObserver {
     private BufferedImage m_image;
 
     public TuileComponent(Tiles tiles) {
-
+        m_tiles = tiles;
         setLayout(new BorderLayout());
         setVisible(true);
         m_image = ImageHelper.loadImage(tiles.getPath());

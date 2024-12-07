@@ -37,6 +37,7 @@ public class PlateauPanel extends JPanel {
             m_tiles[0][6].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departJaune.png"));
             m_tiles[6][0].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departRouge.png"));
             m_tiles[6][6].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departVert.png"));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,6 +54,7 @@ public class PlateauPanel extends JPanel {
                 m_tiles[y][x].setTuile(tilestemp);
             }
         }
+        // Rajouter l'ajout des spawnpoint et des pions des joueurs
         revalidate();
         repaint();
     }
