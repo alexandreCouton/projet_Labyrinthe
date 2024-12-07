@@ -21,8 +21,8 @@ public class GameBoard {
         m_lstObserver = new ArrayList<>();
 
         initObjective();
-        initPlateau();
         initTuiles();
+        initPlateau();
         placerTuile();
     }
 
@@ -156,22 +156,19 @@ public class GameBoard {
     private void initPlaceTuileAng() {
         try {
             TilesCorner tuile = m_StackAngle.pop();
-            tuile.setImage(ImageHelper.merge(tuile.getImage(), "src/img/imgDepart/departBleu.png"));
+
             this.placerTuileSurPlateauInit(new Position(0, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate();
-            tuile.setImage(ImageHelper.merge(tuile.getImage(), "src/img/imgDepart/departJaune.png"));
             this.placerTuileSurPlateauInit(new Position(6, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(3);
-            tuile.setImage(ImageHelper.merge(tuile.getImage(), "src/img/imgDepart/departRouge.png"));
             this.placerTuileSurPlateauInit(new Position(0, 6), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(2);
-            tuile.setImage(ImageHelper.merge(tuile.getImage(), "src/img/imgDepart/departVert.png"));
             this.placerTuileSurPlateauInit(new Position(6, 6), tuile);
 
         } catch (Exception e) {
@@ -233,5 +230,9 @@ public class GameBoard {
 
     public void captureObjectif(Player j, Objective objective) {
         j.captureObjectif(objective);
+    }
+
+    public void placerTuileSurPlateau(Position pos, Tiles tile){
+
     }
 }

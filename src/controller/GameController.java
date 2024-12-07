@@ -19,7 +19,7 @@ public class GameController {
     }
 
     public void placerTuileVolante(Position pos) {
-        m_gameBoard.placerTuileSurPlateau(pos, m_gameBoard.getFlyTile());
+        m_gameBoard.insertFlyingTile(pos);
     }
 
     public void deplacer(Direction direction) {

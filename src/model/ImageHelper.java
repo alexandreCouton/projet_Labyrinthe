@@ -106,7 +106,7 @@ public class ImageHelper {
 		return lstPath;
 	}
 
-	private static BufferedImage loadImage(String imagePath) {
+	public static BufferedImage loadImage(String imagePath) {
 		try {
 			return ImageIO.read(new File(imagePath));
 		} catch (IOException e) {

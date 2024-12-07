@@ -7,24 +7,27 @@ import java.util.HashMap;
 public abstract class Tiles {
     private Position m_position; // non utilisé
     private Objective m_objective;
-    protected HashMap<Direction, Boolean> m_possibilite;
-    protected BufferedImage m_image;
+    protected HashMap<Direction, Boolean> m_possibilite = new HashMap<>();
     private ArrayList<TilesObserver> m_observers;
 
-    public Tiles(boolean haut, boolean droite, boolean bas, boolean gauche){
-        m_possibilite.put(Direction.UP, true);
-        m_possibilite.put(Direction.RIGHT, false);
-        m_possibilite.put(Direction.DOWN, false);
-        m_possibilite.put(Direction.LEFT, true);
+    private int m_rotateIndex = 0;
+
+
+
+    public Tiles(boolean up, boolean right, boolean bottom, boolean left){
+        m_possibilite.put(Direction.UP, up);
+        m_possibilite.put(Direction.RIGHT, right);
+        m_possibilite.put(Direction.DOWN, bottom);
+        m_possibilite.put(Direction.LEFT, left);
         m_observers = new ArrayList<>();
     }
-    public Tiles(Objective objective, boolean haut, boolean droite, boolean bas, boolean gauche){
+    public Tiles(Objective objective, boolean up, boolean right, boolean bottom, boolean left){
         this.m_objective = objective;
         this.m_position=null;
-        m_possibilite.put(Direction.UP, true);
-        m_possibilite.put(Direction.RIGHT, false);
-        m_possibilite.put(Direction.DOWN, false);
-        m_possibilite.put(Direction.LEFT, true);
+        m_possibilite.put(Direction.UP, up);
+        m_possibilite.put(Direction.RIGHT, right);
+        m_possibilite.put(Direction.DOWN, bottom);
+        m_possibilite.put(Direction.LEFT, left);
         m_observers = new ArrayList<>();
 
     }
@@ -78,19 +81,19 @@ public abstract class Tiles {
         tmp.put(Direction.DOWN, m_possibilite.get(Direction.RIGHT));
         tmp.put(Direction.LEFT, m_possibilite.get(Direction.DOWN));
         m_possibilite = tmp;
-        m_image = ImageHelper.rotateClockwise(m_image);
+        m_rotateIndex++;
         notifyObserver();
     }
 
-    public BufferedImage getImage(){
-        return m_image;
-    }
-    public BufferedImage setImage(BufferedImage image){
-        return m_image=image;
-    }
     public void rotate(int n) {
         for (int i = 0; i < n; i++) {
             rotate();
         }
+    }
+
+    public abstract String getPath();
+
+    public int getRotateIndex(){
+        return m_rotateIndex;
     }
 }

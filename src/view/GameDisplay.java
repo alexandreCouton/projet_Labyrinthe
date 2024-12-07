@@ -1,7 +1,9 @@
 package view;
 
 import model.GameBoard;
+import model.ImageHelper;
 import model.PlateauObserver;
+import model.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,4 +80,10 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     public void finPartie() {
         updatePlateau();
     }
+
+    @Override
+    public void updateTile(Position position) {
+
+    }
+
 }

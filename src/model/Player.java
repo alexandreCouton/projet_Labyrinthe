@@ -30,7 +30,7 @@ public class Player {
                 }
                 break;
             case DOWN:
-                m_pawn.enBas();
+                m_pawn.goDown();
                 if(m_pawn.getPosition().getPositionY() > 6){
                     m_pawn.setPositionY(0);
                 }

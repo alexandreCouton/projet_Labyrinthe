@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import model.Tiles;
+import model.TilesObserver;
 
-public class TuileComponent extends JComponent {
+import model.ImageHelper;
+
+public class TuileComponent extends JComponent implements TilesObserver {
     private Tiles m_tiles;
     private BufferedImage m_image;
 
@@ -13,6 +16,10 @@ public class TuileComponent extends JComponent {
 
         setLayout(new BorderLayout());
         setVisible(true);
+        m_image = ImageHelper.loadImage(tiles.getPath());
+        for(int i=0;i<tiles.getRotateIndex()%4;i++){
+            m_image=ImageHelper.rotateClockwise(m_image);
+        }
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -23,11 +30,22 @@ public class TuileComponent extends JComponent {
     }
     public void setTuile(Tiles tiles) {
         m_tiles = tiles;
-        m_image = tiles.getImage();
+        m_image = ImageHelper.loadImage(tiles.getPath());
         repaint();
     }
 
+    public void setImage(BufferedImage image){
+        this.m_image = image;
+    }
+
+    public BufferedImage getImage(){
+        return this.m_image;
+    }
 
 
-
+    public void updateRotateTile(Tiles tile) {
+        m_image = ImageHelper.rotateClockwise(m_image);
+        revalidate();
+        repaint();
+    }
 }

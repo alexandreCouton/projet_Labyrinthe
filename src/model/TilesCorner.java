@@ -4,9 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class TilesCorner extends Tiles {
 
-    private String pathTileCorner = "src/img/TilesCorner.png";
+    private String pathTileCorner = "src/img/TileCorner.png";
 
-    private BufferedImage m_image;
     public TilesCorner(){
         /*possibilite.put(Direction.HAUT, false);
         possibilite.put(Direction.DROITE, true);
@@ -18,5 +17,9 @@ public class TilesCorner extends Tiles {
     public TilesCorner(Objective objective){
         super(objective,false,true,true,false);
     }
+
+    public String getPath(){
+        return pathTileCorner;
+    };
 
 }
