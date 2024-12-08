@@ -28,9 +28,13 @@ public class Game {
 
     private void placePlayer(){
         lstPlayer[0].setPionPosition(new Position(0,0));
+        lstPlayer[0].setImgPion("src/img/pawn/bluePawn.png");
         lstPlayer[1].setPionPosition(new Position(6,0));
+        lstPlayer[1].setImgPion("src/img/pawn/yellowPawn.png");
         lstPlayer[2].setPionPosition(new Position(0,6));
+        lstPlayer[2].setImgPion("src/img/pawn/redPawn.png");
         lstPlayer[3].setPionPosition(new Position(6,6));
+        lstPlayer[3].setImgPion("src/img/pawn/greenPawn.png");
     }
 
     public GameBoard getGameBoard() {
@@ -105,6 +109,13 @@ public class Game {
         }
 
         return false;
+    }
+
+    public void prochainTour(){
+        m_currentPlayer++;
+        if(m_currentPlayer == 4){
+            m_currentPlayer = 0;
+        }
     }
 
     public void captureObjectif(Player j, Objective objective) {

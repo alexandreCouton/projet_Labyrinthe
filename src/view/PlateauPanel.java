@@ -4,21 +4,35 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class PlateauPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
     private TuileComponent[][] m_tiles;
     private JPanel m_panel;
-
+    
     public PlateauPanel(GameBoard gameBoard) {
         m_gameBoard = gameBoard;
         setLayout(new GridLayout(7, 7));
         initTuilesComponents();
 
+
     }
 
+    public void placePawn(Player player) {
 
+            int x = player.getPosition().getPositionX();
+            int y = player.getPosition().getPositionY();
+            try {
+                m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), player.getImgPion()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        revalidate();
+        repaint();
+    }
 
     private void initTuilesComponents() {
         m_tiles = new TuileComponent[7][7];
@@ -90,6 +104,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
         try {
+
             m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
         } catch (IOException e) {
             throw new RuntimeException(e);

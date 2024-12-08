@@ -77,6 +77,9 @@ public class Player {
     public void setImgPion(String path){
         m_pawn.setPath(path);
     }
+    public String getImgPion(){
+        return m_pawn.getPath();
+    }
 
     public void setPionPosition(Position m_position) {
         this.m_pawn.setPosition(m_position);

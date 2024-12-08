@@ -5,6 +5,7 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GameDisplay extends JFrame implements PlateauObserver {
     private PlateauPanel m_plateauPanel;
@@ -40,7 +41,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         mainPanel.add(m_plateauPanel, gbc);
 
         // Ajouter le controlPanel en bas à droite
-        ControlPanel controlPanel = new ControlPanel(m_game.getGameBoard());
+        ControlPanel controlPanel = new ControlPanel(m_gameController);
         gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
@@ -59,9 +60,14 @@ public class GameDisplay extends JFrame implements PlateauObserver {
 
 
         add(mainPanel, BorderLayout.CENTER);
+        for(int i = 0; i < 4; i++) {
+            m_plateauPanel.placePawn(m_game.getPlayer(i));
+        }
+
 
         setVisible(true);
     }
+
 
     private void generateButtonLeft(){
         GridBagConstraints gbc = new GridBagConstraints();
