@@ -86,14 +86,13 @@ public class GameBoard {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
         Tiles replacedTile = null;
-
         if (x == 0) {
             replacedTile = m_lstTuilesPlateaus[y][6];
             for (int i = 6; i > 0; i--) {
                 m_lstTuilesPlateaus[y][i] = m_lstTuilesPlateaus[y][i - 1];
-                notifyObserverTiles(new Position(i, y));
             }
             m_lstTuilesPlateaus[y][0] = m_flyingTile;
+
             notifyObserverTiles(new Position(0, y));
         }
         // Déplacer les tuiles vers la gauche
@@ -228,9 +227,7 @@ public class GameBoard {
         }
     }
 
-    public void captureObjectif(Player j, Objective objective) {
-        j.captureObjectif(objective);
-    }
+
 
     public void placerTuileSurPlateau(Position pos, Tiles tile){
 

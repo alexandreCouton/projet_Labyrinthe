@@ -1,5 +1,8 @@
 package model;
 
+import view.GameDisplay;
+import view.PlateauPanel;
+
 public class Game {
 
     private final Player[] lstPlayer;
@@ -9,7 +12,7 @@ public class Game {
     public Game() {
         this.lstPlayer = new Player[4];
         m_gameBoard = new GameBoard();
-
+        m_currentPlayer = 0;
         initPlayers();
     }
 
@@ -18,6 +21,7 @@ public class Game {
     private void initPlayers() {
         for (int i = 0; i < 4; i++) {
             lstPlayer[i] = new Player("Player " + (i + 1));
+
         }
         placePlayer();
     }
@@ -27,6 +31,31 @@ public class Game {
         lstPlayer[1].setPionPosition(new Position(6,0));
         lstPlayer[2].setPionPosition(new Position(0,6));
         lstPlayer[3].setPionPosition(new Position(6,6));
+    }
+
+    public GameBoard getGameBoard() {
+        return m_gameBoard;
+    }
+
+    public void insertFlyingTile(Position pos){
+        m_gameBoard.insertFlyingTile(pos);
+        for(Player j : lstPlayer){
+            if(j.getPosition().getPositionY() == pos.getPositionY()){
+                if(pos.getPositionX() == 0) {
+                    j.deplacer(Direction.RIGHT);
+                } else if (pos.getPositionX() == 6) {
+                        j.deplacer(Direction.LEFT);
+                }
+            }
+            else if(j.getPosition().getPositionX() == pos.getPositionX() ){
+
+                if (pos.getPositionY() == 0) {
+                    j.deplacer(Direction.DOWN);
+                } else if (pos.getPositionY() == 6) {
+                    j.deplacer(Direction.UP);
+                }
+            }
+        }
     }
 
 
@@ -78,6 +107,9 @@ public class Game {
         return false;
     }
 
+    public void captureObjectif(Player j, Objective objective) {
+        j.captureObjectif(objective);
+    }
 
 
 }

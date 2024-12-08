@@ -28,7 +28,7 @@ public class TuileComponent extends JComponent implements TilesObserver {
             g.drawImage(m_image, 0, 0, getWidth(), getHeight(), this);
         }
     }
-    public void setTuile(Tiles tiles) {
+    public void setTile(Tiles tiles) {
         m_tiles = tiles;
         m_image = ImageHelper.loadImage(tiles.getPath());
         repaint();
@@ -48,4 +48,6 @@ public class TuileComponent extends JComponent implements TilesObserver {
         revalidate();
         repaint();
     }
+
+
 }

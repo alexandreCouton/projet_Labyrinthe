@@ -3,12 +3,11 @@ package controller;
 import model.*;
 
 public class GameController {
-    private final GameBoard m_gameBoard;
     private int m_joueurCourant;
     private Game m_game;
 
-    public GameController(GameBoard gameBoard) {
-        m_gameBoard = gameBoard;
+    public GameController(Game game) {
+        m_game = game;
         m_joueurCourant = 0;
     }
 
@@ -18,8 +17,9 @@ public class GameController {
         m_joueurCourant = (m_joueurCourant + 1) % 4;
     }
 
-    public void placerTuileVolante(Position pos) {
-        m_gameBoard.insertFlyingTile(pos);
+    public void placeFlyingTile(Position pos) {
+        m_game.insertFlyingTile(pos);
+
     }
 
     public void deplacer(Direction direction) {
@@ -27,7 +27,7 @@ public class GameController {
     }
 
     public void captureObjectif(Player player, Objective objective) {
-        m_gameBoard.captureObjectif(player, objective);
+        m_game.captureObjectif(player, objective);
     }
 
 

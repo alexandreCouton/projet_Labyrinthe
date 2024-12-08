@@ -9,10 +9,27 @@ public class Player {
     //En int car on s'en fiche de connaitre ceux qu'il a deja eu vu qu'ils disparaiteront de la liste au m_lstobjective
     private int m_objectifCapture;
     private Pawn m_pawn;
+    private ArrayList<PlayerObserver> m_lstObserver;
 
     public Player(String nom){
         this.m_nom = nom;
-        m_pawn = new Pawn("src/img/pion.png", new Position(0,0));
+        m_pawn = new Pawn("src/img/pawn.png", new Position(0,0));
+        m_lstObjective = new ArrayList<>();
+        m_lstObserver = new ArrayList<>();
+    }
+
+    public void addObserver(PlayerObserver obs){
+        m_lstObserver.add(obs);
+    }
+
+    public void removeObserver(PlayerObserver obs){
+        m_lstObserver.remove(obs);
+    }
+
+    public void notifyObserver(Position pos){
+        for(PlayerObserver obs : m_lstObserver){
+            obs.movePlayer(pos, m_pawn.getPath());
+        }
     }
 
     private void setLstObjectif(ArrayList<Objective> lstObjective){
@@ -28,24 +45,31 @@ public class Player {
                 if(m_pawn.getPosition().getPositionY() < 0){
                     m_pawn.setPositionY(6);
                 }
+                notifyObserver(m_pawn.getPosition());
                 break;
             case DOWN:
                 m_pawn.goDown();
                 if(m_pawn.getPosition().getPositionY() > 6){
                     m_pawn.setPositionY(0);
                 }
+                notifyObserver(m_pawn.getPosition());
+
                 break;
             case LEFT:
                 m_pawn.goLeft();
                 if(m_pawn.getPosition().getPositionX() < 0){
                     m_pawn.setPositionX(6);
                 }
+                notifyObserver(m_pawn.getPosition());
+
                 break;
             case RIGHT:
                 m_pawn.goRight();
                 if(m_pawn.getPosition().getPositionX() > 6){
                     m_pawn.setPositionX(0);
                 }
+                notifyObserver(m_pawn.getPosition());
+
                 break;
         }
     }

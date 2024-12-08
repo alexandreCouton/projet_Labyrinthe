@@ -1,15 +1,12 @@
 package view;
 
-import model.GameBoard;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import model.ImageHelper;
-import model.Tiles;
-
-public class PlateauPanel extends JPanel {
+public class PlateauPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
     private TuileComponent[][] m_tiles;
     private JPanel m_panel;
@@ -34,9 +31,9 @@ public class PlateauPanel extends JPanel {
         }
         try {
             m_tiles[0][0].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departBleu.png"));
-            m_tiles[0][6].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departJaune.png"));
-            m_tiles[6][0].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departRouge.png"));
-            m_tiles[6][6].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departVert.png"));
+            m_tiles[0][6].setImage(ImageHelper.merge(m_tiles[0][6].getImage(), "src/img/imgDepart/departJaune.png"));
+            m_tiles[6][0].setImage(ImageHelper.merge(m_tiles[6][0].getImage(), "src/img/imgDepart/departRouge.png"));
+            m_tiles[6][6].setImage(ImageHelper.merge(m_tiles[6][6].getImage(), "src/img/imgDepart/departVert.png"));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -46,18 +43,59 @@ public class PlateauPanel extends JPanel {
         repaint();
     }
 
-    public void updatePlateau() {
-        Tiles[][] tiles = m_gameBoard.getGameBoard();
-        for (int y = 0; y < tiles.length ; y++) {
-            for (int x = 0; x < tiles[y].length; x++) {
-                Tiles tilestemp = tiles[y][x];
-                m_tiles[y][x].setTuile(tilestemp);
+    public void updatePlateau(Position pos) {
+
+        int x = pos.getPositionX();
+        int y = pos.getPositionY();
+        Boolean isRow = false;
+        Boolean isColumnMovable = false;
+        if(x == 0 || x == 6){
+            isRow = true;
+        }
+        if(y == 0){
+            isColumnMovable = true;
+        }
+
+        if (isRow) {
+            // Update the row
+            for (int row = 0; row < m_tiles[y].length; row++) {
+                TuileComponent tuileComponent = m_tiles[y][row];
+                tuileComponent.setTile(m_gameBoard.getGameBoard()[y][row]);
+                for(int i=0;i < m_gameBoard.getGameBoard()[row][x].getRotateIndex();i++){
+                    tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
+                }
+            }
+
+        }
+
+        if (isColumnMovable) {
+            // Mettre à jour la colonne
+            for (int col = 0; col < m_tiles.length; col++) {
+                TuileComponent tuileComponent = m_tiles[col][x];
+                tuileComponent.setTile(m_gameBoard.getGameBoard()[col][x]);
+                for(int i=0;i < m_gameBoard.getGameBoard()[col][x].getRotateIndex();i++){
+                    tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
+                }
             }
         }
+
         // Rajouter l'ajout des spawnpoint et des pions des joueurs
         revalidate();
         repaint();
     }
 
 
+    @Override
+    public void movePlayer(Position pos, String path) {
+        int x = pos.getPositionX();
+        int y = pos.getPositionY();
+        try {
+            m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        revalidate();
+        repaint();
+
+    }
 }

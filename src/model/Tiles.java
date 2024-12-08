@@ -82,6 +82,9 @@ public abstract class Tiles {
         tmp.put(Direction.LEFT, m_possibilite.get(Direction.DOWN));
         m_possibilite = tmp;
         m_rotateIndex++;
+        if (m_rotateIndex == 4) {
+            m_rotateIndex = 0;
+        }
         notifyObserver();
     }
 
