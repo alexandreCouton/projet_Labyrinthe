@@ -7,6 +7,23 @@ import javax.swing.*;
 import java.awt.*;
 import model.Direction;
 
+
+/**
+ * The ControlPanel class represents the control panel in the Labyrinth game interface.
+ * It provides buttons that allow the user to move in the four cardinal directions:
+ * up, down, left, and right.
+ *
+ * Key responsibilities include:
+ * - Creating and setting up buttons for each direction (up, down, left, right).
+ * - Handling button click events by calling the `deplacer()` method on the GameController
+ *   to move the player in the selected direction.
+ * - Using a GridLayout to arrange the buttons in a user-friendly layout.
+ *
+ * This class acts as a user interface component that interacts with the `GameController`
+ * to control the player's movements. Each button triggers an action in the controller to
+ * move the player in the specified direction.
+ */
+
 public class ControlPanel extends JComponent {
     private JButton m_btnHaut;
     private JButton m_btnBas;

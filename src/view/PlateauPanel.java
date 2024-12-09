@@ -6,6 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+/**
+ * PlateauPanel is a JPanel that represents the game board visually in the GUI.
+ * It manages the tiles on the board and updates their appearance based on the game state.
+ * It also handles player movement and tile updates, ensuring the board is correctly displayed and refreshed.
+ *
+ * Key responsibilities:
+ * - Initializing and displaying the game tiles on a 7x7 grid.
+ * - Placing player pieces on the board.
+ * - Updating tiles when they are moved or rotated.
+ * - Handling the graphical representation of player movements.
+ */
 
 public class PlateauPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
@@ -20,6 +31,9 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
 
     }
 
+    /**
+     * @param player : the player's pawn
+     */
     public void placePawn(Player player) {
 
             int x = player.getPosition().getPositionX();
@@ -34,6 +48,9 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         repaint();
     }
 
+    /**
+     * Initializes all the Tiles on the view board
+     */
     private void initTuilesComponents() {
         m_tiles = new TuileComponent[7][7];
         for (int y = 0; y < 7; y++) {
@@ -57,6 +74,9 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         repaint();
     }
 
+    /**
+     * @param pos : the row's position you want to update on the view
+     */
     public void updatePlateau(Position pos) {
 
         int x = pos.getPositionX();
@@ -99,6 +119,10 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
     }
 
 
+    /**
+     * @param pos : The position where the pawn has to move on
+     * @param path : the path of the player's pawn
+     */
     @Override
     public void movePlayer(Position pos, String path) {
         int x = pos.getPositionX();

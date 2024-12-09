@@ -2,6 +2,23 @@ package model;
 
 import java.util.*;
 
+/**
+ * The GameBoard class represents the playing field in the Labyrinth game.
+ * It is responsible for managing the tiles that make up the game grid,
+ * initializing the board, and handling the placement and movement of tiles.
+ *
+ * Key responsibilities include:
+ * - Initializing the game board with a 7x7 grid of tiles.
+ * - Managing different types of tiles, including corner, T-shaped, and linear tiles.
+ * - Placing the player’s tiles and objectives on the board.
+ * - Handling the movement of the flying tile, which can shift tiles on the board.
+ * - Notifying observers when tiles are updated.
+ *
+ * The class maintains multiple stacks of tiles, such as `m_StackAngle`, `m_stackT`, and `m_stackDroite`,
+ * to store and manage different tile types. It also includes mechanisms to rotate tiles and
+ * place them on the board based on random selection or specific game rules.
+ */
+
 public class GameBoard {
     private final Tiles[][] m_lstTuilesPlateaus;
     private final Stack<TilesCorner> m_StackAngle;
@@ -26,28 +43,46 @@ public class GameBoard {
         placerTuile();
     }
 
+    /**
+     * @param obs : a BoardObserver instance
+     */
     public void addObserver(PlateauObserver obs) {
         m_lstObserver.add(obs);
     }
 
+    /**
+     * @param obs : a BoardObserver instance
+     */
     public void removeObserver(PlateauObserver obs) {
         m_lstObserver.remove(obs);
     }
 
+    /**
+     * @param pos : Position of the tile
+     */
     public void notifyObserverTiles(Position pos) {
         for (PlateauObserver obs : m_lstObserver) {
             obs.updateTile(pos);
         }
     }
 
+    /**
+     * @return the current flying tile
+     */
     public Tiles getFlyTile() {
         return m_flyingTile;
     }
 
+    /**
+     * @return the gameboard (the 7x7 list)
+     */
     public Tiles[][] getGameBoard() {
         return this.m_lstTuilesPlateaus;
     }
 
+    /**
+     * Initialize the game objectives
+     */
     private void initObjective() {
         ImageHelper imgHelper = new ImageHelper();
         List<String> lstPath = imgHelper.getPathImg("../../img/imgObjectif");
@@ -61,6 +96,9 @@ public class GameBoard {
         Collections.shuffle(m_stackObjective);
     }
 
+    /**
+     * Initialize the tiles
+     */
     private void initTuiles() {
         TuileFactory m_factory = new TuileFactory();
         for (int i = 0; i < 20; i++) {
@@ -74,6 +112,10 @@ public class GameBoard {
         }
     }
 
+
+    /**
+     * Initialize the GameBoard
+     */
     private void initPlateau() {
         for (int y = 0; y < m_lstTuilesPlateaus.length; y++) {
             for (int x = 0; x < m_lstTuilesPlateaus[y].length; x++) {
@@ -82,6 +124,9 @@ public class GameBoard {
         }
     }
 
+    /**
+     * @param pos : the position of where the current player wants to insert the flying tile
+     */
     public void insertFlyingTile(Position pos) {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
@@ -95,7 +140,7 @@ public class GameBoard {
 
             notifyObserverTiles(new Position(0, y));
         }
-        // Déplacer les tuiles vers la gauche
+        // Move tiles to the left
         else if (x == 6) {
             replacedTile = m_lstTuilesPlateaus[y][0];
             for (int i = 0; i < 6; i++) {
@@ -105,7 +150,7 @@ public class GameBoard {
             m_lstTuilesPlateaus[y][6] = m_flyingTile;
             notifyObserverTiles(new Position(6, y));
         }
-        // Déplacer les tuiles vers le haut
+        // Move tiles to the top
         else if (y == 0) {
             replacedTile = m_lstTuilesPlateaus[6][x];
             for (int i = 6; i > 0; i--) {
@@ -115,7 +160,7 @@ public class GameBoard {
             m_lstTuilesPlateaus[0][x] = m_flyingTile;
             notifyObserverTiles(new Position(x, 0));
         }
-        // Déplacer les tuiles vers le bas
+        // Move tiles to the bottom
         else if (y == 6) {
             replacedTile = m_lstTuilesPlateaus[0][x];
             for (int i = 0; i < 6; i++) {
@@ -129,12 +174,21 @@ public class GameBoard {
         m_flyingTile = replacedTile;
     }
 
+    /**
+     * Initializes the Tiles on the board at the beginning
+     * @param pos : The position of where the tile is going to be initialized
+     * @param tiles : A Tile
+     *
+     */
     private void placerTuileSurPlateauInit(Position pos, Tiles tiles) {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
         m_lstTuilesPlateaus[y][x] = tiles;
     }
 
+    /**
+     * Initializes the TilesT on the board
+     */
     private void initPlaceTuileT() {
         m_stackT.peek().rotate(2);
         this.placerTuileSurPlateauInit(new Position(2, 0), m_stackT.pop());
@@ -152,6 +206,10 @@ public class GameBoard {
         this.placerTuileSurPlateauInit(new Position(0, 2), m_stackT.pop());
     }
 
+
+    /**
+     * Initializes the TilesCorner on the board
+     */
     private void initPlaceTuileAng() {
         try {
             TilesCorner tuile = m_StackAngle.pop();
@@ -174,6 +232,10 @@ public class GameBoard {
             System.out.println(e);
         }
     }
+
+    /**
+     * It places all the other tiles on the board (the movable ones).
+     */
 
     private void placerTuile() {
         initPlaceTuileAng();

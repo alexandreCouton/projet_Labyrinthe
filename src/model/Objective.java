@@ -11,6 +11,10 @@ public class Objective {
         this.m_name= name;
         this.m_path=path;
     }
+
+    /**
+     * @return the name of the objective
+     */
     public String getNameObjectif(){
         return m_name;
     }

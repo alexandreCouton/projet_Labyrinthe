@@ -3,8 +3,27 @@ package model;
 import view.GameDisplay;
 import view.PlateauPanel;
 
+/**
+ * The Game class encapsulates the core logic of the Labyrinth game.
+ * It is part of the model in the MVC architecture and is responsible for managing
+ * the game's state, rules, and mechanics.
+ *
+ * Key responsibilities include:
+ * - Initializing the game board and placing the player and objectives.
+ * - Managing player movements and ensuring they follow the game rules.
+ * - Detecting and handling events, such as reaching objectives or invalid moves.
+ * - Tracking the game state, including the player's position, objectives, and score.
+ *
+ * This class provides methods that allow the controller to interact with and update
+ * the game state while maintaining the integrity of the rules and logic.
+ */
+
+
 public class Game {
 
+    /**
+     * The list of current players in the game.
+     */
     private final Player[] lstPlayer;
     private final GameBoard m_gameBoard;
     private int m_currentPlayer;
@@ -16,8 +35,15 @@ public class Game {
         initPlayers();
     }
 
+    /**
+     * @param player : get the player instance from an int in the lstPlayer
+     * @return an instance of player in the lstPlayer
+     */
     public Player getPlayer(int player){ return lstPlayer[player]; }
 
+    /**
+     * Initialize the players
+     */
     private void initPlayers() {
         for (int i = 0; i < 4; i++) {
             lstPlayer[i] = new Player("Player " + (i + 1));
@@ -26,6 +52,10 @@ public class Game {
         placePlayer();
     }
 
+
+    /**
+     * place the players on the map
+     */
     private void placePlayer(){
         lstPlayer[0].setPionPosition(new Position(0,0));
         lstPlayer[0].setImgPion("src/img/pawn/bluePawn.png");
@@ -37,10 +67,17 @@ public class Game {
         lstPlayer[3].setImgPion("src/img/pawn/greenPawn.png");
     }
 
+
+    /**
+     * @return the gameBoard
+     */
     public GameBoard getGameBoard() {
         return m_gameBoard;
     }
 
+    /**
+     * @param pos : Position where the current player wants to insert the flying tile
+     */
     public void insertFlyingTile(Position pos){
         m_gameBoard.insertFlyingTile(pos);
         for(Player j : lstPlayer){
@@ -63,6 +100,10 @@ public class Game {
     }
 
 
+    /**
+     * @param direction : the direction of where the player wants to go
+     * @return a boolean (true if he can, false if he can't)
+     */
     public boolean movePlayer( Direction direction){
         switch (direction) {
             case Direction.RIGHT:
@@ -111,6 +152,9 @@ public class Game {
         return false;
     }
 
+    /**
+     * next player
+     */
     public void prochainTour(){
         m_currentPlayer++;
         if(m_currentPlayer == 4){
@@ -118,6 +162,10 @@ public class Game {
         }
     }
 
+    /**
+     * @param j : the current player
+     * @param objective : the objective (managed by the controller, he verifies if the player is on the right tile)
+     */
     public void captureObjectif(Player j, Objective objective) {
         j.captureObjectif(objective);
     }

@@ -18,26 +18,47 @@ public class Player {
         m_lstObserver = new ArrayList<>();
     }
 
+    /**
+     * @param obs : add a PlayerObserver to watch the player's pawn
+     */
     public void addObserver(PlayerObserver obs){
         m_lstObserver.add(obs);
     }
 
+    /**
+     * @param obs : the PlayerObserver to remove
+     */
     public void removeObserver(PlayerObserver obs){
         m_lstObserver.remove(obs);
     }
 
+
+    /**
+     * @param pos : Pos of the player's pawn (for the view)
+     */
     public void notifyObserver(Position pos){
         for(PlayerObserver obs : m_lstObserver){
             obs.movePlayer(pos, m_pawn.getPath());
         }
     }
 
+    /**
+     * @param lstObjective : Set the objectives for the player
+     */
     private void setLstObjectif(ArrayList<Objective> lstObjective){
         m_lstObjective = lstObjective;
     }
+
+    /**
+     * @return the position of the player's pawn
+     */
     public Position getPosition(){
         return m_pawn.getPosition();
     }
+
+    /**
+     * @param deplacement : the direction of where the player's pawn has to move on
+     */
     public void deplacer(Direction deplacement){
         switch (deplacement) {
             case UP:
@@ -74,17 +95,31 @@ public class Player {
         }
     }
 
+    /**
+     * @param path : the pawn's image path
+     */
     public void setImgPion(String path){
         m_pawn.setPath(path);
     }
+
+    /**
+     * @return the pawn's path
+     */
     public String getImgPion(){
         return m_pawn.getPath();
     }
 
+    /**
+     * @param m_position : the position of where the player's pawn has to be
+     */
     public void setPionPosition(Position m_position) {
         this.m_pawn.setPosition(m_position);
     }
 
+
+    /**
+     * @param objective : The objective of current player's position
+     */
     public void captureObjectif(Objective objective){
         if(m_lstObjective.contains(objective)){
             m_lstObjective.remove(objective);
