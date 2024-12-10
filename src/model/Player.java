@@ -56,6 +56,14 @@ public class Player {
         return m_pawn.getPosition();
     }
 
+    public int getPositionX(){
+        return m_pawn.getPosition().getPositionX();
+    }
+
+    public int getPositionY(){
+        return m_pawn.getPosition().getPositionY();
+    }
+
     /**
      * @param deplacement : the direction of where the player's pawn has to move on
      */

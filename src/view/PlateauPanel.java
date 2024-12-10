@@ -58,6 +58,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
                 TuileComponent tuileComponent = new TuileComponent(m_gameBoard.getGameBoard()[y][x]);
                 m_tiles[y][x] = tuileComponent;
                 add(tuileComponent);
+                System.out.println("Init Tile at (" + y + ", " + x + "): " + m_gameBoard.getGameBoard()[y][x].getRotateIndex());
             }
         }
         try {

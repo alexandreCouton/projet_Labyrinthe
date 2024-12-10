@@ -20,7 +20,7 @@ import java.util.*;
  */
 
 public class GameBoard {
-    private final Tiles[][] m_lstTuilesPlateaus;
+    private final Tiles[][] m_lstTuilesPlateau;
     private final Stack<TilesCorner> m_StackAngle;
     private final Stack<TilesT> m_stackT;
     private final Stack<TilesLinear> m_stackDroite;
@@ -29,7 +29,7 @@ public class GameBoard {
     private ArrayList<PlateauObserver> m_lstObserver;
 
     public GameBoard() {
-        m_lstTuilesPlateaus = new Tiles[7][7];
+        m_lstTuilesPlateau = new Tiles[7][7];
         m_StackAngle = new Stack<>();
         m_stackT = new Stack<>();
         m_stackDroite = new Stack<>();
@@ -77,7 +77,7 @@ public class GameBoard {
      * @return the gameboard (the 7x7 list)
      */
     public Tiles[][] getGameBoard() {
-        return this.m_lstTuilesPlateaus;
+        return this.m_lstTuilesPlateau;
     }
 
     /**
@@ -117,9 +117,9 @@ public class GameBoard {
      * Initialize the GameBoard
      */
     private void initPlateau() {
-        for (int y = 0; y < m_lstTuilesPlateaus.length; y++) {
-            for (int x = 0; x < m_lstTuilesPlateaus[y].length; x++) {
-                m_lstTuilesPlateaus[y][x] = null;
+        for (int y = 0; y < m_lstTuilesPlateau.length; y++) {
+            for (int x = 0; x < m_lstTuilesPlateau[y].length; x++) {
+                m_lstTuilesPlateau[y][x] = null;
             }
         }
     }
@@ -132,42 +132,42 @@ public class GameBoard {
         int y = pos.getPositionY();
         Tiles replacedTile = null;
         if (x == 0) {
-            replacedTile = m_lstTuilesPlateaus[y][6];
+            replacedTile = m_lstTuilesPlateau[y][6];
             for (int i = 6; i > 0; i--) {
-                m_lstTuilesPlateaus[y][i] = m_lstTuilesPlateaus[y][i - 1];
+                m_lstTuilesPlateau[y][i] = m_lstTuilesPlateau[y][i - 1];
             }
-            m_lstTuilesPlateaus[y][0] = m_flyingTile;
+            m_lstTuilesPlateau[y][0] = m_flyingTile;
 
             notifyObserverTiles(new Position(0, y));
         }
         // Move tiles to the left
         else if (x == 6) {
-            replacedTile = m_lstTuilesPlateaus[y][0];
+            replacedTile = m_lstTuilesPlateau[y][0];
             for (int i = 0; i < 6; i++) {
-                m_lstTuilesPlateaus[y][i] = m_lstTuilesPlateaus[y][i + 1];
+                m_lstTuilesPlateau[y][i] = m_lstTuilesPlateau[y][i + 1];
                 notifyObserverTiles(new Position(i, y));
             }
-            m_lstTuilesPlateaus[y][6] = m_flyingTile;
+            m_lstTuilesPlateau[y][6] = m_flyingTile;
             notifyObserverTiles(new Position(6, y));
         }
         // Move tiles to the top
         else if (y == 0) {
-            replacedTile = m_lstTuilesPlateaus[6][x];
+            replacedTile = m_lstTuilesPlateau[6][x];
             for (int i = 6; i > 0; i--) {
-                m_lstTuilesPlateaus[i][x] = m_lstTuilesPlateaus[i - 1][x];
+                m_lstTuilesPlateau[i][x] = m_lstTuilesPlateau[i - 1][x];
                 notifyObserverTiles(new Position(x, i));
             }
-            m_lstTuilesPlateaus[0][x] = m_flyingTile;
+            m_lstTuilesPlateau[0][x] = m_flyingTile;
             notifyObserverTiles(new Position(x, 0));
         }
         // Move tiles to the bottom
         else if (y == 6) {
-            replacedTile = m_lstTuilesPlateaus[0][x];
+            replacedTile = m_lstTuilesPlateau[0][x];
             for (int i = 0; i < 6; i++) {
-                m_lstTuilesPlateaus[i][x] = m_lstTuilesPlateaus[i + 1][x];
+                m_lstTuilesPlateau[i][x] = m_lstTuilesPlateau[i + 1][x];
                 notifyObserverTiles(new Position(x, i));
             }
-            m_lstTuilesPlateaus[6][x] = m_flyingTile;
+            m_lstTuilesPlateau[6][x] = m_flyingTile;
             notifyObserverTiles(new Position(x, 6));
         }
 
@@ -183,7 +183,7 @@ public class GameBoard {
     private void placerTuileSurPlateauInit(Position pos, Tiles tiles) {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
-        m_lstTuilesPlateaus[y][x] = tiles;
+        m_lstTuilesPlateau[y][x] = tiles;
     }
 
     /**
@@ -249,12 +249,12 @@ public class GameBoard {
                     boolean placed = false;
 
                     while (!placed) {
-                        int n = rand.nextInt(3);
+                        int n = rand.nextInt(4);
                         switch (n) {
                             case 0:
                                 if (!m_StackAngle.isEmpty()) {
                                     TilesCorner tuile = m_StackAngle.pop();
-                                    tuile.rotate(rand.nextInt(3));
+                                    tuile.rotate(rand.nextInt(4));
                                     this.placerTuileSurPlateauInit(new Position(j, i), tuile);
                                     placed = true;
                                 }
@@ -262,7 +262,7 @@ public class GameBoard {
                             case 1:
                                 if (!m_stackT.isEmpty()) {
                                     TilesT tuile = m_stackT.pop();
-                                    tuile.rotate(rand.nextInt(3));
+                                    tuile.rotate(rand.nextInt(4));
                                     this.placerTuileSurPlateauInit(new Position(j, i), tuile);
                                     placed = true;
                                 }
@@ -270,7 +270,7 @@ public class GameBoard {
                             case 2:
                                 if (!m_stackDroite.isEmpty()) {
                                     TilesLinear tuile = m_stackDroite.pop();
-                                    tuile.rotate(rand.nextInt(3));
+                                    tuile.rotate(rand.nextInt(4));
                                     this.placerTuileSurPlateauInit(new Position(j, i), tuile);
                                     placed = true;
                                 }
@@ -289,9 +289,12 @@ public class GameBoard {
         }
     }
 
-
-
-    public void placerTuileSurPlateau(Position pos, Tiles tile){
-
+    public Boolean inBoard(Position pos){
+        return pos.getPositionX() >= 0 && pos.getPositionX() < 7 && pos.getPositionY() >= 0 && pos.getPositionY() < 7;
     }
+
+    public Tiles getTile(Position pos){
+        return m_lstTuilesPlateau[pos.getPositionY()][pos.getPositionX()];
+    }
+
 }

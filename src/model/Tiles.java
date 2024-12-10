@@ -108,12 +108,6 @@ public abstract class Tiles {
         return this.m_objective;
     }
 
-    /**
-     * @return the posibilities of the tile
-     */
-    public HashMap<Direction, Boolean> getOuvertureTuile(){
-        return m_possibilite;
-    }
 
     /**
      * @param direction : the direction of the Tile
@@ -134,9 +128,7 @@ public abstract class Tiles {
         tmp.put(Direction.LEFT, m_possibilite.get(Direction.DOWN));
         m_possibilite = tmp;
         m_rotateIndex++;
-        if (m_rotateIndex == 4) {
-            m_rotateIndex = 0;
-        }
+        m_rotateIndex = m_rotateIndex % 4;
         notifyObserver();
     }
 
@@ -160,5 +152,12 @@ public abstract class Tiles {
      */
     public int getRotateIndex(){
         return m_rotateIndex;
+    }
+
+    public void toStrPossibilite(){
+        System.out.println("Up : "+m_possibilite.get(Direction.UP));
+        System.out.println("Right : "+m_possibilite.get(Direction.RIGHT));
+        System.out.println("Down : "+m_possibilite.get(Direction.DOWN));
+        System.out.println("Left : "+m_possibilite.get(Direction.LEFT));
     }
 }

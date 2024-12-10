@@ -75,5 +75,9 @@ public class Pawn {
         this.m_position.setPositionY(y);
     }
 
+    public void toStr(){
+        System.out.println(STR."Pawn position : \{m_position.getPositionX()} \{m_position.getPositionY()}");
+    }
+
 }
 

@@ -41,7 +41,9 @@ public class GameController {
      * @param direction : The directions "Haut, Bas, Gauche, Droite" indicating where the user wants to go.
      */
     public void deplacer(Direction direction) {
+        System.out.println("Deplacement d'un joueur");
         if(m_game.movePlayer(direction)){
+            System.out.println("Deplacement d'un joueur reussi");
             m_game.prochainTour();
         }
     }

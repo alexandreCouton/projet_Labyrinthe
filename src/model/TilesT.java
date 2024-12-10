@@ -11,14 +11,14 @@ public class TilesT extends Tiles {
      * YOU HAVE TO USE THE FACTORY
      */
     public TilesT(){
-        super(false, true, true, true);
+        super(true, true, false, true);
     }
     /**
      * YOU HAVE TO USE THE FACTORY
      * @param objective : create the tile
      */
     public TilesT(Objective objective){
-        super(objective, false, true, true, true);
+        super(objective, true, true, false, true);
     }
 
     public String getPath(){

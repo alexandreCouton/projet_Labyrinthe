@@ -99,17 +99,23 @@ public class Game {
         }
     }
 
+    private Position getCurrentPlayerPosition(){
+        return lstPlayer[m_currentPlayer].getPosition();
+    }
+
 
     /**
      * @param direction : the direction of where the player wants to go
      * @return a boolean (true if he can, false if he can't)
      */
     public boolean movePlayer( Direction direction){
+        Position nextMove;
         switch (direction) {
             case Direction.RIGHT:
-                if (lstPlayer[m_currentPlayer].getPosition().getPositionX() + 1 <= 6) {
-                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.RIGHT)) {
-                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX() + 1][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.LEFT)) {
+                nextMove = new Position(getCurrentPlayerPosition().getPositionX() + 1, getCurrentPlayerPosition().getPositionY());
+                if (m_gameBoard.inBoard(nextMove)) {
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.RIGHT)) {
+                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.LEFT)) {
                             lstPlayer[m_currentPlayer].deplacer(Direction.RIGHT);
                             return true;
                         }
@@ -117,9 +123,10 @@ public class Game {
                 }
                 return false;
             case Direction.LEFT:
-                if (lstPlayer[m_currentPlayer].getPosition().getPositionX() - 1 >= 0) {
-                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.LEFT)) {
-                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX() - 1][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.RIGHT)) {
+                nextMove = new Position(getCurrentPlayerPosition().getPositionX() - 1, getCurrentPlayerPosition().getPositionY());
+                if (m_gameBoard.inBoard(nextMove)) {
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.LEFT)) {
+                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.RIGHT)) {
                             lstPlayer[m_currentPlayer].deplacer(Direction.LEFT);
                             return true;
                         }
@@ -128,9 +135,10 @@ public class Game {
                 return false;
 
             case Direction.UP:
-                if (lstPlayer[m_currentPlayer].getPosition().getPositionY() - 1 >= 0) {
-                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.UP)) {
-                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY() - 1].getOpen(Direction.DOWN)) {
+                nextMove = new Position(getCurrentPlayerPosition().getPositionX(), getCurrentPlayerPosition().getPositionY() - 1);
+                if (m_gameBoard.inBoard(nextMove)) {
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.UP)) {
+                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.DOWN)) {
                             lstPlayer[m_currentPlayer].deplacer(Direction.UP);
                             return true;
                         }
@@ -138,9 +146,10 @@ public class Game {
                 }
                 return false;
             case Direction.DOWN:
-                if (lstPlayer[m_currentPlayer].getPosition().getPositionY() + 1 <= 6) {
-                    if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY()].getOpen(Direction.DOWN)) {
-                        if (m_gameBoard.getGameBoard()[lstPlayer[m_currentPlayer].getPosition().getPositionX()][lstPlayer[m_currentPlayer].getPosition().getPositionY() + 1].getOpen(Direction.UP)) {
+                nextMove = new Position(getCurrentPlayerPosition().getPositionX(), getCurrentPlayerPosition().getPositionY() + 1);
+                if (m_gameBoard.inBoard(nextMove)) {
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.DOWN)) {
+                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.UP)) {
                             lstPlayer[m_currentPlayer].deplacer(Direction.DOWN);
                             return true;
                         }
@@ -156,7 +165,10 @@ public class Game {
      * next player
      */
     public void prochainTour(){
+        System.out.println("Player " + m_currentPlayer);
+
         m_currentPlayer++;
+        System.out.println("Player " + m_currentPlayer);
         if(m_currentPlayer == 4){
             m_currentPlayer = 0;
         }
