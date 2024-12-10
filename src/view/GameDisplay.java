@@ -56,9 +56,6 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         generateButtonTop();
         generateButtonBottom();
 
-
-
-
         add(mainPanel, BorderLayout.CENTER);
         for(int i = 0; i < 4; i++) {
             m_plateauPanel.placePawn(m_game.getPlayer(i));

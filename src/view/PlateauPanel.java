@@ -59,7 +59,6 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
                 TuileComponent tuileComponent = new TuileComponent(m_gameBoard.getGameBoard()[y][x]);
                 m_tiles[y][x] = tuileComponent;
                 add(tuileComponent);
-                System.out.println("Init Tile at (" + y + ", " + x + "): " + m_gameBoard.getGameBoard()[y][x].getRotateIndex());
             }
         }
         try {
@@ -97,7 +96,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
             for (int row = 0; row < m_tiles[y].length; row++) {
                 TuileComponent tuileComponent = m_tiles[y][row];
                 tuileComponent.setTile(m_gameBoard.getGameBoard()[y][row]);
-                for(int i=0;i < m_gameBoard.getGameBoard()[row][x].getRotateIndex();i++){
+                for(int i=0;i < m_gameBoard.getGameBoard()[y][row].getRotateIndex();i++){
                     tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
                 }
             }
@@ -111,6 +110,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
                 tuileComponent.setTile(m_gameBoard.getGameBoard()[col][x]);
                 for(int i=0;i < m_gameBoard.getGameBoard()[col][x].getRotateIndex();i++){
                     tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
+
                 }
             }
         }
