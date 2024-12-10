@@ -22,12 +22,13 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
     private TuileComponent[][] m_tiles;
     private JPanel m_panel;
+    private int m_colorRotation;
     
     public PlateauPanel(GameBoard gameBoard) {
         m_gameBoard = gameBoard;
         setLayout(new GridLayout(7, 7));
         initTuilesComponents();
-
+        setBackground(Color.BLUE);
 
     }
 
@@ -129,8 +130,24 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
         try {
-
             m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
+            m_colorRotation++;
+            m_colorRotation = m_colorRotation % 4;
+            switch (m_colorRotation){
+                case 0 :
+                    setBackground(Color.BLUE);
+                    break;
+                case 1 :
+                    setBackground(Color.YELLOW);
+                    break;
+                case 2 :
+                    setBackground(Color.RED);
+                    break;
+                case 3 :
+                    setBackground(Color.GREEN);
+                    break;
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

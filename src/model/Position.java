@@ -37,4 +37,18 @@ public class Position {
     public int getPositionY(){
         return this.m_y;
     }
+
+    public Position moveRight(){
+        return new Position(this.m_x + 1, this.m_y);
+    }
+    public Position moveLeft(){
+        return new Position(this.m_x - 1, this.m_y);
+    }
+    public Position moveUp(){
+        return new Position(this.m_x, this.m_y - 1);
+    }
+    public Position moveDown(){
+        return new Position(this.m_x, this.m_y + 1);
+    }
+
 }

@@ -64,9 +64,10 @@ public class GameDisplay extends JFrame implements PlateauObserver {
             m_plateauPanel.placePawn(m_game.getPlayer(i));
         }
 
-
         setVisible(true);
     }
+
+
 
 
     private void generateButtonLeft(){

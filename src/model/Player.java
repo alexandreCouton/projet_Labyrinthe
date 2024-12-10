@@ -103,6 +103,11 @@ public class Player {
         }
     }
 
+    public void move(Position pos){
+        m_pawn.setPosition(pos);
+        notifyObserver(m_pawn.getPosition());
+    }
+
     /**
      * @param path : the pawn's image path
      */
