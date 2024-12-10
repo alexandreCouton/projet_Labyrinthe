@@ -75,6 +75,10 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         repaint();
     }
 
+    public TuileComponent getFlyingTileComponent(){
+        return new TuileComponent(m_gameBoard.getFlyTile());
+    }
+
     /**
      * @param pos : the row's position you want to update on the view
      */
@@ -131,23 +135,6 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         int y = pos.getPositionY();
         try {
             m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
-            m_colorRotation++;
-            m_colorRotation = m_colorRotation % 4;
-            switch (m_colorRotation){
-                case 0 :
-                    setBackground(Color.BLUE);
-                    break;
-                case 1 :
-                    setBackground(Color.YELLOW);
-                    break;
-                case 2 :
-                    setBackground(Color.RED);
-                    break;
-                case 3 :
-                    setBackground(Color.GREEN);
-                    break;
-            }
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

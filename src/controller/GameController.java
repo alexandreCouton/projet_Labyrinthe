@@ -42,19 +42,19 @@ public class GameController {
      * @param direction : The directions "Haut, Bas, Gauche, Droite" indicating where the user wants to go.
      */
     public void deplacer(Direction direction) {
-        System.out.println("Deplacement d'un joueur");
-        if(m_game.movePlayer(direction)){
-            System.out.println("Deplacement d'un joueur reussi");
-            m_game.prochainTour();
-        }
+        m_game.movePlayer(direction);
+    }
+
+    public void nextTurn() {
+        m_game.prochainTour();
     }
 
     /**
      * @param player : The player currently playing.
      * @param objective : The objective at the player's current position.
      */
-    public void captureObjectif(Player player, Objective objective) {
-        m_game.captureObjectif(player, objective);
+    public void captureObjectif() {
+        m_game.captureObjectif();
     }
 
 

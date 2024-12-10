@@ -170,11 +170,9 @@ public class Game {
     }
 
     /**
-     * @param j : the current player
-     * @param objective : the objective (managed by the controller, he verifies if the player is on the right tile)
      */
-    public void captureObjectif(Player j, Objective objective) {
-        j.captureObjectif(objective);
+    public void captureObjectif() {
+        //j.captureObjectif(objective);
     }
 
 
