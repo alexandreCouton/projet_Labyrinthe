@@ -112,47 +112,42 @@ public class Game {
         Position nextMove;
         switch (direction) {
             case Direction.RIGHT:
-                nextMove = new Position(getCurrentPlayerPosition().getPositionX() + 1, getCurrentPlayerPosition().getPositionY());
+                nextMove = getCurrentPlayerPosition().moveRight();
                 if (m_gameBoard.inBoard(nextMove)) {
-                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.RIGHT)) {
-                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.LEFT)) {
-                            lstPlayer[m_currentPlayer].deplacer(Direction.RIGHT);
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).moveTile(direction, m_gameBoard.getTile(nextMove))) {
+                            lstPlayer[m_currentPlayer].move(nextMove);
                             return true;
                         }
                     }
-                }
+
                 return false;
             case Direction.LEFT:
-                nextMove = new Position(getCurrentPlayerPosition().getPositionX() - 1, getCurrentPlayerPosition().getPositionY());
+                nextMove = getCurrentPlayerPosition().moveLeft();
                 if (m_gameBoard.inBoard(nextMove)) {
-                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.LEFT)) {
-                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.RIGHT)) {
-                            lstPlayer[m_currentPlayer].deplacer(Direction.LEFT);
-                            return true;
-                        }
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).moveTile(direction, m_gameBoard.getTile(nextMove))) {
+                        lstPlayer[m_currentPlayer].move(nextMove);
+                        return true;
                     }
+
                 }
+
                 return false;
 
             case Direction.UP:
-                nextMove = new Position(getCurrentPlayerPosition().getPositionX(), getCurrentPlayerPosition().getPositionY() - 1);
+                nextMove = getCurrentPlayerPosition().moveUp();
                 if (m_gameBoard.inBoard(nextMove)) {
-                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.UP)) {
-                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.DOWN)) {
-                            lstPlayer[m_currentPlayer].deplacer(Direction.UP);
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).moveTile(direction, m_gameBoard.getTile(nextMove))) {
+                            lstPlayer[m_currentPlayer].move(nextMove);
                             return true;
-                        }
                     }
                 }
                 return false;
             case Direction.DOWN:
-                nextMove = new Position(getCurrentPlayerPosition().getPositionX(), getCurrentPlayerPosition().getPositionY() + 1);
+                nextMove = getCurrentPlayerPosition().moveDown();
                 if (m_gameBoard.inBoard(nextMove)) {
-                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).getOpen(Direction.DOWN)) {
-                        if (m_gameBoard.getTile(nextMove).getOpen(Direction.UP)) {
-                            lstPlayer[m_currentPlayer].deplacer(Direction.DOWN);
+                    if (m_gameBoard.getTile(getCurrentPlayerPosition()).moveTile(direction, m_gameBoard.getTile(nextMove))) {
+                            lstPlayer[m_currentPlayer].move(nextMove);
                             return true;
-                        }
                     }
                 }
                 return false;

@@ -154,6 +154,41 @@ public abstract class Tiles {
         return m_rotateIndex;
     }
 
+    public boolean moveTile(Direction direction, Tiles tile) {
+        if (!this.getOpen(direction)) {
+            return false;
+        }
+        switch (direction) {
+            case UP:
+                if (tile.getOpen(Direction.DOWN)) {
+                    tile.toStrPossibilite();
+                    return true;
+                }
+                return false;
+            case RIGHT:
+                if (tile.getOpen(Direction.LEFT)) {
+                    tile.toStrPossibilite();
+
+                    return true;
+                }
+                return false;
+            case DOWN:
+                if (tile.getOpen(Direction.UP)) {
+                    tile.toStrPossibilite();
+                    return true;
+                }
+                return false;
+            case LEFT:
+                if (tile.getOpen(Direction.RIGHT)) {
+                    tile.toStrPossibilite();
+
+                    return true;
+                }
+                return false;
+            }
+        return false;
+    }
+
     public void toStrPossibilite(){
         System.out.println("Up : "+m_possibilite.get(Direction.UP));
         System.out.println("Right : "+m_possibilite.get(Direction.RIGHT));
