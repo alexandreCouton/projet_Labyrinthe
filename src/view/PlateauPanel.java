@@ -87,7 +87,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         if(x == 0 || x == 6){
             isRow = true;
         }
-        if(y == 0){
+        if(y == 0 || y == 6){
             isColumnMovable = true;
         }
 
