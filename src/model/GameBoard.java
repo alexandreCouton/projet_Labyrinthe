@@ -24,7 +24,7 @@ public class GameBoard {
     private final Stack<TilesCorner> m_StackAngle;
     private final Stack<TilesT> m_stackT;
     private final Stack<TilesLinear> m_stackDroite;
-    private Stack<Objective> m_stackObjective;
+    private ArrayList<Objective> m_lstObjective;
     private Tiles m_flyingTile;
     private ArrayList<PlateauObserver> m_lstObserver;
 
@@ -33,7 +33,7 @@ public class GameBoard {
         m_StackAngle = new Stack<>();
         m_stackT = new Stack<>();
         m_stackDroite = new Stack<>();
-        m_stackObjective = new Stack<>();
+        m_lstObjective = new ArrayList<>();
         m_flyingTile = null;
         m_lstObserver = new ArrayList<>();
 
@@ -41,6 +41,7 @@ public class GameBoard {
         initTuiles();
         initPlateau();
         placerTuile();
+        placeObjective();
     }
 
     /**
@@ -90,10 +91,10 @@ public class GameBoard {
             if (lstPath.isEmpty()) {
                 lstPath = imgHelper.getPathImg("../../img/imgObjectif/argent.png");
             } else {
-                m_stackObjective.push(new Objective(lstPath.remove(lstPath.size() - 1)));
+                m_lstObjective.add(new Objective(lstPath.remove(lstPath.size() - 1)));
             }
         }
-        Collections.shuffle(m_stackObjective);
+        Collections.shuffle(m_lstObjective);
     }
 
     /**
@@ -117,10 +118,8 @@ public class GameBoard {
      * Initialize the GameBoard
      */
     private void initPlateau() {
-        for (int y = 0; y < m_lstTuilesPlateau.length; y++) {
-            for (int x = 0; x < m_lstTuilesPlateau[y].length; x++) {
-                m_lstTuilesPlateau[y][x] = null;
-            }
+        for (Tiles[] mLstTuilesPlateau : m_lstTuilesPlateau) {
+            Arrays.fill(mLstTuilesPlateau, null);
         }
     }
 
@@ -312,4 +311,20 @@ public class GameBoard {
         }
     }
 
+    private void placeObjective(){
+        ArrayList<Position> lstPosTake = new ArrayList<>();
+        lstPosTake.add(new Position(0, 0));
+        Position pos;
+        lstPosTake.add(new Position(0,0));
+        lstPosTake.add(new Position(0,6));
+        lstPosTake.add(new Position(6,6));
+        lstPosTake.add(new Position(6,0));
+        for (int i = 0; i < m_lstObjective.size(); i++) {
+            pos = Position.generateRandomPosition(7, 7);
+            if(!lstPosTake.contains(pos)){
+                lstPosTake.add(pos);
+                m_lstObjective.get(i).setPosition(pos);
+            }
+        }
+    }
 }

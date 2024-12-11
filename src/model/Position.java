@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Position {
     private int m_x;
     private int m_y;
@@ -49,6 +51,13 @@ public class Position {
     }
     public Position moveDown(){
         return new Position(this.m_x, this.m_y + 1);
+    }
+
+    public static Position generateRandomPosition(int maxX, int maxY){
+        Random rand = new Random();
+        int x = rand.nextInt(maxX);
+        int y = rand.nextInt(maxY);
+        return new Position(x, y);
     }
 
 }

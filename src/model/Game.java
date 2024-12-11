@@ -172,7 +172,7 @@ public class Game {
     /**
      */
     public void captureObjectif() {
-        //j.captureObjectif(objective);
+        getPlayer(m_currentPlayer).captureObjectif();
     }
 
 
