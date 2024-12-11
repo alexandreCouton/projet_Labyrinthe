@@ -25,27 +25,27 @@ import model.Direction;
  */
 
 public class ControlPanel extends JComponent {
-    private JButton m_btnHaut;
-    private JButton m_btnBas;
-    private JButton m_btnGauche;
-    private JButton m_btnDroite;
+    private TransparentJButton m_btnHaut;
+    private TransparentJButton m_btnBas;
+    private TransparentJButton m_btnGauche;
+    private TransparentJButton m_btnDroite;
     private GameController m_controller;
 
     public ControlPanel(GameController controller){
         m_controller = controller;
-        m_btnHaut = new JButton("Haut");
+        m_btnHaut = new TransparentJButton("Haut");
         m_btnHaut.addActionListener(e -> {
             m_controller.deplacer(Direction.UP);
         });
-        m_btnBas = new JButton("Bas");
+        m_btnBas = new TransparentJButton("Bas");
         m_btnBas.addActionListener(e -> {
             m_controller.deplacer(Direction.DOWN);
         });
-        m_btnGauche = new JButton("Gauche");
+        m_btnGauche = new TransparentJButton("Gauche");
         m_btnGauche.addActionListener(e -> {
             m_controller.deplacer(Direction.LEFT);
         });
-        m_btnDroite = new JButton("Droite");
+        m_btnDroite = new TransparentJButton("Droite");
         m_btnDroite.addActionListener(e -> {
             m_controller.deplacer(Direction.RIGHT);
         });
