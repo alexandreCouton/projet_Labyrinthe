@@ -75,6 +75,10 @@ public class Game {
         return m_gameBoard;
     }
 
+    public Player getCurrentPlayer(){
+        return lstPlayer[m_currentPlayer];
+    }
+
     /**
      * @param pos : Position where the current player wants to insert the flying tile
      */

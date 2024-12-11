@@ -36,6 +36,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         initializeButtonSection();
         placePawns();
         add(mainPanel, BorderLayout.CENTER); // Ajoute le panneau principal à la fenêtre
+        showObjective();
         setVisible(true);
     }
 
@@ -151,7 +152,8 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private JButton createCaptureButton() {
         JButton captureButton = new JButton("Capture");
-        captureButton.addActionListener(e -> m_gameController.captureObjectif());
+        showObjective();
+        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); showObjective() ;});
         captureButton.setBackground(Color.GREEN);
         captureButton.setForeground(Color.WHITE);
         captureButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -350,6 +352,49 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         mainPanel.add(m_fliyngTilePanel, gbc);
 
     }
+
+    private void showObjective() {
+        // First, remove any existing objective panels
+        for (Component comp : m_buttonSection.getComponents()) {
+            if (comp instanceof JPanel && !(comp instanceof JButton)) {
+                m_buttonSection.remove(comp);
+            }
+        }
+
+        // Create a new panel for objectives with a clear layout
+        JPanel objectivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        objectivePanel.setOpaque(true); // Make it visible
+        objectivePanel.setBackground(Color.LIGHT_GRAY); // Optional: give it a background color
+
+        // Iterate through current player's objectives
+        for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
+            ObjectiveComponent objComponent = new ObjectiveComponent(obj);
+            objComponent.setPreferredSize(new Dimension(100, 100)); // Set a specific size
+            objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
+            objectivePanel.add(objComponent);
+        }
+
+        // Create a scroll pane if there are many objectives
+        JScrollPane scrollPane = new JScrollPane(objectivePanel);
+        scrollPane.setPreferredSize(new Dimension(300, 150)); // Adjust size as needed
+
+        // Add to button section with full constraints
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.gridheight = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        m_buttonSection.add(scrollPane, gbc);
+
+        // Ensure the changes are displayed
+        m_buttonSection.revalidate();
+        m_buttonSection.repaint();
+    }
+
 
     /**
      * Met à jour l'affichage du plateau.

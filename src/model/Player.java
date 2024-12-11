@@ -49,6 +49,10 @@ public class Player {
         m_lstObjective = lstObjective;
     }
 
+    public ArrayList<Objective> getLstObjective(){
+        return m_lstObjective;
+    }
+
     /**
      * @return the position of the player's pawn
      */

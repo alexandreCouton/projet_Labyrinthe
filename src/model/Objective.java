@@ -20,6 +20,13 @@ public class Objective {
         return m_name;
     }
 
+    /**
+     * @return path : the path of the image
+     */
+    public String getPath(){
+        return m_path;
+    }
+
     public void setPosition(Position pos){
         this.m_position = pos;
     }

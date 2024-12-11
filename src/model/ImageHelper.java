@@ -98,7 +98,7 @@ public class ImageHelper {
 			File[] imageFile = folder.listFiles();
 			if(imageFile != null){
 				for (File file : imageFile) {
-					lstPath.add(file.getAbsolutePath());
+					lstPath.add(file.getPath().replace("\\", "/"));
 				}
 			}
 
