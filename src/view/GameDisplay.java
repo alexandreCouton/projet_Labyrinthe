@@ -5,12 +5,11 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 public class GameDisplay extends JFrame implements PlateauObserver {
     private PlateauPanel m_plateauPanel;
     private Game m_game;
-    private JPanel pPanel;
     private JPanel mainPanel;
     private GameController m_gameController;
     private JPanel m_buttonSection;
@@ -45,7 +44,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void initializeFrame() {
         setTitle("Labyrinthe");
-        setSize(1200, 800);
+        setSize(1300, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -55,9 +54,11 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      * Initialise le panneau principal avec un GridBagLayout.
      */
     private void initializeMainPanel() {
-        mainPanel = new JPanel(new GridBagLayout());
-    }
+        BufferedImage background = ImageHelper.loadImage("src/img/fondLabyrinthe.jpg");
+        mainPanel = new BackgroundPanel(background);
+        mainPanel.setLayout(new GridBagLayout());
 
+    }
     /**
      * Initialise le panneau de plateau et l'ajoute au panneau principal.
      *
@@ -202,13 +203,13 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void generateButtonLeft() {
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel buttonPanel = new JPanel();
+        TransparentPanel buttonPanel = new TransparentPanel();
         buttonPanel.setLayout(new GridLayout(7, 1));
         for (int i = 0; i < 7; i++) {
             if (i % 2 == 0) {
                 buttonPanel.add(new JLabel());
             } else {
-                Button button = new Button("inserer tuile");
+                TransparentJButton button = new TransparentJButton("inserer tuile");
                 int finalI = i;
                 button.addActionListener(actionEvent -> m_gameController.placeFlyingTile(new Position(0, finalI)));
                 buttonPanel.add(button);
@@ -224,19 +225,18 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.anchor = GridBagConstraints.NORTH;
         mainPanel.add(buttonPanel, gbc);
     }
-
     /**
      * Génère les boutons pour insérer des tuiles à droite du plateau.
      */
     private void generateButtonRight() {
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel buttonPanel = new JPanel();
+        TransparentPanel buttonPanel = new TransparentPanel();
         buttonPanel.setLayout(new GridLayout(7, 1));
         for (int i = 0; i < 7; i++) {
             if (i % 2 == 0) {
                 buttonPanel.add(new JLabel());
             } else {
-                Button button = new Button("inserer tuile");
+                TransparentJButton button = new TransparentJButton("inserer tuile");
                 int finalI = i;
                 button.addActionListener(actionEvent -> m_gameController.placeFlyingTile(new Position(6, finalI)));
                 buttonPanel.add(button);
@@ -258,13 +258,13 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void generateButtonTop() {
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel buttonPanel = new JPanel();
+        TransparentPanel buttonPanel = new TransparentPanel();
         buttonPanel.setLayout(new GridLayout(1, 7));
         for (int i = 0; i < 7; i++) {
             if (i % 2 == 0) {
                 buttonPanel.add(new JLabel());
             } else {
-                Button button = new Button("inserer tuile");
+                TransparentJButton button = new TransparentJButton("inserer tuile");
                 int finalI = i;
                 button.addActionListener(actionEvent -> m_gameController.placeFlyingTile(new Position(finalI, 0)));
                 buttonPanel.add(button);
@@ -286,13 +286,13 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void generateButtonBottom() {
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel buttonPanel = new JPanel();
+        TransparentPanel buttonPanel = new TransparentPanel();
         buttonPanel.setLayout(new GridLayout(1, 7));
         for (int i = 0; i < 7; i++) {
             if (i % 2 == 0) {
                 buttonPanel.add(new JLabel());
             } else {
-                Button button = new Button("inserer tuile");
+                TransparentJButton button = new TransparentJButton("inserer tuile");
                 int finalI = i;
                 button.addActionListener(actionEvent -> m_gameController.placeFlyingTile(new Position(finalI, 6)));
                 buttonPanel.add(button);
@@ -314,7 +314,9 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void generateFlyingTilePlace() {
         GridBagConstraints gbc = new GridBagConstraints();
-        m_fliyngTilePanel = new JPanel(new GridBagLayout()); // Utiliser GridBagLayout pour plus de flexibilité
+        //m_fliyngTilePanel = new JPanel(new GridBagLayout()); // Utiliser GridBagLayout pour plus de flexibilité
+        TransparentPanel m_fliyngTilePanel = new TransparentPanel();
+        m_fliyngTilePanel.setLayout(new GridBagLayout());
         TuileComponent flyingTile = m_plateauPanel.getFlyingTileComponent();
         // Ajuster la taille préférée de la tuile volante pour obtenir un bon rapport hauteur/largeur
         Dimension preferredSize = new Dimension(100, 100); // Ajustez ces valeurs selon vos besoins

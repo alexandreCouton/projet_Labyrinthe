@@ -6,4 +6,5 @@ public class test1 {
     private JTree tree1;
     private JPanel panel1;
     private JButton button1;
+    private JButton button2;
 }
