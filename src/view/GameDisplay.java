@@ -111,6 +111,18 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JButton captureButton = createCaptureButton();
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
+        m_buttonSection.add(captureButton, gbc);
+
+        JButton nextTurnButton = createNextTurnButton();
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -118,17 +130,8 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.BOTH;
-        m_buttonSection.add(captureButton, gbc);
-
-        JButton nextTurnButton = createNextTurnButton();
-        gbc.gridx = 2;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.EAST;
+        gbc.insets = new Insets(5, 5, 5, 5);
         m_buttonSection.add(nextTurnButton, gbc);
 
         gbc.gridx = 5;
@@ -151,7 +154,6 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         captureButton.setBackground(Color.GREEN);
         captureButton.setForeground(Color.WHITE);
         captureButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        captureButton.setPreferredSize(new Dimension(150, 50)); // Ajustement de la taille
         return captureButton;
     }
 
@@ -184,7 +186,6 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         nextTurnButton.setForeground(Color.WHITE);
         nextTurnButton.setBorder(BorderFactory.createBevelBorder(1));
         nextTurnButton.setFont(new Font("Arial", Font.BOLD, 16));
-        nextTurnButton.setPreferredSize(new Dimension(150, 50)); // Ajustement de la taille
         return nextTurnButton;
     }
 
@@ -298,7 +299,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
                 buttonPanel.add(button);
             }
         }
-        gbc.gridx = 3; // Décalé de 1
+        gbc.gridx = 3;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;

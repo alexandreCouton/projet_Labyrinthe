@@ -131,12 +131,14 @@ public class Player {
 
 
     /**
-     * @param objective : The objective of current player's position
+     *
      */
-    public void captureObjectif(Objective objective){
-        if(m_lstObjective.contains(objective)){
-            m_lstObjective.remove(objective);
-            m_objectifCapture++;
+    public void captureObjectif(){
+        for(Objective objective : m_lstObjective){
+            if(objective.getPosition() == this.getPosition()){
+                m_lstObjective.remove(objective);
+                m_objectifCapture++;
+            }
         }
     }
 }
