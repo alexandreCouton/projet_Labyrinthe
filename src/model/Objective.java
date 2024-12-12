@@ -3,7 +3,6 @@ package model;
 public class Objective {
     private String m_path;
     private String m_name;
-    private Position m_position;
 
     public Objective(String nom){
         this.m_name = nom;
@@ -26,14 +25,4 @@ public class Objective {
     public String getPath(){
         return m_path;
     }
-
-    public void setPosition(Position pos){
-        this.m_position = pos;
-    }
-
-    public Position  getPosition(){
-        return m_position;
-    }
-
-
 }

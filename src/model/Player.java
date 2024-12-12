@@ -103,16 +103,8 @@ public class Player {
         this.m_pawn.setPosition(m_position);
     }
 
-
-    /**
-     *
-     */
-    public void captureObjectif(){
-        for(Objective objective : m_lstObjective){
-            if(objective.getPosition() == this.getPosition()){
-                m_lstObjective.remove(objective);
-                m_objectifCapture++;
-            }
-        }
+    public void captureObjectif(Objective obj){
+        m_lstObjective.remove(obj);
+        m_objectifCapture++;
     }
 }

@@ -27,7 +27,7 @@ public class TuileComponent extends JComponent implements TilesObserver {
         m_tiles = tiles;
         setLayout(new BorderLayout());
         setVisible(true);
-        m_image = ImageHelper.loadImage(tiles.getPath());
+        setImage(ImageHelper.loadImage(tiles.getPath()));
         for(int i=0;i<tiles.getRotateIndex()%4;i++){
             m_image=ImageHelper.rotateClockwise(m_image);
         }
@@ -46,9 +46,18 @@ public class TuileComponent extends JComponent implements TilesObserver {
      * @param tiles : The tiles you want to set with an image for the view
      */
     public void setTile(Tiles tiles) {
-        m_tiles = tiles;
-        m_image = ImageHelper.loadImage(tiles.getPath());
-        repaint();
+        try {
+            m_tiles = tiles;
+            if(tiles.getObjective()!=null){
+                m_image = ImageHelper.merge(tiles.getPath(), tiles.getObjective().getPath());
+            }else {
+                m_image = ImageHelper.loadImage(tiles.getPath());
+            }
+            repaint();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**

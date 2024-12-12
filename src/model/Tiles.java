@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -80,15 +79,6 @@ public abstract class Tiles {
     /**
      * @return the position of the Tile
      */
-    /*public Tiles(Position pos,BufferedImage image){
-        this.m_position=pos;
-        this.m_image=image;
-    }
-    public Tiles(Objective objectif,Position pos,BufferedImage image){
-        this.m_objective=objectif;
-        this.m_position=pos;
-        this.m_image=image;
-    }*/
     public Position getPositionTuile(){
         return this.m_position;
     }
@@ -195,4 +185,13 @@ public abstract class Tiles {
         System.out.println("Down : "+m_possibilite.get(Direction.DOWN));
         System.out.println("Left : "+m_possibilite.get(Direction.LEFT));
     }
+
+    public void setObjective(Objective obj){
+        this.m_objective=obj;
+    }
+
+    public Objective getObjective(){
+        return this.m_objective;
+    }
+
 }

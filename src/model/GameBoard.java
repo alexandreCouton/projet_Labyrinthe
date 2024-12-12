@@ -326,7 +326,7 @@ public class GameBoard {
             pos = Position.generateRandomPosition(7, 7);
             if(!lstPosTake.contains(pos)){
                 lstPosTake.add(pos);
-                m_lstObjective.get(i).setPosition(pos);
+                getTile(pos).setObjective(m_lstObjective.get(i));
             }
         }
     }

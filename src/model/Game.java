@@ -191,7 +191,10 @@ public class Game {
     /**
      */
     public void captureObjectif() {
-        getPlayer(m_currentPlayer).captureObjectif();
+        Objective obj = m_gameBoard.getTile(getCurrentPlayer().getPosition()).getObjective();
+        if(getCurrentPlayer().getLstObjective().contains(obj)){
+            getCurrentPlayer().captureObjectif(obj);
+        }
     }
 
 
