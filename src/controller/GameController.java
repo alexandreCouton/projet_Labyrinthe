@@ -43,7 +43,7 @@ public class GameController {
     /**
      * @param direction : The directions "Haut, Bas, Gauche, Droite" indicating where the user wants to go.
      */
-    public void deplacer(Direction direction) {
+    public void move(Direction direction) {
         m_game.movePlayer(direction);
     }
 
@@ -52,8 +52,7 @@ public class GameController {
     }
 
     /**
-     * @param player : The player currently playing.
-     * @param objective : The objective at the player's current position.
+     * Capture the objective
      */
     public void captureObjectif() {
         m_game.captureObjectif();

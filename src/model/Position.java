@@ -41,15 +41,19 @@ public class Position {
     }
 
     public Position moveRight(){
+        System.out.println("moveRight");
         return new Position(this.m_x + 1, this.m_y);
     }
     public Position moveLeft(){
+        System.out.println("moveLeft");
         return new Position(this.m_x - 1, this.m_y);
     }
     public Position moveUp(){
+        System.out.println("moveUp");
         return new Position(this.m_x, this.m_y - 1);
     }
     public Position moveDown(){
+        System.out.println("moveDown");
         return new Position(this.m_x, this.m_y + 1);
     }
 

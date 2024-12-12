@@ -1,7 +1,6 @@
 package view;
 
 import controller.GameController;
-import model.GameBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,19 +34,19 @@ public class ControlPanel extends JComponent {
         m_controller = controller;
         m_btnHaut = new TransparentJButton("Haut");
         m_btnHaut.addActionListener(e -> {
-            m_controller.deplacer(Direction.UP);
+            m_controller.move(Direction.UP);
         });
         m_btnBas = new TransparentJButton("Bas");
         m_btnBas.addActionListener(e -> {
-            m_controller.deplacer(Direction.DOWN);
+            m_controller.move(Direction.DOWN);
         });
         m_btnGauche = new TransparentJButton("Gauche");
         m_btnGauche.addActionListener(e -> {
-            m_controller.deplacer(Direction.LEFT);
+            m_controller.move(Direction.LEFT);
         });
         m_btnDroite = new TransparentJButton("Droite");
         m_btnDroite.addActionListener(e -> {
-            m_controller.deplacer(Direction.RIGHT);
+            m_controller.move(Direction.RIGHT);
         });
 
         GridLayout layout = new GridLayout(2, 3);

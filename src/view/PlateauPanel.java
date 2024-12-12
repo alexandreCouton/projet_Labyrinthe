@@ -126,14 +126,17 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
 
 
     /**
-     * @param pos : The position where the pawn has to move on
+     * @param oldPos : the old position of the player's pawn
+     * @param newPos : the new position of the player's pawn
      * @param path : the path of the player's pawn
      */
     @Override
-    public void movePlayer(Position pos, String path) {
-        int x = pos.getPositionX();
-        int y = pos.getPositionY();
+    public void movePlayer(Position oldPos, Position newPos, String path) {
+        int x = newPos.getPositionX();
+        int y = newPos.getPositionY();
         try {
+            updateTile(oldPos);
+            updateTile(newPos);
             m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
 
             } catch (IOException e) {
@@ -143,4 +146,17 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         repaint();
 
     }
+
+    public void updateTile(Position pos){
+        int x = pos.getPositionX();
+        int y = pos.getPositionY();
+        TuileComponent tuileComponent = m_tiles[y][x];
+        tuileComponent.setTile(m_gameBoard.getGameBoard()[y][x]);
+        for(int i=0;i < m_gameBoard.getGameBoard()[y][x].getRotateIndex();i++){
+            tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
+        }
+        revalidate();
+        repaint();
+    }
+
 }

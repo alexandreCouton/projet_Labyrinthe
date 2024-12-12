@@ -295,19 +295,23 @@ public class GameBoard {
         return m_lstTuilesPlateau[pos.getPositionY()][pos.getPositionX()];
     }
 
-    public void outSideBoard(Position pos) {
-        if (pos.getPositionX() < 0) {
-            pos.setPositionX(6);
+    public Position outSideBoard(Position pos) {
+        int x = pos.getPositionX();
+        int y = pos.getPositionY();
+
+        if (x < 0) {
+            x = 6;
+        } else if (x > 6) {
+            x = 0;
         }
-        if (pos.getPositionX() > 6) {
-            pos.setPositionX(0);
+
+        if (y < 0) {
+            y = 6;
+        } else if (y > 6) {
+            y = 0;
         }
-        if (pos.getPositionY() < 0) {
-            pos.setPositionY(6);
-        }
-        if (pos.getPositionY() > 6) {
-            pos.setPositionY(0);
-        }
+
+        return new Position(x, y);
     }
 
     private void placeObjective(){

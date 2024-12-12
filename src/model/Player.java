@@ -34,13 +34,15 @@ public class Player {
 
 
     /**
-     * @param pos : Pos of the player's pawn (for the view)
+     * @param oldPos : the old position of the player's pawn
+     * @param newPos : the new position of the player's pawn
      */
-    public void notifyObserver(Position pos){
+    public void notifyObserver(Position oldPos, Position newPos){
         for(PlayerObserver obs : m_lstObserver){
-            obs.movePlayer(pos, m_pawn.getPath());
+            obs.movePlayer(oldPos, newPos, m_pawn.getPath());
         }
     }
+
 
     /**
      * @param lstObjective : Set the objectives for the player
@@ -68,48 +70,15 @@ public class Player {
         return m_pawn.getPosition().getPositionY();
     }
 
+
     /**
-     * @param deplacement : the direction of where the player's pawn has to move on
+     * @param pos
+     * Move the player's pawn to the position pos
      */
-    public void deplacer(Direction deplacement){
-        switch (deplacement) {
-            case UP:
-                m_pawn.goUp();
-                if(m_pawn.getPosition().getPositionY() < 0){
-                    m_pawn.setPositionY(6);
-                }
-                notifyObserver(m_pawn.getPosition());
-                break;
-            case DOWN:
-                m_pawn.goDown();
-                if(m_pawn.getPosition().getPositionY() > 6){
-                    m_pawn.setPositionY(0);
-                }
-                notifyObserver(m_pawn.getPosition());
-
-                break;
-            case LEFT:
-                m_pawn.goLeft();
-                if(m_pawn.getPosition().getPositionX() < 0){
-                    m_pawn.setPositionX(6);
-                }
-                notifyObserver(m_pawn.getPosition());
-
-                break;
-            case RIGHT:
-                m_pawn.goRight();
-                if(m_pawn.getPosition().getPositionX() > 6){
-                    m_pawn.setPositionX(0);
-                }
-                notifyObserver(m_pawn.getPosition());
-
-                break;
-        }
-    }
-
     public void move(Position pos){
+        notifyObserver(m_pawn.getPosition(), pos);
         m_pawn.setPosition(pos);
-        notifyObserver(m_pawn.getPosition());
+
     }
 
     /**
@@ -130,6 +99,7 @@ public class Player {
      * @param m_position : the position of where the player's pawn has to be
      */
     public void setPionPosition(Position m_position) {
+        notifyObserver(m_pawn.getPosition(), m_position);
         this.m_pawn.setPosition(m_position);
     }
 

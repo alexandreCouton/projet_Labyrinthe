@@ -99,21 +99,23 @@ public class Game {
      * @param pos : Position where the current player wants to insert the flying tile
      */
     public void insertFlyingTile(Position pos){
+
         m_gameBoard.insertFlyingTile(pos);
         for(Player j : lstPlayer){
-            if(j.getPosition().getPositionY() == pos.getPositionY()){
+            if(j.getPositionY() == pos.getPositionY()){
                 if(pos.getPositionX() == 0) {
-                    j.deplacer(Direction.RIGHT);
+                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveRight()));
+
                 } else if (pos.getPositionX() == 6) {
-                        j.deplacer(Direction.LEFT);
+                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveLeft()));
+
                 }
             }
-            else if(j.getPosition().getPositionX() == pos.getPositionX() ){
-
+            if(j.getPositionX() == pos.getPositionX()){
                 if (pos.getPositionY() == 0) {
-                    j.deplacer(Direction.DOWN);
+                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveDown()));
                 } else if (pos.getPositionY() == 6) {
-                    j.deplacer(Direction.UP);
+                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveUp()));
                 }
             }
         }
