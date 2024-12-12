@@ -9,15 +9,15 @@ import java.util.ArrayList;
 /**
  * The Game class encapsulates the core logic of the Labyrinth game.
  * It is part of the model in the MVC architecture and is responsible for managing
- * the game's state, rules, and mechanics.
+ * the game's state, rules, and mechanics. <br>
  *
- * Key responsibilities include:
- * - Initializing the game board and placing the player and objectives.
- * - Managing player movements and ensuring they follow the game rules.
- * - Detecting and handling events, such as reaching objectives or invalid moves.
- * - Tracking the game state, including the player's position, objectives, and score.
- *
- * This class provides methods that allow the controller to interact with and update
+ * <ul>Key responsibilities include:<br>
+ * - Initializing the game board and placing the player and objectives.<br>
+ * - Managing player movements and ensuring they follow the game rules.<br>
+ * - Detecting and handling events, such as reaching objectives or invalid moves.<br>
+ * - Tracking the game state, including the player's position, objectives, and score.<br>
+ *</ul>
+ * This class provides methods that allow the controller to interact with and update<br>
  * the game state while maintaining the integrity of the rules and logic.
  */
 
@@ -48,7 +48,6 @@ public class Game {
             }
             p.setLstObjectif(lstObjTemp);
             lstObjTemp = new ArrayList<>();
-            System.out.println(p.getLstObjective());
         }
     }
 
@@ -181,10 +180,7 @@ public class Game {
      * next player
      */
     public void prochainTour(){
-        System.out.println("Player " + m_currentPlayer);
-
         m_currentPlayer++;
-        System.out.println("Player " + m_currentPlayer);
         if(m_currentPlayer == 4){
             m_currentPlayer = 0;
         }

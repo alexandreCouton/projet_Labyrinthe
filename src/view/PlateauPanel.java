@@ -135,7 +135,8 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         int y = pos.getPositionY();
         try {
             m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
-        } catch (IOException e) {
+
+            } catch (IOException e) {
             throw new RuntimeException(e);
         }
         revalidate();
