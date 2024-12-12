@@ -137,7 +137,7 @@ public class GameBoard {
                 m_lstTuilesPlateau[y][i] = m_lstTuilesPlateau[y][i - 1];
             }
             m_lstTuilesPlateau[y][0] = m_flyingTile;
-
+            m_flyingTile = replacedTile;
             notifyObserverTiles(new Position(0, y));
         }
         // Move tiles to the left
@@ -145,9 +145,9 @@ public class GameBoard {
             replacedTile = m_lstTuilesPlateau[y][0];
             for (int i = 0; i < 6; i++) {
                 m_lstTuilesPlateau[y][i] = m_lstTuilesPlateau[y][i + 1];
-                notifyObserverTiles(new Position(i, y));
             }
             m_lstTuilesPlateau[y][6] = m_flyingTile;
+            m_flyingTile = replacedTile;
             notifyObserverTiles(new Position(6, y));
         }
         // Move tiles to the top
@@ -155,9 +155,9 @@ public class GameBoard {
             replacedTile = m_lstTuilesPlateau[6][x];
             for (int i = 6; i > 0; i--) {
                 m_lstTuilesPlateau[i][x] = m_lstTuilesPlateau[i - 1][x];
-                notifyObserverTiles(new Position(x, i));
             }
             m_lstTuilesPlateau[0][x] = m_flyingTile;
+            m_flyingTile = replacedTile;
             notifyObserverTiles(new Position(x, 0));
         }
         // Move tiles to the bottom
@@ -165,13 +165,11 @@ public class GameBoard {
             replacedTile = m_lstTuilesPlateau[0][x];
             for (int i = 0; i < 6; i++) {
                 m_lstTuilesPlateau[i][x] = m_lstTuilesPlateau[i + 1][x];
-                notifyObserverTiles(new Position(x, i));
             }
             m_lstTuilesPlateau[6][x] = m_flyingTile;
+            m_flyingTile = replacedTile;
             notifyObserverTiles(new Position(x, 6));
         }
-
-        m_flyingTile = replacedTile;
     }
 
     /**

@@ -317,11 +317,9 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void generateFlyingTilePlace() {
         GridBagConstraints gbc = new GridBagConstraints();
-        //m_fliyngTilePanel = new JPanel(new GridBagLayout()); // Utiliser GridBagLayout pour plus de flexibilité
-        TransparentPanel m_fliyngTilePanel = new TransparentPanel();
+        m_fliyngTilePanel = new TransparentPanel();
         m_fliyngTilePanel.setLayout(new GridBagLayout());
         TuileComponent flyingTile = m_plateauPanel.getFlyingTileComponent();
-        // Ajuster la taille préférée de la tuile volante pour obtenir un bon rapport hauteur/largeur
         Dimension preferredSize = new Dimension(100, 100); // Ajustez ces valeurs selon vos besoins
         flyingTile.setPreferredSize(preferredSize);
 
@@ -358,6 +356,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weightx = 1.0;
         gbc.weighty = 2;
         m_fliyngTilePanel.add(clearLabel, gbc);
+
         gbc.gridx = 1; // Position x = 1
         gbc.gridy = 2; // Position y = 2
         gbc.gridwidth = 1;
@@ -367,6 +366,8 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
         mainPanel.add(m_fliyngTilePanel, gbc);
+
+
 
     }
 
@@ -397,6 +398,15 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         m_buttonSection.repaint();
     }
 
+    public void updateFlyingTile() {
+        TuileComponent tuile = ((TuileComponent) m_fliyngTilePanel.getComponent(1));
+        tuile.setTile(m_game.getGameBoard().getFlyTile());
+        for (int i = 0; i < m_game.getGameBoard().getFlyTile().getRotateIndex(); i++) {
+            tuile.updateRotateTile(m_game.getGameBoard().getFlyTile());
+        }
+        revalidate();
+        repaint();
+    }
 
     /**
      * Met à jour l'affichage du plateau.
@@ -448,5 +458,6 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     @Override
     public void updateTile(Position position) {
         m_plateauPanel.updatePlateau(position);
+        updateFlyingTile();
     }
 }
