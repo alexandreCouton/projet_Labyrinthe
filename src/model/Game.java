@@ -3,6 +3,9 @@ package model;
 import view.GameDisplay;
 import view.PlateauPanel;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 /**
  * The Game class encapsulates the core logic of the Labyrinth game.
  * It is part of the model in the MVC architecture and is responsible for managing
@@ -33,6 +36,20 @@ public class Game {
         m_gameBoard = new GameBoard();
         m_currentPlayer = 0;
         initPlayers();
+        distibuerObj(m_gameBoard.getLstObjective());
+    }
+
+    private void distibuerObj(ArrayList<Objective> lstObj){
+        ArrayList<Objective> lstObjTemp = new ArrayList<>();
+        for(Player p : lstPlayer){
+            for(int i = 0; i<6; i++){
+                lstObjTemp.add(lstObj.get(0));
+                lstObj.remove(0);
+            }
+            p.setLstObjectif(lstObjTemp);
+            lstObjTemp = new ArrayList<>();
+            System.out.println(p.getLstObjective());
+        }
     }
 
     /**

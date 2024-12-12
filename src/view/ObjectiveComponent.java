@@ -15,11 +15,6 @@ public class ObjectiveComponent extends JComponent {
         setLayout(new BorderLayout());
         m_image = ImageHelper.loadImage(objective.getPath());
 
-        // Set a fixed aspect ratio and size
-        setPreferredSize(new Dimension(100, 100));
-        setMinimumSize(new Dimension(50, 50));
-        setMaximumSize(new Dimension(150, 150));
-
         setVisible(true);
     }
 

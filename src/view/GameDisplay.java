@@ -325,70 +325,72 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         Dimension preferredSize = new Dimension(100, 100); // Ajustez ces valeurs selon vos besoins
         flyingTile.setPreferredSize(preferredSize);
 
-        // Ajouter la tuile volante au panneau
+        JLabel clearLabel1 = new JLabel();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
-        gbc.weighty = 0.5;
+        gbc.weighty = 2;
+        m_fliyngTilePanel.add(clearLabel1, gbc);
+
+        // Ajouter la tuile volante au panneau
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.1;
         m_fliyngTilePanel.add(flyingTile, gbc);
 
         // Ajouter le bouton de rotation au panneau
         Button flyingTileRotationButton = new Button("Tourner");
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.weightx = 1.0;
-        gbc.weighty = 0.10;
-        m_fliyngTilePanel.add(flyingTileRotationButton, gbc);
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Remplir seulement horizontalement
+        flyingTileRotationButton.addActionListener(e -> {
+            m_gameController.rotateFlyingTile();
+            flyingTile.updateRotateTile(m_game.getGameBoard().getFlyTile());
+        });
 
-        // Ajouter le panneau de la tuile volante au panneau principal
+        m_fliyngTilePanel.add(flyingTileRotationButton, gbc);
+        JLabel clearLabel = new JLabel();
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.weighty = 2;
+        m_fliyngTilePanel.add(clearLabel, gbc);
         gbc.gridx = 1; // Position x = 1
         gbc.gridy = 2; // Position y = 2
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        gbc.weightx = 0.1; // Réduire le poids pour éviter l'écrasement
-        gbc.weighty = 1;
+        gbc.weightx = 5;
+        gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.CENTER; // Centrer le panneau
+        gbc.anchor = GridBagConstraints.CENTER;
         mainPanel.add(m_fliyngTilePanel, gbc);
 
     }
 
     private void showObjective() {
-        // First, remove any existing objective panels
-        for (Component comp : m_buttonSection.getComponents()) {
-            if (comp instanceof JPanel && !(comp instanceof JButton)) {
-                m_buttonSection.remove(comp);
-            }
-        }
+        JPanel objectivePanel = new JPanel(new FlowLayout());
+        objectivePanel.setOpaque(true);
 
-        // Create a new panel for objectives with a clear layout
-        JPanel objectivePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        objectivePanel.setOpaque(true); // Make it visible
-        objectivePanel.setBackground(Color.LIGHT_GRAY); // Optional: give it a background color
-
-        // Iterate through current player's objectives
         for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
             ObjectiveComponent objComponent = new ObjectiveComponent(obj);
-            objComponent.setPreferredSize(new Dimension(100, 100)); // Set a specific size
+            objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
             objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
             objectivePanel.add(objComponent);
         }
 
-        // Create a scroll pane if there are many objectives
-        JScrollPane scrollPane = new JScrollPane(objectivePanel);
-        scrollPane.setPreferredSize(new Dimension(300, 150)); // Adjust size as needed
-
-        // Add to button section with full constraints
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.gridheight = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
+        gbc.weightx =0.1;
+        gbc.weighty = 0.3;
         gbc.fill = GridBagConstraints.BOTH;
 
-        m_buttonSection.add(scrollPane, gbc);
+        m_buttonSection.add(objectivePanel, gbc);
 
         // Ensure the changes are displayed
         m_buttonSection.revalidate();

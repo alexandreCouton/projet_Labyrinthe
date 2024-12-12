@@ -45,8 +45,8 @@ public class Player {
     /**
      * @param lstObjective : Set the objectives for the player
      */
-    private void setLstObjectif(ArrayList<Objective> lstObjective){
-        m_lstObjective = lstObjective;
+    protected void setLstObjectif(ArrayList<Objective> lstObjective){
+        this.m_lstObjective = lstObjective;
     }
 
     public ArrayList<Objective> getLstObjective(){

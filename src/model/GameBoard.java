@@ -91,7 +91,6 @@ public class GameBoard {
             if (lstPath.isEmpty()) {
                 m_lstObjective.add(new Objective("Objective"+i,"src/img/imgObjectif/argent.png"));
             } else {
-                System.out.println(lstPath.getLast());
                 m_lstObjective.add(new Objective("Objective"+i, lstPath.getLast()));
                 lstPath.removeLast();
             }
@@ -328,5 +327,9 @@ public class GameBoard {
                 m_lstObjective.get(i).setPosition(pos);
             }
         }
+    }
+
+    public ArrayList<Objective> getLstObjective(){
+        return m_lstObjective;
     }
 }

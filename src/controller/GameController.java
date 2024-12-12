@@ -34,8 +34,10 @@ public class GameController {
      */
     public void placeFlyingTile(Position pos) {
         m_game.insertFlyingTile(pos);
+    }
 
-
+    public void rotateFlyingTile() {
+        m_game.getGameBoard().getFlyTile().rotate();
     }
 
     /**
