@@ -211,19 +211,22 @@ public class GameBoard {
     private void initPlaceTuileAng() {
         try {
             TilesCorner tuile = m_StackAngle.pop();
-
+            tuile.setObjective(new Objective("blueStart"));
             this.placerTuileSurPlateauInit(new Position(0, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate();
+            tuile.setObjective(new Objective("yellowStart"));
             this.placerTuileSurPlateauInit(new Position(6, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(3);
+            tuile.setObjective(new Objective("redStart"));
             this.placerTuileSurPlateauInit(new Position(0, 6), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(2);
+            tuile.setObjective(new Objective("greenStart"));
             this.placerTuileSurPlateauInit(new Position(6, 6), tuile);
 
         } catch (Exception e) {
@@ -315,17 +318,14 @@ public class GameBoard {
     }
 
     private void placeObjective(){
-        ArrayList<Position> lstPosTake = new ArrayList<>();
-        lstPosTake.add(new Position(0, 0));
         Position pos;
-        lstPosTake.add(new Position(0,0));
-        lstPosTake.add(new Position(0,6));
-        lstPosTake.add(new Position(6,6));
-        lstPosTake.add(new Position(6,0));
+
         for (int i = 0; i < m_lstObjective.size(); i++) {
             pos = Position.generateRandomPosition(7, 7);
-            if(!lstPosTake.contains(pos)){
-                lstPosTake.add(pos);
+            if(getTile(pos).getObjective() != null ) {
+                i--;
+            }else{
+
                 getTile(pos).setObjective(m_lstObjective.get(i));
             }
         }

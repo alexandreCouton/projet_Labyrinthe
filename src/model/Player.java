@@ -78,7 +78,7 @@ public class Player {
     public void move(Position pos){
         notifyObserver(m_pawn.getPosition(), pos);
         m_pawn.setPosition(pos);
-
+        System.out.println(m_objectifCapture);
     }
 
     /**

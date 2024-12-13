@@ -13,7 +13,9 @@ public class ObjectiveComponent extends JComponent {
     public ObjectiveComponent(Objective objective) {
         m_objective = objective;
         setLayout(new BorderLayout());
-        m_image = ImageHelper.loadImage(objective.getPath());
+        if(m_objective.getPath() != null){
+            m_image = ImageHelper.loadImage(objective.getPath());
+        }
 
         setVisible(true);
     }
@@ -49,6 +51,7 @@ public class ObjectiveComponent extends JComponent {
      */
     public void setObjective(Objective objective) {
         m_objective = objective;
+
         m_image = ImageHelper.loadImage(objective.getPath());
         repaint();
     }

@@ -15,6 +15,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     private JPanel m_buttonSection;
     private JPanel m_fliyngTilePanel;
     private int m_colorRotation = 0;
+    private JPanel objectivePanel;
 
     /**
      * Constructeur de la classe GameDisplay.
@@ -113,6 +114,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JButton captureButton = createCaptureButton();
+        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); updateObjectivePanel() ;});
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -153,7 +155,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     private JButton createCaptureButton() {
         JButton captureButton = new JButton("Capture");
         showObjective();
-        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); showObjective() ;});
+        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); updateObjectivePanel();});
         captureButton.setBackground(Color.GREEN);
         captureButton.setForeground(Color.WHITE);
         captureButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -371,8 +373,24 @@ public class GameDisplay extends JFrame implements PlateauObserver {
 
     }
 
+    private void updateObjectivePanel() {
+        objectivePanel.removeAll();
+        if(m_game.getCurrentPlayer().getLstObjective().size() == 0){
+            JLabel noObjective = new JLabel("Retourner a la case depart pour gagner !!!");
+            objectivePanel.add(noObjective);
+        }
+        for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
+            ObjectiveComponent objComponent = new ObjectiveComponent(obj);
+            objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
+            objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
+            objectivePanel.add(objComponent);
+        }
+        objectivePanel.revalidate();
+        objectivePanel.repaint();
+    }
+
     private void showObjective() {
-        JPanel objectivePanel = new JPanel(new FlowLayout());
+        objectivePanel = new JPanel(new FlowLayout());
         objectivePanel.setOpaque(true);
 
         for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {

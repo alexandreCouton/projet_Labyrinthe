@@ -148,35 +148,32 @@ public abstract class Tiles {
         if (!this.getOpen(direction)) {
             return false;
         }
-        switch (direction) {
-            case UP:
+        return switch (direction) {
+            case UP -> {
                 if (tile.getOpen(Direction.DOWN)) {
-                    tile.toStrPossibilite();
-                    return true;
+                    yield true;
                 }
-                return false;
-            case RIGHT:
-                if (tile.getOpen(Direction.LEFT)) {
-                    tile.toStrPossibilite();
-
-                    return true;
-                }
-                return false;
-            case DOWN:
-                if (tile.getOpen(Direction.UP)) {
-                    tile.toStrPossibilite();
-                    return true;
-                }
-                return false;
-            case LEFT:
-                if (tile.getOpen(Direction.RIGHT)) {
-                    tile.toStrPossibilite();
-
-                    return true;
-                }
-                return false;
+                yield false;
             }
-        return false;
+            case RIGHT -> {
+                if (tile.getOpen(Direction.LEFT)) {
+                    yield true;
+                }
+                yield false;
+            }
+            case DOWN -> {
+                if (tile.getOpen(Direction.UP)) {
+                    yield true;
+                }
+                yield false;
+            }
+            case LEFT -> {
+                if (tile.getOpen(Direction.RIGHT)) {
+                    yield true;
+                }
+                yield false;
+            }
+        };
     }
 
     public void toStrPossibilite(){

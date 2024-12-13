@@ -49,7 +49,7 @@ public class TuileComponent extends JComponent implements TilesObserver {
         try {
             m_tiles = tiles;
             BufferedImage baseImage = ImageHelper.loadImage(tiles.getPath());
-            if (tiles.getObjective() != null) {
+            if (tiles.getObjective() != null && tiles.getObjective().getPath() != null) {
                 BufferedImage objectiveImage = ImageHelper.loadImage(tiles.getObjective().getPath());
                 objectiveImage = ImageHelper.resizeImage(objectiveImage, 100, 100);
                 Graphics g = baseImage.getGraphics();
