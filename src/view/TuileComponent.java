@@ -27,7 +27,7 @@ public class TuileComponent extends JComponent implements TilesObserver {
         m_tiles = tiles;
         setLayout(new BorderLayout());
         setVisible(true);
-        setImage(ImageHelper.loadImage(tiles.getPath()));
+        setTile(tiles);
         for(int i=0;i<tiles.getRotateIndex()%4;i++){
             m_image=ImageHelper.rotateClockwise(m_image);
         }
@@ -48,16 +48,24 @@ public class TuileComponent extends JComponent implements TilesObserver {
     public void setTile(Tiles tiles) {
         try {
             m_tiles = tiles;
-            if(tiles.getObjective()!=null){
-                m_image = ImageHelper.merge(tiles.getPath(), tiles.getObjective().getPath());
-            }else {
-                m_image = ImageHelper.loadImage(tiles.getPath());
+            BufferedImage baseImage = ImageHelper.loadImage(tiles.getPath());
+            if (tiles.getObjective() != null) {
+                BufferedImage objectiveImage = ImageHelper.loadImage(tiles.getObjective().getPath());
+                objectiveImage = ImageHelper.resizeImage(objectiveImage, 100, 100);
+                Graphics g = baseImage.getGraphics();
+                // Positionner l'image de l'objectif sur l'image principale
+                int x = (baseImage.getWidth() - objectiveImage.getWidth()) / 2; // Centré horizontalement
+                int y = (baseImage.getHeight() - objectiveImage.getHeight()) / 2; // Centré verticalement
+                g.drawImage(objectiveImage, x, y, null);
+                g.dispose();
+                m_image = baseImage;
+            } else {
+                m_image = baseImage;
             }
             repaint();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**

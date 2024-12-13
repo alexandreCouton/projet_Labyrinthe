@@ -115,4 +115,20 @@ public class ImageHelper {
 		}
 	}
 
+	/**
+	 * Resize an image to the specified width and height.
+	 *
+	 * @param originalImage the original image to be resized
+	 * @param targetWidth the desired width of the resized image
+	 * @param targetHeight the desired height of the resized image
+	 * @return a new BufferedImage containing the resized image
+	 */
+	public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+		BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, originalImage.getType());
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+		g.dispose();
+		return resizedImage;
+	}
+
 }
