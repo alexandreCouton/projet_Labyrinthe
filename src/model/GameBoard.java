@@ -218,21 +218,25 @@ public class GameBoard {
         try {
             TilesCorner tuile = m_StackAngle.pop();
             tuile.setObjective(new Objective("blueStart"));
+            tuile.setPath("./img/imgDepart/blueTileCorner.png");
             this.placerTuileSurPlateauInit(new Position(0, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate();
             tuile.setObjective(new Objective("yellowStart"));
+            tuile.setPath("./img/imgDepart/yellowTileCorner.png");
             this.placerTuileSurPlateauInit(new Position(6, 0), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(3);
             tuile.setObjective(new Objective("redStart"));
+            tuile.setPath("./img/imgDepart/redTileCorner.png");
             this.placerTuileSurPlateauInit(new Position(0, 6), tuile);
 
             tuile = m_StackAngle.pop();
             tuile.rotate(2);
             tuile.setObjective(new Objective("greenStart"));
+            tuile.setPath("./img/imgDepart/greenTileCorner.png");
             this.placerTuileSurPlateauInit(new Position(6, 6), tuile);
 
         } catch (Exception e) {

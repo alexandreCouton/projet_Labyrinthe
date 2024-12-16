@@ -32,4 +32,8 @@ public class TilesLinear extends Tiles {
     public String getPath(){
         return pathTileLinear;
     };
+
+    public void setPath(String path){
+        this.pathTileLinear = path;
+    }
 }
