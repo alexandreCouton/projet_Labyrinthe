@@ -24,9 +24,9 @@ public class GameBoard {
     private final Stack<TilesCorner> m_StackAngle;
     private final Stack<TilesT> m_stackT;
     private final Stack<TilesLinear> m_stackDroite;
-    private ArrayList<Objective> m_lstObjective;
+    private final ArrayList<Objective> m_lstObjective;
     private Tiles m_flyingTile;
-    private ArrayList<PlateauObserver> m_lstObserver;
+    private final ArrayList<PlateauObserver> m_lstObserver;
 
     public GameBoard() {
         m_lstTuilesPlateau = new Tiles[7][7];
