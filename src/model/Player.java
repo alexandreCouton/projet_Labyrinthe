@@ -107,4 +107,20 @@ public class Player {
         m_lstObjective.remove(obj);
         m_objectifCapture++;
     }
+
+    public Boolean allObjectiveCapture(){
+        if(m_lstObjective.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    public void setStartPos(Position pos){
+        m_pawn.setStartPosition(pos);
+    }
+
+    public Boolean isStartPos(Position pos){
+        return m_pawn.getStartPosition().equals(pos);
+    }
+
 }

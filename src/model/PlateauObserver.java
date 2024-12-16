@@ -5,6 +5,6 @@ public interface PlateauObserver {
     public void deplacementTuile();
     public void deplacementJoueur();
     public void captureObjectif();
-    public void finPartie();
+    public void endGame();
     public void updateTile(Position position);
 }

@@ -67,6 +67,12 @@ public class GameBoard {
         }
     }
 
+    public void notifyObserverEndGame() {
+        for (PlateauObserver obs : m_lstObserver) {
+            obs.endGame();
+        }
+    }
+
     /**
      * @return the current flying tile
      */

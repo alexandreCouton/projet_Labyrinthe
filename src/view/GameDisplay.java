@@ -46,7 +46,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void initializeFrame() {
         setTitle("Labyrinthe");
-        setSize(1300, 900);
+        setSize(1300, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -375,7 +375,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
 
     private void updateObjectivePanel() {
         objectivePanel.removeAll();
-        if(m_game.getCurrentPlayer().getLstObjective().size() == 0){
+        if(m_game.getCurrentPlayer().getLstObjective().isEmpty()){
             JLabel noObjective = new JLabel("Retourner a la case depart pour gagner !!!");
             objectivePanel.add(noObjective);
         }
@@ -464,8 +464,11 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     /**
      * Met à jour l'affichage du plateau à la fin de la partie.
      */
-    public void finPartie() {
-        updatePlateau();
+    public void endGame() {
+        mainPanel.removeAll();
+        mainPanel.add(new JLabel("Fin de la partie"));
+        mainPanel.add(new BackgroundPanel(ImageHelper.loadImage("src/img/fondLabyrinthe.jpg")));
+
     }
 
     /**

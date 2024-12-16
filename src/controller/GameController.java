@@ -58,5 +58,9 @@ public class GameController {
         m_game.captureObjectif();
     }
 
+    public void finishGame() {
+        m_game.finishGame();
+    }
+
 
 }
