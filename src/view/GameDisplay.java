@@ -154,8 +154,10 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private JButton createCaptureButton() {
         JButton captureButton = new JButton("Capture");
-        showObjective();
-        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); updateObjectivePanel();});
+        captureButton.addActionListener(e -> {
+            m_gameController.captureObjectif();
+            updateObjectivePanel();
+        });
         captureButton.setBackground(Color.GREEN);
         captureButton.setForeground(Color.WHITE);
         captureButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
