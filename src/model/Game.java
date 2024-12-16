@@ -30,6 +30,7 @@ public class Game {
     private final Player[] lstPlayer;
     private final GameBoard m_gameBoard;
     private int m_currentPlayer;
+    private boolean m_insertedFlyingTile;
 
     public Game() {
         this.lstPlayer = new Player[4];
@@ -37,6 +38,7 @@ public class Game {
         m_currentPlayer = 0;
         initPlayers();
         distibuerObj(m_gameBoard.getLstObjective());
+        m_insertedFlyingTile = false;
     }
 
     private void distibuerObj(ArrayList<Objective> lstObj){
@@ -99,23 +101,25 @@ public class Game {
      * @param pos : Position where the current player wants to insert the flying tile
      */
     public void insertFlyingTile(Position pos){
+        if(!m_insertedFlyingTile){
+            m_gameBoard.insertFlyingTile(pos);
+            m_insertedFlyingTile = true;
+            for(Player j : lstPlayer){
+                if(j.getPositionY() == pos.getPositionY()){
+                    if(pos.getPositionX() == 0) {
+                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveRight()));
 
-        m_gameBoard.insertFlyingTile(pos);
-        for(Player j : lstPlayer){
-            if(j.getPositionY() == pos.getPositionY()){
-                if(pos.getPositionX() == 0) {
-                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveRight()));
+                    } else if (pos.getPositionX() == 6) {
+                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveLeft()));
 
-                } else if (pos.getPositionX() == 6) {
-                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveLeft()));
-
+                    }
                 }
-            }
-            if(j.getPositionX() == pos.getPositionX()){
-                if (pos.getPositionY() == 0) {
-                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveDown()));
-                } else if (pos.getPositionY() == 6) {
-                    j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveUp()));
+                if(j.getPositionX() == pos.getPositionX()){
+                    if (pos.getPositionY() == 0) {
+                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveDown()));
+                    } else if (pos.getPositionY() == 6) {
+                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveUp()));
+                    }
                 }
             }
         }
@@ -186,6 +190,7 @@ public class Game {
         if(m_currentPlayer == 4){
             m_currentPlayer = 0;
         }
+        m_insertedFlyingTile = false;
     }
 
     /**
