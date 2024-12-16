@@ -123,4 +123,7 @@ public class Player {
         return m_pawn.getStartPosition().equals(pos);
     }
 
+    public String getPath(){
+        return m_pawn.getPath();
+    }
 }

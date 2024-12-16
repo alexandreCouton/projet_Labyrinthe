@@ -154,4 +154,14 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         repaint();
     }
 
+    public void actualizePlayer(Player player, String path){
+        try {
+            int x = player.getPositionX();
+            int y = player.getPositionY();
+            m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
