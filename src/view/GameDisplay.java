@@ -171,6 +171,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         JButton nextTurnButton = new JButton("Tour Suivant");
         nextTurnButton.addActionListener(e -> {
             m_gameController.nextTurn();
+            updateObjectivePanel();
             m_colorRotation = (m_colorRotation + 1) % 4;
             switch (m_colorRotation) {
                 case 0:
