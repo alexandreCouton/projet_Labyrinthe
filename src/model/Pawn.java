@@ -3,6 +3,7 @@ package model;
 public class Pawn {
     private String m_path;
     private Position m_position;
+    private Position m_startPosition;
 
     public Pawn(String path, Position position){
         this.m_path = path;
@@ -77,6 +78,15 @@ public class Pawn {
 
     public void toStr(){
         System.out.println("Pawn position : "+ m_position.getPositionX() +" "+ m_position.getPositionY());
+    }
+
+    public void setStartPosition(Position pos){
+        this.m_startPosition = pos;
+        this.m_position = pos;
+    }
+
+    public Position getStartPosition(){
+        return m_startPosition;
     }
 
 }
