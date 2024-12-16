@@ -25,4 +25,8 @@ public class TilesT extends Tiles {
         return pathTileT;
     };
 
+    public void setPath(String path){
+        this.pathTileT = path;
+    }
+
 }

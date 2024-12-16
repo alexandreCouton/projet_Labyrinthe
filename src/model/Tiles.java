@@ -191,4 +191,6 @@ public abstract class Tiles {
         return this.m_objective;
     }
 
+    public abstract void setPath(String path);
+
 }
