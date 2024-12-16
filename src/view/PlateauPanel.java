@@ -146,7 +146,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
         int x = pos.getPositionX();
         int y = pos.getPositionY();
         TuileComponent tuileComponent = m_tiles[y][x];
-        tuileComponent.setTile(m_gameBoard.getGameBoard()[y][x]);
+        tuileComponent.setTile(m_gameBoard.getTile(new Position(x, y)));
         for(int i=0;i < m_gameBoard.getGameBoard()[y][x].getRotateIndex();i++){
             tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
         }

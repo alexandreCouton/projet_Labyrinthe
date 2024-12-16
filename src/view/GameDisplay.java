@@ -467,7 +467,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     public void endGame() {
         mainPanel.removeAll();
         mainPanel.add(new JLabel("Fin de la partie"));
-        mainPanel.add(new BackgroundPanel(ImageHelper.loadImage("src/img/fondLabyrinthe.jpg")));
+        mainPanel.add(new BackgroundPanel(ImageHelper.loadImage("./img/endPicture.png")));
 
     }
 
