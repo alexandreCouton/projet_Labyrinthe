@@ -61,15 +61,10 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
                 add(tuileComponent);
             }
         }
-        try {
-            m_tiles[0][0].setImage(ImageHelper.merge(m_tiles[0][0].getImage(), "src/img/imgDepart/departBleu.png"));
-            m_tiles[0][6].setImage(ImageHelper.merge(m_tiles[0][6].getImage(), "src/img/imgDepart/departJaune.png"));
-            m_tiles[6][0].setImage(ImageHelper.merge(m_tiles[6][0].getImage(), "src/img/imgDepart/departRouge.png"));
-            m_tiles[6][6].setImage(ImageHelper.merge(m_tiles[6][6].getImage(), "src/img/imgDepart/departVert.png"));
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        m_tiles[0][0].setImage(ImageHelper.loadImage( "./img/imgDepart/blueTileCorner.png"));
+        m_tiles[0][6].setImage(ImageHelper.loadImage(  "./img/imgDepart/yellowTileCorner.png"));
+        m_tiles[6][0].setImage(ImageHelper.loadImage( "./img/imgDepart/redTileCorner.png"));
+        m_tiles[6][6].setImage(ImageHelper.loadImage(  "./img/imgDepart/greenTileCorner.png"));
 
         revalidate();
         repaint();
