@@ -32,4 +32,8 @@ public class TilesCorner extends Tiles {
         return pathTileCorner;
     };
 
+    public void setPath(String path){
+        this.pathTileCorner = path;
+    }
+
 }
