@@ -125,4 +125,12 @@ public class Player {
     public String getPath(){
         return m_pawn.getPath();
     }
+
+    public String toString(){
+        return m_nom;
+    }
+
+    public Position getStartPos(){
+        return m_pawn.getStartPosition();
+    }
 }
