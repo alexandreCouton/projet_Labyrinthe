@@ -44,7 +44,7 @@ public class Game {
     private void distibuerObj(ArrayList<Objective> lstObj){
         ArrayList<Objective> lstObjTemp = new ArrayList<>();
         for(Player p : lstPlayer){
-            for(int i = 0; i<6; i++){
+            for(int i = 0; i<1; i++){
                 lstObjTemp.add(lstObj.get(0));
                 lstObj.remove(0);
             }
@@ -202,11 +202,15 @@ public class Game {
         }
     }
 
-    public void finishGame(){
-        if(getCurrentPlayer().allObjectiveCapture() && getCurrentPlayer().isStartPos(getCurrentPlayerPosition())){
+    public void finishGame() {
+        if (getCurrentPlayer().allObjectiveCapture() && getCurrentPlayer().isStartPos(getCurrentPlayerPosition())) {
+            System.out.println("Finish game conditions met"); // Ajout d'un message de débogage
             m_gameBoard.notifyObserverEndGame();
+        } else {
+            System.out.println("Finish game conditions not met"); // Ajout d'un message de débogage
         }
     }
+
 
 
 }

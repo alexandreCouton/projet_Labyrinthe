@@ -379,16 +379,24 @@ public class GameDisplay extends JFrame implements PlateauObserver {
 
     private void updateObjectivePanel() {
         objectivePanel.removeAll();
-        if(m_game.getCurrentPlayer().getLstObjective().isEmpty()){
-            JLabel noObjective = new JLabel("Retourner a la case depart pour gagner !!!");
+        if (m_game.getCurrentPlayer().getLstObjective().isEmpty()) {
+            JLabel noObjective = new JLabel("Retourner à la case départ pour gagner !!!");
+            JButton endGameButton = new JButton("Valider fin de partie");
+            endGameButton.addActionListener(e -> {
+                System.out.println("Finish game button clicked"); // Ajout d'un message de débogage
+                m_gameController.finishGame();
+            });
             objectivePanel.add(noObjective);
+            objectivePanel.add(endGameButton);
+        }else {
+            for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
+                ObjectiveComponent objComponent = new ObjectiveComponent(obj);
+                objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
+                objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
+                objectivePanel.add(objComponent);
+            }
         }
-        for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
-            ObjectiveComponent objComponent = new ObjectiveComponent(obj);
-            objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
-            objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
-            objectivePanel.add(objComponent);
-        }
+
         objectivePanel.revalidate();
         objectivePanel.repaint();
     }
@@ -468,12 +476,28 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     /**
      * Met à jour l'affichage du plateau à la fin de la partie.
      */
+    @Override
     public void endGame() {
+        System.out.println("endGame called"); // Ajout d'un message de débogage
         mainPanel.removeAll();
-        mainPanel.add(new JLabel("Fin de la partie"));
-        mainPanel.add(new BackgroundPanel(ImageHelper.loadImage("./img/endPicture.png")));
+        JLabel congratsLabel = new JLabel("Félicitations, vous avez gagné !");
+        congratsLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        congratsLabel.setHorizontalAlignment(JLabel.CENTER);
+        mainPanel.add(congratsLabel, BorderLayout.CENTER);
 
+        BufferedImage endImage = ImageHelper.loadImage("src/img/endPicture.png");
+        if (endImage != null) {
+            BackgroundPanel endPanel = new BackgroundPanel(endImage);
+            mainPanel.add(endPanel, BorderLayout.CENTER);
+        } else {
+            System.out.println("Failed to load endPicture.png"); // Ajout d'un message de débogage
+        }
+
+        revalidate();
+        repaint();
     }
+
+
 
     /**
      * Met à jour l'affichage de la tuile à la position spécifiée.

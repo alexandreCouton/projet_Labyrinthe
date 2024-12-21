@@ -47,7 +47,7 @@ public class GameController {
         m_game.movePlayer(direction);
     }
 
-    public void nextTurn() {
+    public void nextTurn()  {
         m_game.prochainTour();
     }
 
