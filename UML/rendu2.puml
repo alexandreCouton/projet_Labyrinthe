@@ -1,0 +1,129 @@
+@startuml
+
+package model{
+
+    enum Direction << enumeration >> {
+        UP
+        RIGHT
+        DOWN
+        LEFT
+    }
+
+    class Game{
+        - lstPlayer : Player[4]
+        - m_gameBoard : GameBoard
+        - m_currentPlayer : Integer
+        - m_insertedFlyingTile : Boolean
+
+        +<<Create>>Game()
+        - distibuerObj(lstObj : Objective[])
+        + getPlayer(player : Integer) : Player
+        - initPlayers()
+        - placePlayer()
+        + getGameBoard() : GameBoard
+        + getCurrentPlayer() : Player
+        + insertFlyingTile(pos : Position)
+        - getCurrentPlayerPosition() : Position
+        + movePlayer(direction : Direction)
+        + prochainTour()
+        + captureObjectif()
+        + finishGame()
+    }
+
+    class GameBoard{
+        - m_lstTuilesPlateau : Tiles[7][7]
+        - m_StackAngle : Stack<TilesCorner>
+        - m_stackT : Stack<TilesT>
+        - m_stackDroite : Stack<TilesLinear>
+        - m_lstObjective : ArrayList<Objective>
+        - m_flyingTile : Tiles
+        - m_lstObserver : ArrayList<PlateauObserver>
+
+        +<<Create>>GameBoard()
+        + addObserver(obs : PlateauObserver)
+        + removeObserver(obs : PlateauObserver)
+        + notifyObserverTiles(pos : Position)
+        + notifyObserverEndGame()
+        + getFlyTile() : Tiles
+        + getGameBoard() : Tiles[][]
+        + getTile(pos : Position) : Tiles
+        - initObjective()
+        - initTuiles()
+        - initPlateau()
+        + insertFlyingTile(pos : Position)
+        - placerTuileSurPlateauInit(pos : Position, tiles : Tiles)
+        - initPlaceTuileT()
+        - initPlaceTuileAng()
+        - placerTuile()
+        + inBoard(pos : Position) : Boolean
+        + getTile(pos : Position) : Tiles
+        + outSideBoard(pos : Position) : Position
+        - placeObjective()
+        + getLstObjective() : ArrayList<Objective>
+    }
+
+    class Objective{
+        - m_path : String
+        - m_name : String
+
+        +<<Create>>Objective(name : String)
+        +<<Create>>Objective(name : String, path : String)
+        + getNameObjectif() : String
+        + getPath() : String
+    }
+
+    class Pawn{
+        - m_path : String
+        - m_position : Position
+        - m_startPosition : Position
+
+        +<<Create>>Pawn(path : String, position : Position)
+        + setPath(path : String)
+        + getPath() : String
+        + setPosition(position : Position)
+        + getPosition() : Position
+        + goRight()
+        + goLeft()
+        + goUp()
+        + goDown()
+        + setPositionX(x : Integer)
+        + setPositionY(y : Integer)
+        + toStr()
+        + setStartPosition(pos : Position)
+        + getStartPosition() : Position
+    }
+
+    class Player{
+        - m_nom : String
+        - m_lstObjective : ArrayList<Objective>
+        - m_objectifCapture : Integer
+        - m_pawn : Pawn
+        - m_lstObserver : ArrayList<PlayerObserver>
+
+        +<<Create>>Player(nom : String)
+        + addObserver(obs : PlayerObserver)
+        + removeObserver(obs : PlayerObserver)
+        + notifyObserver(oldPos : Position, newPos : Position)
+        + setLstObjectif(lstObjective : ArrayList<Objective>)
+        + getLstObjective() : ArrayList<Objective>
+        + getPosition() : Position
+        + getPositionX() : Integer
+        + getPositionY() : Integer
+        + move(pos : Position)
+        + setImgPion(path : String)
+        + getImgPion() : String
+        + setPionPosition(pos : Position)
+        + captureObjectif(obj : Objective)
+        + allObjectiveCapture() : Boolean
+        + isStartPos(pos : Position) : Boolean
+        + getPath() : String
+        + toString() : String
+        + setStartPos(pos : Position)
+    }
+    
+    }
+
+
+}
+
+@enduml
