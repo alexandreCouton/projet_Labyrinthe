@@ -119,7 +119,7 @@ public class Player {
     }
 
     public Boolean isStartPos(Position pos){
-        return m_pawn.getStartPosition().equals(pos);
+        return m_pawn.getStartPosition().getPositionY() == pos.getPositionY() && m_pawn.getStartPosition().getPositionX() == pos.getPositionX();
     }
 
     public String getPath(){

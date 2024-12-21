@@ -44,7 +44,7 @@ public class Game {
     private void distibuerObj(ArrayList<Objective> lstObj){
         ArrayList<Objective> lstObjTemp = new ArrayList<>();
         for(Player p : lstPlayer){
-            for(int i = 0; i<1; i++){
+            for(int i = 0; i<6; i++){
                 lstObjTemp.add(lstObj.get(0));
                 lstObj.remove(0);
             }

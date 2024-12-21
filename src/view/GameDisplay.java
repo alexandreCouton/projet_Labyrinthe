@@ -114,7 +114,12 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         GridBagConstraints gbc = new GridBagConstraints();
 
         JButton captureButton = createCaptureButton();
-        captureButton.addActionListener(e -> { m_gameController.captureObjectif(); updateObjectivePanel() ;});
+        captureButton.addActionListener(e -> { 
+
+            m_gameController.captureObjectif();
+
+            updateObjectivePanel() ;
+        });
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
@@ -380,13 +385,20 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     private void updateObjectivePanel() {
         objectivePanel.removeAll();
         if (m_game.getCurrentPlayer().getLstObjective().isEmpty()) {
+            GridLayout layout = new GridLayout(2,1);
             JLabel noObjective = new JLabel("Retourner à la case départ pour gagner !!!");
+            objectivePanel.setLayout(layout);
+            objectivePanel.add(noObjective);
             JButton endGameButton = new JButton("Valider fin de partie");
             endGameButton.addActionListener(e -> {
                 System.out.println("Finish game button clicked"); // Ajout d'un message de débogage
                 m_gameController.finishGame();
             });
-            objectivePanel.add(noObjective);
+            endGameButton.setPreferredSize(new Dimension(100, 30));
+            endGameButton.setBackground(new Color(255, 105, 180)); // Couleur de fond rose
+            endGameButton.setForeground(Color.WHITE); // Texte en blanc
+            endGameButton.setFont(new Font("Arial", Font.BOLD, 12)); // Police personnalisée
+            endGameButton.setBorder(BorderFactory.createRaisedBevelBorder()); // Bordure en relief
             objectivePanel.add(endGameButton);
         }else {
             for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
@@ -478,25 +490,36 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     @Override
     public void endGame() {
-        System.out.println("endGame called"); // Ajout d'un message de débogage
-        mainPanel.removeAll();
+        System.out.println("endGame called");
+
+        // Créer d'abord le nouveau panel avec l'image de fond
+        mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/end.jpg"));
+        mainPanel.setLayout(new GridBagLayout()); // Important : définir le layout
+
+        // Ensuite ajouter le label de félicitations
         JLabel congratsLabel = new JLabel("Félicitations, vous avez gagné !");
         congratsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         congratsLabel.setHorizontalAlignment(JLabel.CENTER);
-        mainPanel.add(congratsLabel, BorderLayout.CENTER);
+        congratsLabel.setForeground(Color.BLACK); // Pour une meilleure visibilité sur le fond
 
-        BufferedImage endImage = ImageHelper.loadImage("src/img/endPicture.png");
-        if (endImage != null) {
-            BackgroundPanel endPanel = new BackgroundPanel(endImage);
-            mainPanel.add(endPanel, BorderLayout.CENTER);
-        } else {
-            System.out.println("Failed to load endPicture.png"); // Ajout d'un message de débogage
-        }
-
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        
+        mainPanel.add(congratsLabel, gbc);
+        
+        // Mettre à jour le contenu du frame
+        getContentPane().removeAll();
+        getContentPane().add(mainPanel);
+        
         revalidate();
         repaint();
     }
-
 
 
     /**
