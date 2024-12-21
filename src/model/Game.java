@@ -44,7 +44,7 @@ public class Game {
     private void distibuerObj(ArrayList<Objective> lstObj){
         ArrayList<Objective> lstObjTemp = new ArrayList<>();
         for(Player p : lstPlayer){
-            for(int i = 0; i<6; i++){
+            for(int i = 0; i<1; i++){
                 lstObjTemp.add(lstObj.get(0));
                 lstObj.remove(0);
             }
@@ -203,6 +203,16 @@ public class Game {
     }
 
     public void finishGame(){
+        Player currentPlayer = getCurrentPlayer();
+        Position currentPosition = currentPlayer.getPosition();
+        Position startPosition = currentPlayer.getStartPos();
+
+        System.out.println("Checking end game conditions...");
+        System.out.println("Current Player: " + currentPlayer.toString());
+        System.out.println("All Objectives Captured: " + currentPlayer.allObjectiveCapture());
+        System.out.println("Current Position: " + currentPosition);
+        System.out.println("Start Position: " + startPosition);
+
         if(getCurrentPlayer().allObjectiveCapture() && getCurrentPlayer().isStartPos(getCurrentPlayerPosition())){
             m_gameBoard.notifyObserverEndGame();
         }
