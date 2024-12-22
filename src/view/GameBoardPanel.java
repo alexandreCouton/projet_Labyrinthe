@@ -19,10 +19,8 @@ import java.io.IOException;
 
 public class GameBoardPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
-    private TuileComponent[][] m_tiles;
-    private JPanel m_panel;
-    private int m_colorRotation;
-    
+    private TuileComponent[][] m_tilesComponent;
+
     public GameBoardPanel(GameBoard gameBoard) {
         m_gameBoard = gameBoard;
         setLayout(new GridLayout(7, 7));
@@ -39,7 +37,7 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
             int x = player.getPosition().getPositionX();
             int y = player.getPosition().getPositionY();
             try {
-                m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), player.getImgPawn()));
+                m_tilesComponent[y][x].setImage(ImageHelper.merge(m_tilesComponent[y][x].getImage(), player.getImgPawn()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -52,11 +50,11 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
      * Initializes all the Tiles on the view board
      */
     private void initTuilesComponents() {
-        m_tiles = new TuileComponent[7][7];
+        m_tilesComponent = new TuileComponent[7][7];
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 7; x++) {
                 TuileComponent tuileComponent = new TuileComponent(m_gameBoard.getGameBoard()[y][x]);
-                m_tiles[y][x] = tuileComponent;
+                m_tilesComponent[y][x] = tuileComponent;
                 add(tuileComponent);
             }
         }
@@ -87,8 +85,8 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
 
         if (isRow) {
             // Update the row
-            for (int row = 0; row < m_tiles[y].length; row++) {
-                TuileComponent tuileComponent = m_tiles[y][row];
+            for (int row = 0; row < m_tilesComponent[y].length; row++) {
+                TuileComponent tuileComponent = m_tilesComponent[y][row];
                 tuileComponent.setTile(m_gameBoard.getGameBoard()[y][row]);
                 for(int i=0;i < m_gameBoard.getGameBoard()[y][row].getRotateIndex();i++){
                     tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
@@ -99,8 +97,8 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
 
         if (isColumnMovable) {
             // Mettre à jour la colonne
-            for (int col = 0; col < m_tiles.length; col++) {
-                TuileComponent tuileComponent = m_tiles[col][x];
+            for (int col = 0; col < m_tilesComponent.length; col++) {
+                TuileComponent tuileComponent = m_tilesComponent[col][x];
                 tuileComponent.setTile(m_gameBoard.getGameBoard()[col][x]);
                 for(int i=0;i < m_gameBoard.getGameBoard()[col][x].getRotateIndex();i++){
                     tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
@@ -127,7 +125,7 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
         try {
             updateTile(oldPos);
             updateTile(newPos);
-            m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
+            m_tilesComponent[y][x].setImage(ImageHelper.merge(m_tilesComponent[y][x].getImage(), path));
 
             } catch (IOException e) {
             throw new RuntimeException(e);
@@ -140,7 +138,7 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
     public void updateTile(Position pos){
         int x = pos.getPositionX();
         int y = pos.getPositionY();
-        TuileComponent tuileComponent = m_tiles[y][x];
+        TuileComponent tuileComponent = m_tilesComponent[y][x];
         tuileComponent.setTile(m_gameBoard.getTile(new Position(x, y)));
         for(int i=0;i < m_gameBoard.getGameBoard()[y][x].getRotateIndex();i++){
             tuileComponent.setImage(ImageHelper.rotateClockwise(tuileComponent.getImage()));
@@ -153,7 +151,7 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
         try {
             int x = player.getPositionX();
             int y = player.getPositionY();
-            m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), path));
+            m_tilesComponent[y][x].setImage(ImageHelper.merge(m_tilesComponent[y][x].getImage(), path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

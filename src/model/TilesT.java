@@ -1,10 +1,8 @@
 package model;
 
-import java.awt.image.BufferedImage;
-
 public class TilesT extends Tiles {
 
-    private String pathTileT = "src/img/TileT.png";
+    private String m_pathTileT = "src/img/TileT.png";
 
 
     /**
@@ -22,11 +20,11 @@ public class TilesT extends Tiles {
     }
 
     public String getPath(){
-        return pathTileT;
+        return m_pathTileT;
     };
 
     public void setPath(String path){
-        this.pathTileT = path;
+        this.m_pathTileT = path;
     }
 
 }

@@ -1,10 +1,8 @@
 package model;
 
-import java.awt.image.BufferedImage;
-
 public class TilesCorner extends Tiles {
 
-    private String pathTileCorner = "src/img/TileCorner.png";
+    private String m_pathTileCorner = "src/img/TileCorner.png";
 
     /**
      * YOU HAVE TO USE THE FACTORY
@@ -29,11 +27,11 @@ public class TilesCorner extends Tiles {
      * @return get the tile's path
      */
     public String getPath(){
-        return pathTileCorner;
+        return m_pathTileCorner;
     };
 
     public void setPath(String path){
-        this.pathTileCorner = path;
+        this.m_pathTileCorner = path;
     }
 
 }

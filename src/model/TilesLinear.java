@@ -1,10 +1,8 @@
 package model;
 
-import java.awt.image.BufferedImage;
-
 public class TilesLinear extends Tiles {
 
-    private String pathTileLinear = "src/img/TileLinear.png";
+    private String m_pathTileLinear = "src/img/TileLinear.png";
 
 
     /**
@@ -30,10 +28,10 @@ public class TilesLinear extends Tiles {
      * @return get the tile's path
      */
     public String getPath(){
-        return pathTileLinear;
+        return m_pathTileLinear;
     };
 
     public void setPath(String path){
-        this.pathTileLinear = path;
+        this.m_pathTileLinear = path;
     }
 }

@@ -1,5 +1,19 @@
 @startuml
 
+package controller{
+    class GameController{
+        - m_game : Game
+
+        +<<Create>>GameController(game : Game)
+        + placeFlyingTile(pos : Position)
+        + rotateFlyingTile()
+        + move(direction : Direction)
+        + nextTurn()
+        + captureObjective()
+        + finishGame()
+    }
+}
+
 package model{
 
     enum Direction << enumeration >> {
@@ -165,10 +179,53 @@ package model{
         + setPath(path : String)
     }
 
-    
-    
+    class TilesCorner extends Tiles{
+        - m_pathTileCorner : String
 
+        +<<Create>>TilesCorner()
+        +<<Create>>TilesCorner(objective : Objective)
+        + getPath() : String
+        + setPath(path : String)
+    }
 
+    class TilesLinear extends Tiles{
+        - m_pathTileLinear : String
+
+        +<<Create>>TilesLinear()
+        +<<Create>>TilesLinear(objective : Objective)
+        + getPath() : String
+        + setPath(path : String)
+    }
+
+    class TilesT extends Tiles{
+        - m_pathTileT : String
+
+        +<<Create>>TilesT()
+        +<<Create>>TilesT(objective : Objective)
+        + getPath() : String
+        + setPath(path : String)
+    }
+
+    class TuileFactory{
+        +<<Create>>TuileFactory()
+        + createTileLinear() : TilesLinear
+        + createTileLinear(objective : Objective) : TilesLinear
+        + createTileCorner() : TilesCorner
+        + createTileCorner(objective : Objective) : TilesCorner
+        + createTileT() : TilesT
+        + createTileT(objective : Objective) : TilesT
+    }
+
+}
+
+package view{
+    class BackgroundPanel{
+        - m_backgroundImage : BufferedImage
+        - m_darknessFactor : Float
+
+        +<<Create>>BackgroundPanel(backgroundImage : BufferedImage)
+        #paintComponent(g : Graphics)
+    }
 }
 
 @enduml
