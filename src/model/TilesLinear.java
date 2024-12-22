@@ -11,10 +11,10 @@ public class TilesLinear extends Tiles {
      * YOU HAVE TO USE THE FACTORY
      */
     public TilesLinear(){
-/*        possibilite.put(Direction.HAUT, true);
-        possibilite.put(Direction.DROITE, false);
-        possibilite.put(Direction.BAS, false);
-        possibilite.put(Direction.GAUCHE, true);*/
+/*        openDirections.put(Direction.HAUT, true);
+        openDirections.put(Direction.DROITE, false);
+        openDirections.put(Direction.BAS, false);
+        openDirections.put(Direction.GAUCHE, true);*/
         super(false,true,false,true);
     }
 

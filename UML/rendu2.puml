@@ -120,8 +120,29 @@ package model{
         + toString() : String
         + setStartPos(pos : Position)
     }
-    
+
+    interface PlayerObserver{
+        + movePlayer(oldPos : Position, newPos : Position, path : String)
     }
+
+    class Position{
+        - m_x : Integer
+        - m_y : Integer
+
+        +<<Create>>Position(x : Integer, y : Integer)
+        + getX() : Integer
+        + getY() : Integer
+        + setX(x : Integer)
+        + setY(y : Integer)
+        + moveRight() : Position
+        + moveLeft() : Position
+        + moveUp() : Position
+        + moveDown() : Position
+        + generateRandomPosition(maxX : Integer, maxY : Integer) : Position
+    }
+
+    
+    
 
 
 }

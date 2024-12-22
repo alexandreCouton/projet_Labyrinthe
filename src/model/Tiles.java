@@ -25,9 +25,9 @@ import java.util.HashMap;
  */
 
 public abstract class Tiles {
-    private Position m_position; // non utilisé
+    private Position m_position;
     private Objective m_objective;
-    protected HashMap<Direction, Boolean> m_possibilite = new HashMap<>();
+    protected HashMap<Direction, Boolean> m_openDirections = new HashMap<>();
     private ArrayList<TilesObserver> m_observers;
 
     private int m_rotateIndex = 0;
@@ -35,19 +35,20 @@ public abstract class Tiles {
 
 
     public Tiles(boolean up, boolean right, boolean bottom, boolean left){
-        m_possibilite.put(Direction.UP, up);
-        m_possibilite.put(Direction.RIGHT, right);
-        m_possibilite.put(Direction.DOWN, bottom);
-        m_possibilite.put(Direction.LEFT, left);
+        m_openDirections.put(Direction.UP, up);
+        m_openDirections.put(Direction.RIGHT, right);
+        m_openDirections.put(Direction.DOWN, bottom);
+        m_openDirections.put(Direction.LEFT, left);
         m_observers = new ArrayList<>();
     }
+
     public Tiles(Objective objective, boolean up, boolean right, boolean bottom, boolean left){
         this.m_objective = objective;
         this.m_position=null;
-        m_possibilite.put(Direction.UP, up);
-        m_possibilite.put(Direction.RIGHT, right);
-        m_possibilite.put(Direction.DOWN, bottom);
-        m_possibilite.put(Direction.LEFT, left);
+        m_openDirections.put(Direction.UP, up);
+        m_openDirections.put(Direction.RIGHT, right);
+        m_openDirections.put(Direction.DOWN, bottom);
+        m_openDirections.put(Direction.LEFT, left);
         m_observers = new ArrayList<>();
 
     }
@@ -75,36 +76,12 @@ public abstract class Tiles {
         }
     }
 
-
-    /**
-     * @return the position of the Tile
-     */
-    public Position getPositionTuile(){
-        return this.m_position;
-    }
-
-    /**
-     * Set the position of the tile
-     * @param position : The position of the Tile
-     */
-    public void setPositionTuile(Position position){
-        this.m_position=position;
-    }
-
-    /**
-     * @return the tile's objective if it has one
-     */
-    public Objective getObjectifTuile(){
-        return this.m_objective;
-    }
-
-
     /**
      * @param direction : the direction of the Tile
      * @return if the tile is opened on this direction or note
      */
     public boolean getOpen(Direction direction){
-        return m_possibilite.get(direction);
+        return m_openDirections.get(direction);
     }
 
     /**
@@ -112,11 +89,11 @@ public abstract class Tiles {
      */
     public void rotate() {
         HashMap<Direction, Boolean> tmp = new HashMap<>();
-        tmp.put(Direction.UP, m_possibilite.get(Direction.LEFT));
-        tmp.put(Direction.RIGHT, m_possibilite.get(Direction.UP));
-        tmp.put(Direction.DOWN, m_possibilite.get(Direction.RIGHT));
-        tmp.put(Direction.LEFT, m_possibilite.get(Direction.DOWN));
-        m_possibilite = tmp;
+        tmp.put(Direction.UP, m_openDirections.get(Direction.LEFT));
+        tmp.put(Direction.RIGHT, m_openDirections.get(Direction.UP));
+        tmp.put(Direction.DOWN, m_openDirections.get(Direction.RIGHT));
+        tmp.put(Direction.LEFT, m_openDirections.get(Direction.DOWN));
+        m_openDirections = tmp;
         m_rotateIndex++;
         m_rotateIndex = m_rotateIndex % 4;
         notifyObserver();
@@ -177,10 +154,10 @@ public abstract class Tiles {
     }
 
     public void toStrPossibilite(){
-        System.out.println("Up : "+m_possibilite.get(Direction.UP));
-        System.out.println("Right : "+m_possibilite.get(Direction.RIGHT));
-        System.out.println("Down : "+m_possibilite.get(Direction.DOWN));
-        System.out.println("Left : "+m_possibilite.get(Direction.LEFT));
+        System.out.println("Up : "+ m_openDirections.get(Direction.UP));
+        System.out.println("Right : "+ m_openDirections.get(Direction.RIGHT));
+        System.out.println("Down : "+ m_openDirections.get(Direction.DOWN));
+        System.out.println("Left : "+ m_openDirections.get(Direction.LEFT));
     }
 
     public void setObjective(Objective obj){

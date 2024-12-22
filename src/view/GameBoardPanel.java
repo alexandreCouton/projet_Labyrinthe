@@ -4,10 +4,9 @@ import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 /**
- * PlateauPanel is a JPanel that represents the game board visually in the GUI.
+ * GameBoardPanel is a JPanel that represents the game board visually in the GUI.
  * It manages the tiles on the board and updates their appearance based on the game state.
  * It also handles player movement and tile updates, ensuring the board is correctly displayed and refreshed.
  *
@@ -18,13 +17,13 @@ import java.io.IOException;
  * - Handling the graphical representation of player movements.
  */
 
-public class PlateauPanel extends JPanel implements PlayerObserver {
+public class GameBoardPanel extends JPanel implements PlayerObserver {
     private GameBoard m_gameBoard;
     private TuileComponent[][] m_tiles;
     private JPanel m_panel;
     private int m_colorRotation;
     
-    public PlateauPanel(GameBoard gameBoard) {
+    public GameBoardPanel(GameBoard gameBoard) {
         m_gameBoard = gameBoard;
         setLayout(new GridLayout(7, 7));
         initTuilesComponents();
@@ -40,7 +39,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
             int x = player.getPosition().getPositionX();
             int y = player.getPosition().getPositionY();
             try {
-                m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), player.getImgPion()));
+                m_tiles[y][x].setImage(ImageHelper.merge(m_tiles[y][x].getImage(), player.getImgPawn()));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -61,10 +60,6 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
                 add(tuileComponent);
             }
         }
-        /*m_tiles[0][0].setImage(ImageHelper.loadImage( "./img/imgDepart/blueTileCorner.png"));
-        m_tiles[0][6].setImage(ImageHelper.loadImage(  "./img/imgDepart/yellowTileCorner.png"));
-        m_tiles[6][0].setImage(ImageHelper.loadImage( "./img/imgDepart/redTileCorner.png"));
-        m_tiles[6][6].setImage(ImageHelper.loadImage(  "./img/imgDepart/greenTileCorner.png"));*/
 
         revalidate();
         repaint();
@@ -77,7 +72,7 @@ public class PlateauPanel extends JPanel implements PlayerObserver {
     /**
      * @param pos : the row's position you want to update on the view
      */
-    public void updatePlateau(Position pos) {
+    public void updateGameBoard(Position pos) {
 
         int x = pos.getPositionX();
         int y = pos.getPositionY();

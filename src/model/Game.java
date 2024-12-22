@@ -1,9 +1,5 @@
 package model;
 
-import view.GameDisplay;
-import view.PlateauPanel;
-
-import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -37,11 +33,14 @@ public class Game {
         m_gameBoard = new GameBoard();
         m_currentPlayer = 0;
         initPlayers();
-        distibuerObj(m_gameBoard.getLstObjective());
+        distributeObjectivesToPlayer(m_gameBoard.getLstObjective());
         m_insertedFlyingTile = false;
     }
 
-    private void distibuerObj(ArrayList<Objective> lstObj){
+    /**
+     * @param lstObj : list of objectives to distribute to the players
+     */
+    private void distributeObjectivesToPlayer(ArrayList<Objective> lstObj){
         ArrayList<Objective> lstObjTemp = new ArrayList<>();
         for(Player p : lstPlayer){
             for(int i = 0; i<6; i++){
@@ -76,13 +75,13 @@ public class Game {
      */
     private void placePlayer(){
         lstPlayer[0].setStartPos(new Position(0,0));
-        lstPlayer[0].setImgPion("src/img/pawn/bluePawn.png");
+        lstPlayer[0].setImgPawn("src/img/pawn/bluePawn.png");
         lstPlayer[1].setStartPos(new Position(6,0));
-        lstPlayer[1].setImgPion("src/img/pawn/yellowPawn.png");
+        lstPlayer[1].setImgPawn("src/img/pawn/yellowPawn.png");
         lstPlayer[2].setStartPos(new Position(0,6));
-        lstPlayer[2].setImgPion("src/img/pawn/redPawn.png");
+        lstPlayer[2].setImgPawn("src/img/pawn/redPawn.png");
         lstPlayer[3].setStartPos(new Position(6,6));
-        lstPlayer[3].setImgPion("src/img/pawn/greenPawn.png");
+        lstPlayer[3].setImgPawn("src/img/pawn/greenPawn.png");
     }
 
 
@@ -93,6 +92,9 @@ public class Game {
         return m_gameBoard;
     }
 
+    /**
+     * @return the current player
+     */
     public Player getCurrentPlayer(){
         return lstPlayer[m_currentPlayer];
     }
@@ -107,24 +109,27 @@ public class Game {
             for(Player j : lstPlayer){
                 if(j.getPositionY() == pos.getPositionY()){
                     if(pos.getPositionX() == 0) {
-                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveRight()));
+                        j.setPawnPosition(m_gameBoard.outSideBoard(j.getPosition().moveRight()));
 
                     } else if (pos.getPositionX() == 6) {
-                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveLeft()));
+                        j.setPawnPosition(m_gameBoard.outSideBoard(j.getPosition().moveLeft()));
 
                     }
                 }
                 if(j.getPositionX() == pos.getPositionX()){
                     if (pos.getPositionY() == 0) {
-                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveDown()));
+                        j.setPawnPosition(m_gameBoard.outSideBoard(j.getPosition().moveDown()));
                     } else if (pos.getPositionY() == 6) {
-                        j.setPionPosition(m_gameBoard.outSideBoard(j.getPosition().moveUp()));
+                        j.setPawnPosition(m_gameBoard.outSideBoard(j.getPosition().moveUp()));
                     }
                 }
             }
         }
     }
 
+    /**
+     * @return the current player's position
+     */
     private Position getCurrentPlayerPosition(){
         return lstPlayer[m_currentPlayer].getPosition();
     }
@@ -198,10 +203,13 @@ public class Game {
     public void captureObjectif() {
         Objective obj = m_gameBoard.getTile(getCurrentPlayer().getPosition()).getObjective();
         if(getCurrentPlayer().getLstObjective().contains(obj)){
-            getCurrentPlayer().captureObjectif(obj);
+            getCurrentPlayer().captureObjective(obj);
         }
     }
 
+    /**
+     * Check if the game is finished
+     */
     public void finishGame(){
         Player currentPlayer = getCurrentPlayer();
         Position currentPosition = currentPlayer.getPosition();

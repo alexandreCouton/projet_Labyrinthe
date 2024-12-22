@@ -1,5 +1,7 @@
 package model;
 
+import view.ImageHelper;
+
 import java.util.*;
 
 /**
@@ -40,7 +42,7 @@ public class GameBoard {
         initObjective();
         initTuiles();
         initPlateau();
-        placerTuile();
+        placeTile();
         placeObjective();
     }
 
@@ -248,7 +250,7 @@ public class GameBoard {
      * It places all the other tiles on the board (the movable ones).
      */
 
-    private void placerTuile() {
+    private void placeTile() {
         initPlaceTuileAng();
         initPlaceTuileT();
 
@@ -300,6 +302,10 @@ public class GameBoard {
         }
     }
 
+    /**
+     * @param pos : The position of the element
+     * @return true if the position is in the board, false otherwise
+     */
     public Boolean inBoard(Position pos){
         return pos.getPositionX() >= 0 && pos.getPositionX() < 7 && pos.getPositionY() >= 0 && pos.getPositionY() < 7;
     }

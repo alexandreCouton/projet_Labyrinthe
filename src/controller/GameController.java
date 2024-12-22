@@ -36,6 +36,9 @@ public class GameController {
         m_game.insertFlyingTile(pos);
     }
 
+    /**
+     * Rotate the flying tile
+     */
     public void rotateFlyingTile() {
         m_game.getGameBoard().getFlyTile().rotate();
     }
@@ -47,6 +50,9 @@ public class GameController {
         m_game.movePlayer(direction);
     }
 
+    /**
+     * Continue to the next turn
+     */
     public void nextTurn()  {
         m_game.prochainTour();
     }
@@ -58,6 +64,9 @@ public class GameController {
         m_game.captureObjectif();
     }
 
+    /**
+     * Finish the game
+     */
     public void finishGame() {
         m_game.finishGame();
     }

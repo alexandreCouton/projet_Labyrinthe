@@ -10,10 +10,10 @@ public class TilesCorner extends Tiles {
      * YOU HAVE TO USE THE FACTORY
      */
     public TilesCorner(){
-        /*possibilite.put(Direction.HAUT, false);
-        possibilite.put(Direction.DROITE, true);
-        possibilite.put(Direction.BAS, true);
-        possibilite.put(Direction.GAUCHE, false);*/
+        /*openDirections.put(Direction.HAUT, false);
+        openDirections.put(Direction.DROITE, true);
+        openDirections.put(Direction.BAS, true);
+        openDirections.put(Direction.GAUCHE, false);*/
         super(false,true,true,false);
     }
 

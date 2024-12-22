@@ -1,9 +1,7 @@
 import controller.GameController;
 import model.Game;
-import model.GameBoard;
-import model.PlayerObserver;
 import view.GameDisplay;
-import view.PlateauPanel;
+import view.GameBoardPanel;
 
 /**
  * LabyrintheApp is the main entry point of the Labyrinthe game application.
@@ -15,7 +13,7 @@ import view.PlateauPanel;
  * <ul>
  *   <li>Game: The game model that contains the state and logic of the game.</li>
  *   <li>GameController: The controller that processes user input and modifies the game state.</li>
- *   <li>PlateauPanel: The graphical user interface (GUI) panel that observes and displays the game board.</li>
+ *   <li>GameBoardPanel: The graphical user interface (GUI) panel that observes and displays the game board.</li>
  *   <li>GameDisplay: A view observer that updates the display based on the game's state.</li>
  * </ul>
  *
@@ -37,7 +35,7 @@ public class LabyrintheApp {
     public static void main(String[] args) {
         Game game = new Game();
         GameController gameController = new GameController(game);
-        PlateauPanel obsPlayer = new PlateauPanel(game.getGameBoard());
+        GameBoardPanel obsPlayer = new GameBoardPanel(game.getGameBoard());
         GameDisplay observer = new GameDisplay(game, obsPlayer);
         game.getGameBoard().addObserver(observer);
         for (int i = 0; i < 4; i++) {

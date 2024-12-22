@@ -37,45 +37,6 @@ public class Pawn {
         return m_position;
     }
 
-    /**
-     * Move the pawn to the right
-     */
-    public void goRight(){
-        m_position.setPositionX(m_position.getPositionX() + 1);
-    }
-    /**
-     * Move the pawn to the left
-     */
-    public void goLeft(){
-        m_position.setPositionX(m_position.getPositionX() - 1);
-    }
-    /**
-     * Move the pawn to the top
-     */
-    public void goUp(){
-        m_position.setPositionY(m_position.getPositionY() - 1);
-    }
-    /**
-     * Move the pawn to the bottom
-     */
-    public void goDown(){
-        m_position.setPositionY(m_position.getPositionY() + 1);
-    }
-
-    /**
-     * @param x : set the X position
-     */
-    public void setPositionX(int x){
-        this.m_position.setPositionX(x);
-    }
-
-    /**
-     * @param y : set the Y position
-     */
-    public void setPositionY(int y){
-        this.m_position.setPositionY(y);
-    }
-
     public void toStr(){
         System.out.println("Pawn position : "+ m_position.getPositionX() +" "+ m_position.getPositionY());
     }

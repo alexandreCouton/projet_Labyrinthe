@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import model.Objective;
-import model.ImageHelper;
 
 public class ObjectiveComponent extends JComponent {
     private Objective m_objective;

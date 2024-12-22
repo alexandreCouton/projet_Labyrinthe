@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import model.Tiles;
 import model.TilesObserver;
 
-import model.ImageHelper;
-
 /**
  * TuileComponent is a JComponent that represents a tile on the game board in the GUI.
  * It displays the graphical representation of a tile, including handling its rotation

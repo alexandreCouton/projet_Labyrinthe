@@ -8,9 +8,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GameDisplay extends JFrame implements PlateauObserver {
-    private PlateauPanel m_plateauPanel;
+    private GameBoardPanel m_gameBoardPanel;
     private Game m_game;
-    private JPanel mainPanel;
+    private JPanel m_mainPanel;
     private GameController m_gameController;
     private JPanel m_buttonSection;
     private JPanel m_fliyngTilePanel;
@@ -23,20 +23,20 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      * le panneau de contrôle, les boutons et la section de boutons.
      *
      * @param game le jeu
-     * @param plateauPanel le panneau de plateau
+     * @param gameBoardPanel le panneau de plateau
      */
-    public GameDisplay(Game game, PlateauPanel plateauPanel) {
+    public GameDisplay(Game game, GameBoardPanel gameBoardPanel) {
         this.m_game = game;
         m_gameController = new GameController(m_game);
         initializeFrame();
         initializeMainPanel();
-        initializePlateauPanel(plateauPanel);
+        initializePlateauPanel(gameBoardPanel);
         initializeControlPanel();
         generateButtons();
         generateFlyingTilePlace();
         initializeButtonSection();
         placePawns();
-        add(mainPanel, BorderLayout.CENTER); // Ajoute le panneau principal à la fenêtre
+        add(m_mainPanel, BorderLayout.CENTER); // Ajoute le panneau principal à la fenêtre
         showObjective();
         setVisible(true);
     }
@@ -57,17 +57,17 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void initializeMainPanel() {
         BufferedImage background = ImageHelper.loadImage("src/img/fondLabyrinthe.jpg");
-        mainPanel = new BackgroundPanel(background);
-        mainPanel.setLayout(new GridBagLayout());
+        m_mainPanel = new BackgroundPanel(background);
+        m_mainPanel.setLayout(new GridBagLayout());
 
     }
     /**
      * Initialise le panneau de plateau et l'ajoute au panneau principal.
      *
-     * @param plateauPanel le panneau de plateau
+     * @param gameBoardPanel le panneau de plateau
      */
-    private void initializePlateauPanel(PlateauPanel plateauPanel) {
-        m_plateauPanel = plateauPanel;
+    private void initializePlateauPanel(GameBoardPanel gameBoardPanel) {
+        m_gameBoardPanel = gameBoardPanel;
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
@@ -76,7 +76,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(m_plateauPanel, gbc);
+        m_mainPanel.add(m_gameBoardPanel, gbc);
     }
 
     /**
@@ -93,7 +93,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 0.15;
         gbc.anchor = GridBagConstraints.SOUTHEAST;
         gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(controlPanel, gbc);
+        m_mainPanel.add(controlPanel, gbc);
     }
 
     /**
@@ -149,7 +149,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.gridheight = 1;
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
-        mainPanel.add(m_buttonSection, gbc);
+        m_mainPanel.add(m_buttonSection, gbc);
     }
 
     /**
@@ -178,21 +178,21 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         JButton nextTurnButton = new JButton("Tour Suivant");
         nextTurnButton.addActionListener(e -> {
             m_gameController.nextTurn();
-            m_plateauPanel.actualizePlayer(m_game.getCurrentPlayer(), m_game.getCurrentPlayer().getPath());
+            m_gameBoardPanel.actualizePlayer(m_game.getCurrentPlayer(), m_game.getCurrentPlayer().getPath());
             updateObjectivePanel();
             m_colorRotation = (m_colorRotation + 1) % 4;
             switch (m_colorRotation) {
                 case 0:
-                    m_plateauPanel.setBackground(Color.BLUE);
+                    m_gameBoardPanel.setBackground(Color.BLUE);
                     break;
                 case 1:
-                    m_plateauPanel.setBackground(Color.YELLOW);
+                    m_gameBoardPanel.setBackground(Color.YELLOW);
                     break;
                 case 2:
-                    m_plateauPanel.setBackground(Color.RED);
+                    m_gameBoardPanel.setBackground(Color.RED);
                     break;
                 case 3:
-                    m_plateauPanel.setBackground(Color.GREEN);
+                    m_gameBoardPanel.setBackground(Color.GREEN);
                     break;
             }
         });
@@ -208,7 +208,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     private void placePawns() {
         for (int i = 0; i < 4; i++) {
-            m_plateauPanel.placePawn(m_game.getPlayer(i));
+            m_gameBoardPanel.placePawn(m_game.getPlayer(i));
         }
     }
 
@@ -237,7 +237,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.anchor = GridBagConstraints.NORTH;
-        mainPanel.add(buttonPanel, gbc);
+        m_mainPanel.add(buttonPanel, gbc);
     }
     /**
      * Génère les boutons pour insérer des tuiles à droite du plateau.
@@ -264,7 +264,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 1;
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.anchor = GridBagConstraints.NORTH;
-        mainPanel.add(buttonPanel, gbc);
+        m_mainPanel.add(buttonPanel, gbc);
     }
 
     /**
@@ -292,7 +292,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
-        mainPanel.add(buttonPanel, gbc);
+        m_mainPanel.add(buttonPanel, gbc);
     }
 
     /**
@@ -320,7 +320,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
-        mainPanel.add(buttonPanel, gbc);
+        m_mainPanel.add(buttonPanel, gbc);
     }
 
     /**
@@ -330,7 +330,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         GridBagConstraints gbc = new GridBagConstraints();
         m_fliyngTilePanel = new TransparentPanel();
         m_fliyngTilePanel.setLayout(new GridBagLayout());
-        TuileComponent flyingTile = m_plateauPanel.getFlyingTileComponent();
+        TuileComponent flyingTile = m_gameBoardPanel.getFlyingTileComponent();
         Dimension preferredSize = new Dimension(100, 100); // Ajustez ces valeurs selon vos besoins
         flyingTile.setPreferredSize(preferredSize);
 
@@ -376,10 +376,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER;
-        mainPanel.add(m_fliyngTilePanel, gbc);
-
-
-
+        m_mainPanel.add(m_fliyngTilePanel, gbc);
     }
 
     private void updateObjectivePanel() {
@@ -451,41 +448,6 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     }
 
     /**
-     * Met à jour l'affichage du plateau.
-     */
-    public void updatePlateau() {
-        //plateauPanel.updatePlateau();
-    }
-
-    /**
-     * Met à jour l'affichage du plateau au début de la partie.
-     */
-    public void debutPartie() {
-        updatePlateau();
-    }
-
-    /**
-     * Met à jour l'affichage du plateau après le déplacement d'une tuile.
-     */
-    public void deplacementTuile() {
-        updatePlateau();
-    }
-
-    /**
-     * Met à jour l'affichage du plateau après le déplacement d'un joueur.
-     */
-    public void deplacementJoueur() {
-        updatePlateau();
-    }
-
-    /**
-     * Met à jour l'affichage du plateau après la capture d'un objectif.
-     */
-    public void captureObjectif() {
-        updatePlateau();
-    }
-
-    /**
      * Met à jour l'affichage du plateau à la fin de la partie.
      */
     @Override
@@ -493,8 +455,8 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         System.out.println("endGame called");
 
         // Créer d'abord le nouveau panel avec l'image de fond
-        mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/end.jpg"));
-        mainPanel.setLayout(new GridBagLayout()); // Important : définir le layout
+        m_mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/end.jpg"));
+        m_mainPanel.setLayout(new GridBagLayout()); // Important : définir le layout
 
         // Ensuite ajouter le label de félicitations
         JLabel congratsLabel = new JLabel("Félicitations, vous avez gagné !");
@@ -511,11 +473,11 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         
-        mainPanel.add(congratsLabel, gbc);
+        m_mainPanel.add(congratsLabel, gbc);
         
         // Mettre à jour le contenu du frame
         getContentPane().removeAll();
-        getContentPane().add(mainPanel);
+        getContentPane().add(m_mainPanel);
         
         revalidate();
         repaint();
@@ -529,7 +491,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
      */
     @Override
     public void updateTile(Position position) {
-        m_plateauPanel.updatePlateau(position);
+        m_gameBoardPanel.updateGameBoard(position);
         updateFlyingTile();
     }
 }

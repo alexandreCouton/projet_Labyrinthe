@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class BackgroundPanel extends JPanel {
     private BufferedImage backgroundImage;
-    private float darknessFactor = 0.25f; // Facteur de 0 à 1 pour contrôler l'assombrissement
+    private float darknessFactor = 0.5f; // Facteur de 0 à 1 pour contrôler l'assombrissement
 
     public BackgroundPanel(BufferedImage backgroundImage) {
         this.backgroundImage = backgroundImage;
