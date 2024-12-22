@@ -196,19 +196,19 @@ public class GameBoard {
      * Initializes the TilesT on the board
      */
     private void initPlaceTileT() {
-        m_stackT.peek().rotate(2);
+        m_stackT.peek().rotateClockWise(2);
         this.placeTileOnGameBoardInit(new Position(2, 0), m_stackT.pop());
-        m_stackT.peek().rotate(2);
+        m_stackT.peek().rotateClockWise(2);
         this.placeTileOnGameBoardInit(new Position(4, 0), m_stackT.pop());
-        m_stackT.peek().rotate(3);
+        m_stackT.peek().rotateClockWise(3);
         this.placeTileOnGameBoardInit(new Position(6, 2), m_stackT.pop());
-        m_stackT.peek().rotate(3);
+        m_stackT.peek().rotateClockWise(3);
         this.placeTileOnGameBoardInit(new Position(6, 4), m_stackT.pop());
         this.placeTileOnGameBoardInit(new Position(4, 6), m_stackT.pop());
         this.placeTileOnGameBoardInit(new Position(2, 6), m_stackT.pop());
-        m_stackT.peek().rotate();
+        m_stackT.peek().rotateClockWise();
         this.placeTileOnGameBoardInit(new Position(0, 4), m_stackT.pop());
-        m_stackT.peek().rotate();
+        m_stackT.peek().rotateClockWise();
         this.placeTileOnGameBoardInit(new Position(0, 2), m_stackT.pop());
     }
 
@@ -224,19 +224,19 @@ public class GameBoard {
             this.placeTileOnGameBoardInit(new Position(0, 0), tuile);
 
             tuile = m_StackCorner.pop();
-            tuile.rotate();
+            tuile.rotateClockWise();
             tuile.setObjective(new Objective("yellowStart"));
             tuile.setPath("./img/imgDepart/yellowTileCorner.png");
             this.placeTileOnGameBoardInit(new Position(6, 0), tuile);
 
             tuile = m_StackCorner.pop();
-            tuile.rotate(3);
+            tuile.rotateClockWise(3);
             tuile.setObjective(new Objective("redStart"));
             tuile.setPath("./img/imgDepart/redTileCorner.png");
             this.placeTileOnGameBoardInit(new Position(0, 6), tuile);
 
             tuile = m_StackCorner.pop();
-            tuile.rotate(2);
+            tuile.rotateClockWise(2);
             tuile.setObjective(new Objective("greenStart"));
             tuile.setPath("./img/imgDepart/greenTileCorner.png");
             this.placeTileOnGameBoardInit(new Position(6, 6), tuile);
@@ -267,7 +267,7 @@ public class GameBoard {
                             case 0:
                                 if (!m_StackCorner.isEmpty()) {
                                     TilesCorner tuile = m_StackCorner.pop();
-                                    tuile.rotate(rand.nextInt(4));
+                                    tuile.rotateClockWise(rand.nextInt(4));
                                     this.placeTileOnGameBoardInit(new Position(j, i), tuile);
                                     placed = true;
                                 }
@@ -275,7 +275,7 @@ public class GameBoard {
                             case 1:
                                 if (!m_stackT.isEmpty()) {
                                     TilesT tuile = m_stackT.pop();
-                                    tuile.rotate(rand.nextInt(4));
+                                    tuile.rotateClockWise(rand.nextInt(4));
                                     this.placeTileOnGameBoardInit(new Position(j, i), tuile);
                                     placed = true;
                                 }
@@ -283,7 +283,7 @@ public class GameBoard {
                             case 2:
                                 if (!m_stackLinear.isEmpty()) {
                                     TilesLinear tuile = m_stackLinear.pop();
-                                    tuile.rotate(rand.nextInt(4));
+                                    tuile.rotateClockWise(rand.nextInt(4));
                                     this.placeTileOnGameBoardInit(new Position(j, i), tuile);
                                     placed = true;
                                 }

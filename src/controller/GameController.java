@@ -40,7 +40,7 @@ public class GameController {
      * Rotate the flying tile
      */
     public void rotateFlyingTile() {
-        m_game.getGameBoard().getFlyTile().rotate();
+        m_game.getGameBoard().getFlyTile().rotateClockWise();
     }
 
     /**

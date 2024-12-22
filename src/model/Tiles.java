@@ -102,7 +102,7 @@ public abstract class Tiles {
     /**
      * Rotates the tile and changes the possibilities
      */
-    public void rotate() {
+    public void rotateClockWise() {
         HashMap<Direction, Boolean> tmp = new HashMap<>();
         tmp.put(Direction.UP, m_openDirections.get(Direction.LEFT));
         tmp.put(Direction.RIGHT, m_openDirections.get(Direction.UP));
@@ -118,9 +118,9 @@ public abstract class Tiles {
      * Rotates the tile and changes the possibilities
      * @param n : the number of clockwise you want
      */
-    public void rotate(int n) {
+    public void rotateClockWise(int n) {
         for (int i = 0; i < n; i++) {
-            rotate();
+            rotateClockWise();
         }
     }
 
