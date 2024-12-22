@@ -9,12 +9,13 @@ import java.io.IOException;
  * GameBoardPanel is a JPanel that represents the game board visually in the GUI.
  * It manages the tiles on the board and updates their appearance based on the game state.
  * It also handles player movement and tile updates, ensuring the board is correctly displayed and refreshed.
+ *<br>
+ * Key responsibilities:<br>
+ * - Initializing and displaying the game tiles on a 7x7 grid.<br>
+ * - Placing player pieces on the board.<br>
+ * - Updating tiles when they are moved or rotated.<br>
+ * - Handling the graphical representation of player movements.<br>
  *
- * Key responsibilities:
- * - Initializing and displaying the game tiles on a 7x7 grid.
- * - Placing player pieces on the board.
- * - Updating tiles when they are moved or rotated.
- * - Handling the graphical representation of player movements.
  */
 
 public class GameBoardPanel extends JPanel implements PlayerObserver {
@@ -134,7 +135,11 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
         repaint();
 
     }
-
+    /**
+     * Updates a specific tile visually.
+     *
+     * @param pos the position of the tile to update
+     */
     public void updateTile(Position pos){
         int x = pos.getPositionX();
         int y = pos.getPositionY();
@@ -146,7 +151,12 @@ public class GameBoardPanel extends JPanel implements PlayerObserver {
         revalidate();
         repaint();
     }
-
+    /**
+     * Updates the visual representation of a player at their current position.
+     *
+     * @param player the player to update
+     * @param path   the path to the player's pawn image
+     */
     public void actualizePlayer(Player player, String path){
         try {
             int x = player.getPositionX();

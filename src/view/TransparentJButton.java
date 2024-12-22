@@ -2,7 +2,21 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * TransparentJButton is a subclass of JButton that creates a button with a transparent appearance,
+ * without borders or background. It allows customization of the button's visual appearance while
+ * maintaining interactive behavior.
+ *<br> * Responsibilities:<br>
+ * - Customize the button's appearance by making the background transparent and removing the borders.<br>
+ * - Apply a transparency effect to the button.<br>
+ * - Provide a "hand" cursor when the user hovers over the button.<br>
+ */
 public class TransparentJButton extends JButton {
+    /**
+     * Constructor that initializes the button with a text.
+     *
+     * @param text the text to display on the button
+     */
     public TransparentJButton(String text) {
         super(text);
         setOpaque(false); // Assurez-vous que le bouton n'est pas opaque
@@ -12,7 +26,11 @@ public class TransparentJButton extends JButton {
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
     }
-
+    /**
+     * Redraws the button with a rounded and semi-transparent background.
+     *
+     * @param g the graphics used to draw the button
+     */
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();

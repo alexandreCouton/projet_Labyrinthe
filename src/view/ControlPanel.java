@@ -29,7 +29,11 @@ public class ControlPanel extends JComponent {
     private TransparentJButton m_btnGauche;
     private TransparentJButton m_btnDroite;
     private GameController m_controller;
-
+    /**
+     * Constructs a ControlPanel with directional buttons linked to the given GameController.
+     *
+     * @param controller the GameController that handles player movement actions
+     */
     public ControlPanel(GameController controller){
         m_controller = controller;
         m_btnHaut = new TransparentJButton("Haut");

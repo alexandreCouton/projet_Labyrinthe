@@ -5,21 +5,21 @@ package model;
  * The TuileFactory class is responsible for creating instances of different tile types
  * in the Labyrinth game. It provides methods for creating tiles of various shapes,
  * including linear tiles, corner tiles, and T-shaped tiles, with or without objectives.
- *
- * Key responsibilities include:
- * - Creating and returning new instances of tiles with specific configurations.
- * - Allowing the creation of tiles with or without associated objectives.
- *
- * The factory methods include:
- * - `createTileLinear()`: Creates a linear tile with basic openings (up and down).
- * - `createTileLinear(Objective objective)`: Creates a linear tile with a specified objective.
- * - `createTileCorner()`: Creates a corner tile with openings to the right and down.
- * - `createTileCorner(Objective objective)`: Creates a corner tile with a specified objective.
- * - `createTileT()`: Creates a T-shaped tile with specific openings.
- * - `createTileT(Objective objective)`: Creates a T-shaped tile with a specified objective.
- *
- * This class helps abstract the creation process of different tile types and ensures that
- * the correct configurations are applied when creating new tiles for the game.
+ *<br>
+ * Key responsibilities include:<br>
+ * - Creating and returning new instances of tiles with specific configurations.<br>
+ * - Allowing the creation of tiles with or without associated objectives.<br>
+ *<br>
+ * The factory methods include:<br>
+ * - `createTileLinear()`: Creates a linear tile with basic openings (up and down).<br>
+ * - `createTileLinear(Objective objective)`: Creates a linear tile with a specified objective.<br>
+ * - `createTileCorner()`: Creates a corner tile with openings to the right and down.<br>
+ * - `createTileCorner(Objective objective)`: Creates a corner tile with a specified objective.<br>
+ * - `createTileT()`: Creates a T-shaped tile with specific openings.<br>
+ * - `createTileT(Objective objective)`: Creates a T-shaped tile with a specified objective.<br>
+ *<br>
+ * This class helps abstract the creation process of different tile types and ensures that<br>
+ * the correct configurations are applied when creating new tiles for the game.<br>
  */
 
 public class TuileFactory {

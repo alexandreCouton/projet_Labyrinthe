@@ -7,21 +7,21 @@ import java.util.HashMap;
  * The Tiles class represents a tile in the Labyrinth game. It is an abstract class
  * that serves as a base for all specific tile types (e.g., corner tiles, T-shaped tiles).
  * Each tile has certain possible connections (openings) in the four directions: up, right, down, and left.
- * It also handles the rotation of tiles and the notification of observers when a tile is rotated.
- *
- * Key responsibilities include:
- * - Storing the possible openings for each tile in all four directions (up, right, down, left).
- * - Managing the tile's objective (if any).
- * - Handling tile rotation by updating the direction of openings.
- * - Notifying observers when the tile is rotated.
- *
- * The class also provides methods for interacting with the tile's state, such as:
- * - Getting and setting the tile's position.
- * - Checking the openness of the tile in specific directions.
- * - Rotating the tile and notifying observers of the change.
- *
- * This class is the foundation for more specialized tile types, which define the exact layout
- * and behavior of the tiles in the Labyrinth game.
+ * It also handles the rotation of tiles and the notification of observers when a tile is rotated.<br>
+ *<br>
+ * Key responsibilities include:<br>
+ * - Storing the possible openings for each tile in all four directions (up, right, down, left).<br>
+ * - Managing the tile's objective (if any).<br>
+ * - Handling tile rotation by updating the direction of openings.<br>
+ * - Notifying observers when the tile is rotated.<br>
+ *<br>
+ * The class also provides methods for interacting with the tile's state, such as:<br>
+ * - Getting and setting the tile's position.<br>
+ * - Checking the openness of the tile in specific directions.<br>
+ * - Rotating the tile and notifying observers of the change.<br>
+ *<br>
+ * This class is the foundation for more specialized tile types, which define the exact layout<br>
+ * and behavior of the tiles in the Labyrinth game.<br>
  */
 
 public abstract class Tiles {
@@ -33,7 +33,14 @@ public abstract class Tiles {
     private int m_rotateIndex = 0;
 
 
-
+    /**
+     * Constructs a tile with specified open directions.
+     *
+     * @param up    true if the tile is open at the top
+     * @param right true if the tile is open on the right
+     * @param bottom true if the tile is open at the bottom
+     * @param left  true if the tile is open on the left
+     */
     public Tiles(boolean up, boolean right, boolean bottom, boolean left){
         m_openDirections.put(Direction.UP, up);
         m_openDirections.put(Direction.RIGHT, right);
@@ -41,7 +48,15 @@ public abstract class Tiles {
         m_openDirections.put(Direction.LEFT, left);
         m_observers = new ArrayList<>();
     }
-
+    /**
+     * Constructs a tile with an associated objective and specified open directions.
+     *
+     * @param objective the objective associated with the tile
+     * @param up        true if the tile is open at the top
+     * @param right     true if the tile is open on the right
+     * @param bottom    true if the tile is open at the bottom
+     * @param left      true if the tile is open on the left
+     */
     public Tiles(Objective objective, boolean up, boolean right, boolean bottom, boolean left){
         this.m_objective = objective;
         this.m_position=null;
@@ -120,7 +135,13 @@ public abstract class Tiles {
     public int getRotateIndex(){
         return m_rotateIndex;
     }
-
+    /**
+     * Checks if a move from this tile to another tile in the specified direction is possible.
+     *
+     * @param direction the direction of the move
+     * @param tile      the tile to which the move is made
+     * @return true if the move is possible, false otherwise
+     */
     public boolean moveTile(Direction direction, Tiles tile) {
         if (!this.getOpen(direction)) {
             return false;
@@ -153,12 +174,7 @@ public abstract class Tiles {
         };
     }
 
-    public void toStrPossibilite(){
-        System.out.println("Up : "+ m_openDirections.get(Direction.UP));
-        System.out.println("Right : "+ m_openDirections.get(Direction.RIGHT));
-        System.out.println("Down : "+ m_openDirections.get(Direction.DOWN));
-        System.out.println("Left : "+ m_openDirections.get(Direction.LEFT));
-    }
+
 
     public void setObjective(Objective obj){
         this.m_objective=obj;

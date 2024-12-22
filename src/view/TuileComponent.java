@@ -10,17 +10,22 @@ import model.TilesObserver;
  * TuileComponent is a JComponent that represents a tile on the game board in the GUI.
  * It displays the graphical representation of a tile, including handling its rotation
  * and updating its image based on the current state of the tile.
- *
- * Key responsibilities:
- * - Displaying the image of the tile in the GUI.
- * - Rotating the tile when notified by the observer pattern.
- * - Updating the tile image whenever it changes.
+ *<br> * Key responsibilities:<br>
+ * - Displaying the image of the tile in the GUI.<br>
+ * - Rotating the tile when notified by the observer pattern.<br>
+ * - Updating the tile image whenever it changes.<br>
  */
 
 public class TuileComponent extends JComponent implements TilesObserver {
     private Tiles m_tiles;
     private BufferedImage m_image;
 
+    /**
+     * Constructor that initializes the component with a given tile and sets the initial image.
+     * It also handles the rotation based on the tile's rotate index.
+     *
+     * @param tiles the tile that this component represents
+     */
     public TuileComponent(Tiles tiles) {
         m_tiles = tiles;
         setLayout(new BorderLayout());

@@ -6,7 +6,11 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+/**
+ * GameDisplay is a JFrame that represents the main graphical interface for the game.
+ * It manages the game board, player controls, flying tile interactions, and game objectives display.
+ * It also updates the game state based on user interactions.
+ */
 public class GameDisplay extends JFrame implements GameBoardObserver {
     private GameBoardPanel m_gameBoardPanel;
     private Game m_game;
@@ -18,12 +22,10 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     private JPanel objectivePanel;
 
     /**
-     * Constructeur de la classe GameDisplay.
-     * Initialise la fenêtre de jeu, le panneau principal, le panneau de plateau,
-     * le panneau de contrôle, les boutons et la section de boutons.
-     *
-     * @param game le jeu
-     * @param gameBoardPanel le panneau de plateau
+     * Constructs a new GameDisplay window and initializes the various panels and controls.
+     *<br>
+     * @param game The game object that holds the current game state.<br>
+     * @param gameBoardPanel The panel representing the game board.<br>
      */
     public GameDisplay(Game game, GameBoardPanel gameBoardPanel) {
         this.m_game = game;
@@ -42,7 +44,8 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Initialise les propriétés de la fenêtre.
+     * Initializes the main frame (JFrame) with the necessary properties.
+     * This includes setting the title, size, and default close operation.
      */
     private void initializeFrame() {
         setTitle("Labyrinthe");
@@ -53,7 +56,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Initialise le panneau principal avec un GridBagLayout.
+     * Initializes the main panel that contains the background and layout for the game.
      */
     private void initializeMainPanel() {
         BufferedImage background = ImageHelper.loadImage("src/img/fondLabyrinthe.jpg");
@@ -62,9 +65,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
 
     }
     /**
-     * Initialise le panneau de plateau et l'ajoute au panneau principal.
+     * Initializes and adds the game board panel to the main panel.
      *
-     * @param gameBoardPanel le panneau de plateau
+     * @param gameBoardPanel The panel representing the game board.
      */
     private void initializePlateauPanel(GameBoardPanel gameBoardPanel) {
         m_gameBoardPanel = gameBoardPanel;
@@ -80,7 +83,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Initialise le panneau de contrôle et l'ajoute au panneau principal.
+     * Initializes and adds the control panel to handle player actions like "Capture" and "Next Turn".
      */
     private void initializeControlPanel() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -97,7 +100,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Génère les boutons pour insérer des tuiles autour du plateau.
+     * Generates the directional buttons (left, right, top, bottom) for placing tiles on the board.
      */
     private void generateButtons() {
         generateButtonLeft();
@@ -107,7 +110,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Initialise la section de boutons avec les boutons de capture et de tour suivant.
+     * Initializes the section of the interface with buttons for controlling game actions.
      */
     private void initializeButtonSection() {
         m_buttonSection = new JPanel(new GridBagLayout());
@@ -153,9 +156,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Crée le bouton de capture.
+     * Creates the "Capture" button and returns it.
      *
-     * @return le bouton de capture
+     * @return The capture button.
      */
     private JButton createCaptureButton() {
         JButton captureButton = new JButton("Capture");
@@ -170,9 +173,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Crée le bouton de tour suivant.
+     * Creates the "Next Turn" button and returns it.
      *
-     * @return le bouton de tour suivant
+     * @return The next turn button.
      */
     private JButton createNextTurnButton() {
         JButton nextTurnButton = new JButton("Tour Suivant");
@@ -204,7 +207,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Place les pions des joueurs sur le plateau.
+     * Places the players' pawns on the game board at the start of the game.
      */
     private void placePawns() {
         for (int i = 0; i < 4; i++) {
@@ -213,7 +216,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Génère les boutons pour insérer des tuiles à gauche du plateau.
+     * Generates and places buttons on the left side of the game board for tile placement.
      */
     private void generateButtonLeft() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -240,7 +243,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         m_mainPanel.add(buttonPanel, gbc);
     }
     /**
-     * Génère les boutons pour insérer des tuiles à droite du plateau.
+     * Generates and places buttons on the right side of the game board for tile placement.
      */
     private void generateButtonRight() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -268,7 +271,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Génère les boutons pour insérer des tuiles en haut du plateau.
+     * Generates and places buttons on the top side of the game board for tile placement.
      */
     private void generateButtonTop() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -296,7 +299,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Génère les boutons pour insérer des tuiles en bas du plateau.
+     * Generates and places buttons on the bottom side of the game board for tile placement.
      */
     private void generateButtonBottom() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -324,7 +327,8 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Génère le panneau de la tuile volante et le place en bas à gauche du plateau et des boutons de gauche.
+     * Initializes and displays the flying tile control panel at the bottom left of the window.
+     * This includes a rotate button to manipulate the flying tile.
      */
     private void generateFlyingTilePlace() {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -378,7 +382,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         gbc.anchor = GridBagConstraints.CENTER;
         m_mainPanel.add(m_fliyngTilePanel, gbc);
     }
-
+    /**
+     * Updates the objective panel to reflect the current player’s objectives in the game.
+     */
     private void updateObjectivePanel() {
         objectivePanel.removeAll();
         if (m_game.getCurrentPlayer().getLstObjective().isEmpty()) {
@@ -409,7 +415,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         objectivePanel.revalidate();
         objectivePanel.repaint();
     }
-
+    /**
+     * Displays the objectives for the current player at the start of the game or when they change.
+     */
     private void showObjective() {
         objectivePanel = new JPanel(new FlowLayout());
         objectivePanel.setOpaque(true);
@@ -436,7 +444,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         m_buttonSection.revalidate();
         m_buttonSection.repaint();
     }
-
+    /**
+     * Updates the flying tile on the panel when its state changes (e.g., after rotation).
+     */
     public void updateFlyingTile() {
         TuileComponent tuile = ((TuileComponent) m_fliyngTilePanel.getComponent(1));
         tuile.setTile(m_game.getGameBoard().getFlyTile());
@@ -448,7 +458,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
     }
 
     /**
-     * Met à jour l'affichage du plateau à la fin de la partie.
+     * Updates the display of the game board when the board state changes.
      */
     @Override
     public void endGame() {
@@ -485,9 +495,9 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
 
 
     /**
-     * Met à jour l'affichage de la tuile à la position spécifiée.
+     * Updates the tile display at the specified position on the game board.
      *
-     * @param position la position de la tuile
+     * @param position The position of the tile to be updated.
      */
     @Override
     public void updateTile(Position position) {
