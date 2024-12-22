@@ -226,6 +226,112 @@ package view{
         +<<Create>>BackgroundPanel(backgroundImage : BufferedImage)
         #paintComponent(g : Graphics)
     }
+
+    class ControlPanel extends JComponent{
+        - m_btnHaut : TransparentJButton
+        - m_btnBas : TransparentJButton
+        - m_btnGauche : TransparentJButton
+        - m_btnDroite : TransparentJButton
+        - m_controller : GameController
+
+        +<<Create>>ControlPanel(controller : GameController)
+    }
+
+    class GameBoardPanel extends JPanel implements PlayerObserver{
+        - m_gameBoard : GameBoard
+        - m_tilesComponent : TuileComponent[][]
+
+        +<<Create>>GameBoardPanel(gameBoard : GameBoard)
+        + placePawn(player : Player)
+        + initTuilesComponents()
+        + getFlyingTileComponent() : TuileComponent
+        + updateGameBoard(pos : Position)
+        + movePlayer(oldPos : Position, newPos : Position, path : String)
+        + updateTile(pos : Position)
+        + actualizePlayer(player : Player, path : String)
+    }
+
+    class GameDisplay extends JFrame implements GameBoardObserver{
+        - m_gameBoardPanel : GameBoardPanel
+        - m_game : Game
+        - m_mainPanel : JPanel
+        - m_gameController : GameController
+        - m_buttonSection : JPanel
+        - m_flyingTilePanel : JPanel
+        - m_colorRotation : Integer
+        - m_objectivePanel : JPanel
+
+        +<<Create>>GameDisplay(game : Game, gameBoardPanel : GameBoardPanel)
+        - initializeFrame()
+        - initializeMainPanel()
+        - initializePlateauPanel(gameBoardPanel : GameBoardPanel)
+        - initializeControlPanel()
+        - generateButtons()
+        - initializeButtonSection()
+        - createCaptureButton()
+        - createNextTurnButton()
+        - placePawns()
+        - generateButtonLeft()
+        - generateButtonRight()
+        - generateButtonTop()
+        - generateButtonBottom()
+        - generateFlyingTilePlace()
+        - updateObjectivePanel()
+        - showObjective()
+        - updateFlyingTile()
+        - endGame()
+        + updateTile(pos : Position)
+    }
+
+    class ImageHelper{
+        + merge(backgroundPath : String, foregroundPaths : String[]) : BufferedImage
+        + merge(background : BufferedImage, foregroundPaths : String[]) : BufferedImage
+        + rotate(original : BufferedImage, angle : Double) : BufferedImage
+        + rotateClockwise(original : BufferedImage) : BufferedImage
+        + rotateCounterClockwise(original : BufferedImage) : BufferedImage
+        + getPathImg(path : String) : List<String>
+        + loadImage(imagePath : String) : BufferedImage
+        + resizeImage(originalImage : BufferedImage, targetWidth : Integer, targetHeight : Integer) : BufferedImage
+    }
+
+    class ObjectiveComponent extends JComponent{
+        - m_objective : Objective
+        - m_image : BufferedImage
+
+        +<<Create>>ObjectiveComponent(objective : Objective)
+        #paintComponent(g : Graphics)
+        + setObjective(objective : Objective)
+        + setImage(image : BufferedImage)
+        + getImage() : BufferedImage
+    }
+
+    class TransparentJButton extends JButton{
+        +<<Create>>TransparentJButton(text : String)
+        #paintComponent(g : Graphics)
+    }
+
+    class TransparentPanel extends JPanel{
+        +<<Create>>TransparentPanel()
+        #paintComponent(g : Graphics)
+    }
+
+    class TuileComponent extends JComponent implements TilesObserver{
+        - m_tiles : Tiles
+        - m_image : BufferedImage
+
+        +<<Create>>TuileComponent(tiles : Tiles)
+        #paintComponent(g : Graphics)
+        + setTile(tiles : Tiles)
+        + setImage(image : BufferedImage)
+        + getImage() : BufferedImage
+        + updateRotateTile(tile : Tiles)
+    }
+
 }
+
+class LabyrintheApp{
+    + main(args : String[])
+}
+
 
 @enduml
