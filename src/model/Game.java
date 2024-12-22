@@ -219,17 +219,10 @@ public class Game {
         Position currentPosition = currentPlayer.getPosition();
         Position startPosition = currentPlayer.getStartPos();
 
-        System.out.println("Checking end game conditions...");
-        System.out.println("Current Player: " + currentPlayer.toString());
-        System.out.println("All Objectives Captured: " + currentPlayer.allObjectiveCapture());
-        System.out.println("Current Position: " + currentPosition);
-        System.out.println("Start Position: " + startPosition);
-
         if(getCurrentPlayer().allObjectiveCapture() && getCurrentPlayer().isStartPos(getCurrentPlayerPosition())){
             m_gameBoard.notifyObserverEndGame();
-        } else {
-            System.out.println("Finish game conditions not met"); // Ajout d'un message de débogage
         }
+
     }
 
 

@@ -232,7 +232,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
                 buttonPanel.add(button);
             }
         }
-        gbc.gridx = 2; // Décalé de 1
+        gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -259,7 +259,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
                 buttonPanel.add(button);
             }
         }
-        gbc.gridx = 4; // Décalé de 1
+        gbc.gridx = 4;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
@@ -394,20 +394,19 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
             objectivePanel.add(noObjective);
             JButton endGameButton = new JButton("Valider fin de partie");
             endGameButton.addActionListener(e -> {
-                System.out.println("Finish game button clicked"); // Ajout d'un message de débogage
                 m_gameController.finishGame();
             });
             endGameButton.setPreferredSize(new Dimension(100, 30));
             endGameButton.setBackground(new Color(255, 105, 180)); // Couleur de fond rose
             endGameButton.setForeground(Color.WHITE); // Texte en blanc
-            endGameButton.setFont(new Font("Arial", Font.BOLD, 12)); // Police personnalisée
-            endGameButton.setBorder(BorderFactory.createRaisedBevelBorder()); // Bordure en relief
+            endGameButton.setFont(new Font("Arial", Font.BOLD, 12));
+            endGameButton.setBorder(BorderFactory.createRaisedBevelBorder());
             objectivePanel.add(endGameButton);
         }else {
             for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
                 ObjectiveComponent objComponent = new ObjectiveComponent(obj);
-                objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
-                objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
+                objComponent.setPreferredSize(new Dimension(75, 75));
+                objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 objectivePanel.add(objComponent);
             }
         }
@@ -425,7 +424,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         for (Objective obj : m_game.getCurrentPlayer().getLstObjective()) {
             ObjectiveComponent objComponent = new ObjectiveComponent(obj);
             objComponent.setPreferredSize(new Dimension(75, 75)); // Set a specific size
-            objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Optional: add a border
+            objComponent.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             objectivePanel.add(objComponent);
         }
 
@@ -462,17 +461,14 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
      */
     @Override
     public void endGame() {
-        System.out.println("endGame called");
 
-        // Créer d'abord le nouveau panel avec l'image de fond
         m_mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/background/end.jpg"));
-        m_mainPanel.setLayout(new GridBagLayout()); // Important : définir le layout
+        m_mainPanel.setLayout(new GridBagLayout());
 
-        // Ensuite ajouter le label de félicitations
         JLabel congratsLabel = new JLabel("Félicitations, " + m_game.getCurrentPlayer().toString() + " a gagné !");
         congratsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         congratsLabel.setHorizontalAlignment(JLabel.CENTER);
-        congratsLabel.setForeground(Color.WHITE); // Pour une meilleure visibilité sur le fond
+        congratsLabel.setForeground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -485,7 +481,6 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         
         m_mainPanel.add(congratsLabel, gbc);
         
-        // Mettre à jour le contenu du frame
         getContentPane().removeAll();
         getContentPane().add(m_mainPanel);
         
