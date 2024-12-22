@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GameDisplay extends JFrame implements PlateauObserver {
+public class GameDisplay extends JFrame implements GameBoardObserver {
     private GameBoardPanel m_gameBoardPanel;
     private Game m_game;
     private JPanel m_mainPanel;
@@ -116,7 +116,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
         JButton captureButton = createCaptureButton();
         captureButton.addActionListener(e -> { 
 
-            m_gameController.captureObjectif();
+            m_gameController.captureObjective();
 
             updateObjectivePanel() ;
         });
@@ -160,7 +160,7 @@ public class GameDisplay extends JFrame implements PlateauObserver {
     private JButton createCaptureButton() {
         JButton captureButton = new JButton("Capture");
         captureButton.addActionListener(e -> {
-            m_gameController.captureObjectif();
+            m_gameController.captureObjective();
             updateObjectivePanel();
         });
         captureButton.setBackground(Color.GREEN);

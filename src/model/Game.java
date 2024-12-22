@@ -47,7 +47,7 @@ public class Game {
                 lstObjTemp.add(lstObj.get(0));
                 lstObj.remove(0);
             }
-            p.setLstObjectif(lstObjTemp);
+            p.setLstObjective(lstObjTemp);
             lstObjTemp = new ArrayList<>();
         }
     }

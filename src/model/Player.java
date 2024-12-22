@@ -7,7 +7,7 @@ public class Player {
     private String m_name;
     private ArrayList<Objective> m_lstObjective;
     //En int car on s'en fiche de connaitre ceux qu'il a deja eu vu qu'ils disparaiteront de la liste au m_lstobjective
-    private int m_objectifCapture;
+    private int m_objectiveCapture;
     private Pawn m_pawn;
     private ArrayList<PlayerObserver> m_lstObserver;
 
@@ -47,7 +47,7 @@ public class Player {
     /**
      * @param lstObjective : Set the objectives for the player
      */
-    protected void setLstObjectif(ArrayList<Objective> lstObjective){
+    protected void setLstObjective(ArrayList<Objective> lstObjective){
         this.m_lstObjective = lstObjective;
     }
 
@@ -104,7 +104,7 @@ public class Player {
 
     public void captureObjective(Objective obj){
         m_lstObjective.remove(obj);
-        m_objectifCapture++;
+        m_objectiveCapture++;
     }
 
     public Boolean allObjectiveCapture(){

@@ -60,7 +60,7 @@ public class GameController {
     /**
      * Capture the objective
      */
-    public void captureObjectif() {
+    public void captureObjective() {
         m_game.captureObjectif();
     }
 

@@ -25,16 +25,16 @@ package model{
         + insertFlyingTile(pos : Position)
         - getCurrentPlayerPosition() : Position
         + movePlayer(direction : Direction)
-        + prochainTour()
-        + captureObjectif()
+        + nextTurn()
+        + captureObjective()
         + finishGame()
     }
 
     class GameBoard{
-        - m_lstTuilesPlateau : Tiles[7][7]
-        - m_StackAngle : Stack<TilesCorner>
+        - m_lstTuilesGameBoard : Tiles[7][7]
+        - m_StackCorner : Stack<TilesCorner>
         - m_stackT : Stack<TilesT>
-        - m_stackDroite : Stack<TilesLinear>
+        - m_stackLinear : Stack<TilesLinear>
         - m_lstObjective : ArrayList<Objective>
         - m_flyingTile : Tiles
         - m_lstObserver : ArrayList<PlateauObserver>
@@ -49,9 +49,9 @@ package model{
         + getTile(pos : Position) : Tiles
         - initObjective()
         - initTuiles()
-        - initPlateau()
+        - initGameBoard()
         + insertFlyingTile(pos : Position)
-        - placerTuileSurPlateauInit(pos : Position, tiles : Tiles)
+        - placeTileOnGameBoardInit(pos : Position, tiles : Tiles)
         - initPlaceTuileT()
         - initPlaceTuileAng()
         - placerTuile()
@@ -82,43 +82,43 @@ package model{
         + getPath() : String
         + setPosition(position : Position)
         + getPosition() : Position
-        + goRight()
-        + goLeft()
-        + goUp()
-        + goDown()
-        + setPositionX(x : Integer)
-        + setPositionY(y : Integer)
         + toStr()
         + setStartPosition(pos : Position)
         + getStartPosition() : Position
     }
 
+    interface GameBoardObserver{
+        + updateTile(pos : Position)
+        + endGame()
+    }
+
     class Player{
-        - m_nom : String
+        - m_name : String
         - m_lstObjective : ArrayList<Objective>
-        - m_objectifCapture : Integer
+        - m_objectiveCapture : Integer
         - m_pawn : Pawn
         - m_lstObserver : ArrayList<PlayerObserver>
 
-        +<<Create>>Player(nom : String)
+        +<<Create>>Player(name : String)
         + addObserver(obs : PlayerObserver)
         + removeObserver(obs : PlayerObserver)
         + notifyObserver(oldPos : Position, newPos : Position)
-        + setLstObjectif(lstObjective : ArrayList<Objective>)
+        + setLstObjective(lstObjective : ArrayList<Objective>)
         + getLstObjective() : ArrayList<Objective>
         + getPosition() : Position
         + getPositionX() : Integer
         + getPositionY() : Integer
         + move(pos : Position)
-        + setImgPion(path : String)
-        + getImgPion() : String
-        + setPionPosition(pos : Position)
-        + captureObjectif(obj : Objective)
+        + setImgPawn(path : String)
+        + getImgPawn() : String
+        + setPawnPosition(pos : Position)
+        + captureObjective(obj : Objective)
         + allObjectiveCapture() : Boolean
         + isStartPos(pos : Position) : Boolean
         + getPath() : String
         + toString() : String
         + setStartPos(pos : Position)
+        + getStartPos() : Position
     }
 
     interface PlayerObserver{
@@ -130,15 +130,39 @@ package model{
         - m_y : Integer
 
         +<<Create>>Position(x : Integer, y : Integer)
-        + getX() : Integer
-        + getY() : Integer
-        + setX(x : Integer)
-        + setY(y : Integer)
+        + setPositionX(x : Integer)
+        + setPositionY(y : Integer)
+        + getPositionX() : Integer
+        + getPositionY() : Integer
         + moveRight() : Position
         + moveLeft() : Position
         + moveUp() : Position
         + moveDown() : Position
         + generateRandomPosition(maxX : Integer, maxY : Integer) : Position
+    }
+
+    class Tiles{
+        - m_position : Position
+        - m_objective : Objective
+        - m_openDirections : Boolean[4]
+        - m_observers : ArrayList<TilesObserver>
+        - m_rotateIndex : Integer
+
+        +<<Create>>Tiles(up : Boolean, right : Boolean, bottom : Boolean, left : Boolean)
+        +<<Create>>Tiles(objective : Objective, up : Boolean, right : Boolean, bottom : Boolean, left : Boolean)
+        + addObserver(observer : TilesObserver)
+        + removeObserver(observer : TilesObserver)
+        + notifyObserver()
+        + getOpen(direction : Direction) : Boolean
+        + rotate()
+        + rotate(n : Integer)
+        + getPath() : String
+        + getRotateIndex() : Integer
+        + moveTile(direction : Direction, tile : Tiles) : Boolean
+        + toStrPossibilite()
+        + setObjective(obj : Objective)
+        + getObjective() : Objective
+        + setPath(path : String)
     }
 
     
