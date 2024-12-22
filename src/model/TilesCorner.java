@@ -2,7 +2,7 @@ package model;
 
 public class TilesCorner extends Tiles {
 
-    private String m_pathTileCorner = "src/img/TileCorner.png";
+    private String m_pathTileCorner = "./img/imgTile/TileCorner.png";
 
     /**
      * YOU HAVE TO USE THE FACTORY

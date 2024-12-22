@@ -59,7 +59,7 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
      * Initializes the main panel that contains the background and layout for the game.
      */
     private void initializeMainPanel() {
-        BufferedImage background = ImageHelper.loadImage("src/img/fondLabyrinthe.jpg");
+        BufferedImage background = ImageHelper.loadImage("./img/background/fondLabyrinthe.jpg");
         m_mainPanel = new BackgroundPanel(background);
         m_mainPanel.setLayout(new GridBagLayout());
 
@@ -465,14 +465,14 @@ public class GameDisplay extends JFrame implements GameBoardObserver {
         System.out.println("endGame called");
 
         // Créer d'abord le nouveau panel avec l'image de fond
-        m_mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/end.jpg"));
+        m_mainPanel = new BackgroundPanel(ImageHelper.loadImage("./img/background/end.jpg"));
         m_mainPanel.setLayout(new GridBagLayout()); // Important : définir le layout
 
         // Ensuite ajouter le label de félicitations
-        JLabel congratsLabel = new JLabel("Félicitations, vous avez gagné !");
+        JLabel congratsLabel = new JLabel("Félicitations, " + m_game.getCurrentPlayer().toString() + " a gagné !");
         congratsLabel.setFont(new Font("Arial", Font.BOLD, 24));
         congratsLabel.setHorizontalAlignment(JLabel.CENTER);
-        congratsLabel.setForeground(Color.BLACK); // Pour une meilleure visibilité sur le fond
+        congratsLabel.setForeground(Color.WHITE); // Pour une meilleure visibilité sur le fond
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

@@ -21,7 +21,7 @@ public class Player {
      */
     public Player(String nom){
         this.m_name = nom;
-        m_pawn = new Pawn("src/img/pawn.png", new Position(0,0));
+        m_pawn = new Pawn("./img/pawn/pawn.png", new Position(0,0));
         m_lstObjective = new ArrayList<>();
         m_lstObserver = new ArrayList<>();
     }

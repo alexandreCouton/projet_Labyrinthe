@@ -43,7 +43,7 @@ public class Game {
     private void distributeObjectivesToPlayer(ArrayList<Objective> lstObj){
         ArrayList<Objective> lstObjTemp = new ArrayList<>();
         for(Player p : lstPlayer){
-            for(int i = 0; i<6; i++){
+            for(int i = 0; i<1; i++){
                 lstObjTemp.add(lstObj.get(0));
                 lstObj.remove(0);
             }
@@ -62,9 +62,13 @@ public class Game {
      * Initialize the players
      */
     private void initPlayers() {
+        ArrayList<String> colors = new ArrayList<>();
+        colors.add("bleu");
+        colors.add("jaune");
+        colors.add("rouge");
+        colors.add("vert");
         for (int i = 0; i < 4; i++) {
-            lstPlayer[i] = new Player("Player " + (i + 1));
-
+            lstPlayer[i] = new Player("Joueur " + (colors.get(i)));
         }
         placePlayer();
     }
@@ -75,13 +79,13 @@ public class Game {
      */
     private void placePlayer(){
         lstPlayer[0].setStartPos(new Position(0,0));
-        lstPlayer[0].setImgPawn("src/img/pawn/bluePawn.png");
+        lstPlayer[0].setImgPawn("./img/pawn/bluePawn.png");
         lstPlayer[1].setStartPos(new Position(6,0));
-        lstPlayer[1].setImgPawn("src/img/pawn/yellowPawn.png");
+        lstPlayer[1].setImgPawn("./img/pawn/yellowPawn.png");
         lstPlayer[2].setStartPos(new Position(0,6));
-        lstPlayer[2].setImgPawn("src/img/pawn/redPawn.png");
+        lstPlayer[2].setImgPawn("./img/pawn/redPawn.png");
         lstPlayer[3].setStartPos(new Position(6,6));
-        lstPlayer[3].setImgPawn("src/img/pawn/greenPawn.png");
+        lstPlayer[3].setImgPawn("./img/pawn/greenPawn.png");
     }
 
 

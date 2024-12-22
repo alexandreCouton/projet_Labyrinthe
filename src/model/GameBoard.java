@@ -94,10 +94,10 @@ public class GameBoard {
      */
     private void initObjective() {
         ImageHelper imgHelper = new ImageHelper();
-        List<String> lstPath = imgHelper.getPathImg("src/img/imgObjectif");
+        List<String> lstPath = imgHelper.getPathImg("./img/imgObjectif");
         for (int i = 0; i < 24; i++) {
             if (lstPath.isEmpty()) {
-                m_lstObjective.add(new Objective("Objective"+i,"src/img/imgObjectif/argent.png"));
+                m_lstObjective.add(new Objective("Objective"+i,"./img/imgObjectif/argent.png"));
             } else {
                 m_lstObjective.add(new Objective("Objective"+i, lstPath.getLast()));
                 lstPath.removeLast();

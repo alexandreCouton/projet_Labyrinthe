@@ -2,7 +2,7 @@ package model;
 
 public class TilesLinear extends Tiles {
 
-    private String m_pathTileLinear = "src/img/TileLinear.png";
+    private String m_pathTileLinear = "./img/imgTile/TileLinear.png";
 
 
     /**
