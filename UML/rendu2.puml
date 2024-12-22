@@ -2,8 +2,6 @@
 
 package controller{
     class GameController{
-        - m_game : Game
-
         +<<Create>>GameController(game : Game)
         + placeFlyingTile(pos : Position)
         + rotateFlyingTile()
@@ -23,9 +21,13 @@ package model{
         LEFT
     }
 
+    interface PlateauObserver{
+        + {abstract}movePlayer(oldPos : Position , newPos : Position , path : String )
+
+    }
+
+
     class Game{
-        - lstPlayer : Player[4]
-        - m_gameBoard : GameBoard
         - m_currentPlayer : Integer
         - m_insertedFlyingTile : Boolean
 
@@ -45,14 +47,6 @@ package model{
     }
 
     class GameBoard{
-        - m_lstTuilesGameBoard : Tiles[7][7]
-        - m_StackCorner : Stack<TilesCorner>
-        - m_stackT : Stack<TilesT>
-        - m_stackLinear : Stack<TilesLinear>
-        - m_lstObjective : ArrayList<Objective>
-        - m_flyingTile : Tiles
-        - m_lstObserver : ArrayList<PlateauObserver>
-
         +<<Create>>GameBoard()
         + addObserver(obs : PlateauObserver)
         + removeObserver(obs : PlateauObserver)
@@ -88,8 +82,7 @@ package model{
 
     class Pawn{
         - m_path : String
-        - m_position : Position
-        - m_startPosition : Position
+
 
         +<<Create>>Pawn(path : String, position : Position)
         + setPath(path : String)
@@ -108,10 +101,7 @@ package model{
 
     class Player{
         - m_name : String
-        - m_lstObjective : ArrayList<Objective>
         - m_objectiveCapture : Integer
-        - m_pawn : Pawn
-        - m_lstObserver : ArrayList<PlayerObserver>
 
         +<<Create>>Player(name : String)
         + addObserver(obs : PlayerObserver)
@@ -139,6 +129,11 @@ package model{
         + movePlayer(oldPos : Position, newPos : Position, path : String)
     }
 
+    interface TilesObserver{
+        +    updateRotateTile(tile : Tiles )
+
+    }
+
     class Position{
         - m_x : Integer
         - m_y : Integer
@@ -155,11 +150,8 @@ package model{
         + generateRandomPosition(maxX : Integer, maxY : Integer) : Position
     }
 
-    class Tiles{
-        - m_position : Position
-        - m_objective : Objective
+    abstract Tiles{
         - m_openDirections : Boolean[4]
-        - m_observers : ArrayList<TilesObserver>
         - m_rotateIndex : Integer
 
         +<<Create>>Tiles(up : Boolean, right : Boolean, bottom : Boolean, left : Boolean)
@@ -168,15 +160,15 @@ package model{
         + removeObserver(observer : TilesObserver)
         + notifyObserver()
         + getOpen(direction : Direction) : Boolean
-        + rotate()
-        + rotate(n : Integer)
-        + getPath() : String
+        + rotateClockWise()
+        + rotateClockWise(n : Integer)
+        + {abstract}getPath() : String
         + getRotateIndex() : Integer
         + moveTile(direction : Direction, tile : Tiles) : Boolean
         + toStrPossibilite()
         + setObjective(obj : Objective)
         + getObjective() : Objective
-        + setPath(path : String)
+        + {abstract}setPath(path : String)
     }
 
     class TilesCorner extends Tiles{
@@ -232,14 +224,11 @@ package view{
         - m_btnBas : TransparentJButton
         - m_btnGauche : TransparentJButton
         - m_btnDroite : TransparentJButton
-        - m_controller : GameController
 
         +<<Create>>ControlPanel(controller : GameController)
     }
 
-    class GameBoardPanel extends JPanel implements PlayerObserver{
-        - m_gameBoard : GameBoard
-        - m_tilesComponent : TuileComponent[][]
+    class GameBoardPanel extends JPanel implements model.PlayerObserver{
 
         +<<Create>>GameBoardPanel(gameBoard : GameBoard)
         + placePawn(player : Player)
@@ -251,11 +240,8 @@ package view{
         + actualizePlayer(player : Player, path : String)
     }
 
-    class GameDisplay extends JFrame implements GameBoardObserver{
-        - m_gameBoardPanel : GameBoardPanel
-        - m_game : Game
+    class GameDisplay extends JFrame implements model.GameBoardObserver{
         - m_mainPanel : JPanel
-        - m_gameController : GameController
         - m_buttonSection : JPanel
         - m_flyingTilePanel : JPanel
         - m_colorRotation : Integer
@@ -295,7 +281,6 @@ package view{
     }
 
     class ObjectiveComponent extends JComponent{
-        - m_objective : Objective
         - m_image : BufferedImage
 
         +<<Create>>ObjectiveComponent(objective : Objective)
@@ -315,8 +300,7 @@ package view{
         #paintComponent(g : Graphics)
     }
 
-    class TuileComponent extends JComponent implements TilesObserver{
-        - m_tiles : Tiles
+    class TuileComponent extends JComponent implements model.TilesObserver{
         - m_image : BufferedImage
 
         +<<Create>>TuileComponent(tiles : Tiles)
@@ -332,6 +316,83 @@ package view{
 class LabyrintheApp{
     + main(args : String[])
 }
+
+
+controller.GameController           "1" *-[#595959,plain]-> "m_game\n1" Game
+controller.GameController --[dashed]--> model.Position : <<uses>>
+controller.GameController --[dashed]--> model.Direction : <<uses>>
+
+model.Game  "1" *-[#595959,plain]-> "lstPlayer\n4" model.Player
+model.Game  "1" *-[#595959,plain]-> "m_gameBoard\n1" model.GameBoard
+model.Game --[dashed]--> model.Objective : <<uses>>
+model.Game --[dashed]--> model.Position : <<uses>>
+model.Game --[dashed]--> model.Direction : <<uses>>
+
+model.GameBoard  "1" o-[#595959,plain]-> "m_lstTuilesGameBoard\n[49]" model.Tiles
+model.GameBoard  "1" *-[#595959,plain]-> "m_StackCorner\n[*]" model.TilesCorner
+model.GameBoard  "1" *-[#595959,plain]-> "m_stackT\n[*]" model.TilesT
+model.GameBoard  "1" *-[#595959,plain]-> "m_stackLinear\n[*]" model.TilesLinear
+model.GameBoard  "1" o-[#595959,plain]-> "m_lstObjective\n[*]" model.Objective
+model.GameBoard  "1" o-[#595959,plain]-> "m_flyingTile\n" model.Tiles
+model.GameBoard  "1" *-[#595959,plain]-> "m_lstObserver\n" model.PlateauObserver
+model.GameBoard --[dashed]--> model.PlateauObserver : <<uses>>
+model.GameBoard --[dashed]--> model.Position : <<uses>>
+
+
+model.Pawn  "1" o-[#595959,plain]-> "m_position\n" model.Position
+model.Pawn  "1" o-[#595959,plain]-> "m_startPosition\n" model.Position
+model.Pawn --[dashed]--> model.Position : <<uses>>
+
+model.GameBoardObserver --[dashed]--> model.Position : <<uses>>
+
+model.Player  "1" *-[#595959,plain]-> "m_pawn\n" model.Pawn
+model.Player  "1" *-[#595959,plain]-> "m_lstObserver\n[*]" model.PlayerObserver
+model.Player  "1" *-[#595959,plain]-> "m_lstObjective\n[*]" model.Objective
+
+model.Player --[dashed]--> model.Position : <<uses>>
+model.Player --[dashed]--> model.PlayerObserver : <<uses>>
+
+model.PlayerObserver --[dashed]--> model.Position : <<uses>>
+
+model.Tiles  "1" *-[#595959,plain]-> "m_position\n" model.Position
+model.Tiles  "1" *-[#595959,plain]-> "m_objective\n" model.Objective
+model.Tiles  "1" *-[#595959,plain]-> "m_observers\n[*]" model.TilesObserver
+
+model.Tiles --[dashed]--> model.TilesObserver : <<uses>>
+model.Tiles --[dashed]--> model.Direction : <<uses>>
+
+model.TilesCorner --[dashed]--> model.Objective : <<uses>>
+model.TilesLinear --[dashed]--> model.Objective : <<uses>>
+model.TilesT --[dashed]--> model.Objective : <<uses>>
+
+model.TuileFactory --[dashed]--> model.TilesT : <<uses>>
+model.TuileFactory --[dashed]--> model.TilesCorner : <<uses>>
+model.TuileFactory --[dashed]--> model.TilesLinear : <<uses>>
+model.TuileFactory --[dashed]--> model.Objective : <<uses>>
+
+view.ControlPanel  "1" *-[#595959,plain]-> "m_controller \n" controller.GameController
+view.ControlPanel --[dashed]--> controller.GameController : <<uses>>
+
+view.GameBoardPanel  "1" *-[#595959,plain]-> "m_gameBoard\n" model.GameBoard
+view.GameBoardPanel  "1" *-[#595959,plain]-> "m_tilesComponent\n[49]" view.TuileComponent
+view.GameBoardPanel --[dashed]--> model.Player : <<uses>>
+view.GameBoardPanel --[dashed]--> model.GameBoard : <<uses>>
+view.GameBoardPanel --[dashed]--> model.Position : <<uses>>
+
+view.GameDisplay  "1" *-[#595959,plain]-> "m_gameBoardPanel\n" view.GameBoardPanel
+view.GameDisplay  "1" *-[#595959,plain]-> "m_game\n" model.Game
+view.GameDisplay  "1" *-[#595959,plain]-> "m_gameController\n" controller.GameController
+
+view.GameDisplay --[dashed]--> model.Game : <<uses>>
+view.GameDisplay --[dashed]--> view.GameBoardPanel : <<uses>>
+view.GameDisplay --[dashed]--> model.Position : <<uses>>
+
+view.ObjectiveComponent  "1" *-[#595959,plain]-> "m_objective\n" model.Objective
+view.ObjectiveComponent --[dashed]--> model.Objective : <<uses>>
+
+view.TuileComponent  "1" *-[#595959,plain]-> "m_tiles\n" model.Tiles
+view.TuileComponent --[dashed]--> model.Tiles : <<uses>>
+
 
 
 @enduml
