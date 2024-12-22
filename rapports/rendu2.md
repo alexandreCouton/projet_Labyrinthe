@@ -6,7 +6,7 @@
 
 Dans le cadre de notre projet de développement du jeu **Labyrinthe**,  
 nous allons expliquer, dans ce deuxième rendu, les différents changements de conception apportés à notre projet.
-
+Pour le partage de code, nous avons utilisé le partage de code d'intellij por travailler simultanément.
 ---
 
 ## Conception
