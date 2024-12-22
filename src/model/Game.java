@@ -190,7 +190,7 @@ public class Game {
     /**
      * next player
      */
-    public void prochainTour(){
+    public void nextTurn(){
         m_currentPlayer++;
         if(m_currentPlayer == 4){
             m_currentPlayer = 0;

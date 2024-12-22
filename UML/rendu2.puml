@@ -16,7 +16,7 @@ package model{
         - m_insertedFlyingTile : Boolean
 
         +<<Create>>Game()
-        - distibuerObj(lstObj : Objective[])
+        - distributeObjectivesToPlayer(lstObj : Objective[])
         + getPlayer(player : Integer) : Player
         - initPlayers()
         - placePlayer()

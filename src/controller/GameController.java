@@ -54,7 +54,7 @@ public class GameController {
      * Continue to the next turn
      */
     public void nextTurn()  {
-        m_game.prochainTour();
+        m_game.nextTurn();
     }
 
     /**
